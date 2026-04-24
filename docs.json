@@ -1,13 +1,12 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "ShipMagic Docs",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
   "navigation": {
     "global": {
       "anchors": [
@@ -161,7 +160,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5"
       }
     ],
     "primary": {
@@ -184,9 +183,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://www.linkedin.com/company/92591655",
+      "youtube": "https://www.youtube.com/@SpeedySquirrelApps"
     }
-  }
+  },
+  "description": "Learn how to create powerful, flexible shipping rules for your Shopify store. Set up rates based on products, cart value, customer tags, locations, and more without code."
 }

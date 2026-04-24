@@ -15,74 +15,140 @@
           "anchor": "Install ShipMagic",
           "icon": "cart-plus",
           "color": {
-            "light": "#fbeeae",
-            "dark": "#fbeeae"
+            "light": "#F9D900",
+            "dark": "#F9D900"
           },
           "href": "https://apps.shopify.com/shipping-calculator-shipmagic?referrer=mintlify-shipmagic-docs"
         },
         {
-          "anchor": "Blog",
-          "icon": "newspaper",
-          "href": "https://mintlify.com/blog"
+          "anchor": "Book Demo",
+          "icon": "calendar-days",
+          "color": {
+            "light": "#F9D900",
+            "dark": "#F9D900"
+          },
+          "href": "https://cal.com/speedysquirrel/shipmagic-setup"
         }
       ]
     },
     "tabs": [
       {
         "tab": "Guides",
-        "groups": [
+        "pages": [
           {
             "group": "Getting started",
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "development",
+              "first-rule-in-5-minutes"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Core Concepts",
             "pages": [
               "essentials/settings",
-              "essentials/navigation"
+              "essentials/navigation",
+              "essentials/what-are-actions",
+              "essentials/choosing-the-correct-paid-plan"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Creating Shipping Rates",
             "pages": [
               "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "essentials/adding-modifying-shipping-zones",
+              {
+                "group": "Different Conditions for Creating Shipping Rates",
+                "pages": [
+                  "cart-subtotal",
+                  "cart",
+                  "customer-attributes",
+                  "customer-location-and-address"
+                ]
+              },
+              {
+                "group": "Different Types of Shipping Rates",
+                "pages": [
+                  "percentage-of-cart-subtotal",
+                  "incremental-per-item-rates",
+                  "ranged-rates",
+                  "rates-from-metafields",
+                  {
+                    "group": "Live Carrier Rates",
+                    "pages": [
+                      "3-d-boxing-algorithm",
+                      "ups",
+                      "usps",
+                      "fed-ex",
+                      "australia-post",
+                      "ship-station",
+                      "direct-freight-express",
+                      "shiprocket",
+                      "stallion-express",
+                      "adding-dimensions-to-products"
+                    ]
+                  }
+                ]
+              },
+              "essentials/cloning-a-rule"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Creating Shipping Customizations",
             "pages": [
               "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              {
+                "group": "Different Conditions for Creating Customization Rules",
+                "pages": [
+                  "ai-tools/different-parameter-sets-for-conditions",
+                  "cart-conditions",
+                  "product-attributes",
+                  "customer-attributes-1",
+                  "customer-location-and-address-1"
+                ]
+              },
+              "ai-tools/actions-hide-rename-sort"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Advanced Features",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "rate-blending",
+              "setting-maximum-and-minimum-shipping-rates",
+              "cloning-full-setup-from-one-store-to-another",
+              "exclusive-rules",
+              "adding-translations-for-shipping-rates"
             ]
-          }
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
+              "avoid-doubling-of-shipping-charges-due-to-multiple-locations",
+              "per-item-shipping-rate",
+              "offer-different-rates-for-bulky-items",
+              "hide-shipping-methods-for-specific-regions"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "shipping-rates-not-showing-on-checkout-page",
+              "shipping-customizations-not-working",
+              "multiple-shipping-rates-showing-on-checkout-page",
+              "test-mode-vs-live-mode"
+            ]
+          },
+          {
+            "group": "Best Practices",
+            "pages": [
+              "how-to-structure-rules-cleanly",
+              "optimizing-checkout-experience",
+              "reducing-cart-abandonment-via-shipping"
+            ]
+          },
+          "api-refernce",
+          "faqs"
         ]
       }
     ]

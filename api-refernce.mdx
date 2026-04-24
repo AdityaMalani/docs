@@ -1,0 +1,118 @@
+---
+title: "API Refernce"
+---
+
+The ShipMagic API can be used to fetch rates from ShipMagic App and display them on custom pages like cart and thank you pages.
+
+\
+Endpoint
+
+```shellscript
+ POST https://shipmagic.fly.dev/api/shipping-rate/get
+```
+
+Headers
+
+```javascript
+x-api-key = <YOUR_API_KEY>
+```
+
+Payload
+
+```json
+{
+    "rate": {
+        "origin": {
+            "country": "IN",
+            "postal_code": "444001",
+            "province": "MH",
+            "city": "Akola",
+            "address1": "150 Elgin St.",
+            "address2": ""
+        },
+        "destination": {
+            "country": "GB",
+            "postal_code": "G4 0DS",
+            "province": "SCT",
+            "city": "Glasgow",
+            "name": "Barney Stinson",
+            "address1": "24 Sussex Dr.",
+            "address2": ""
+        },
+        "items": [
+            {
+                "name": "Short Sleeve T-Shirt",
+                "sku": "T123",
+                "quantity": 1,
+                "grams": 100,
+                "price": 500,
+                "vendor": "Reebok",
+                "properties": null,
+                "product_id": 8134077955815,
+                "variant_id": 47520005882151
+            },
+            {
+                "name": "Cargo Pants",
+                "sku": "P432",
+                "quantity": 2,
+                "grams": 200,
+                "price": 700,
+                "vendor": "Adidas",
+                "properties": {
+		               "color": "black",
+		               "gift-item": "yes"
+	               },
+                "product_id":8124778954811,
+                "variant_id": 49520505832142
+            }
+        ]
+    },
+    "blend_type": "no_blending"
+}
+```
+
+| Parameter | Description | Required |
+| :-- | :-- | :-- |
+| country | Two letter country code following the ISO 3166-1 alpha-2 guidelines. You can find all the country codes [here](https://shopify.dev/docs/api/storefront/2024-04/enums/countrycode). | Yes |
+| province | Two letter province codes following the ISO 3166 guidelines. You can find all the province codes [here](https://matrixify.app/documentation/shopify-address-countries-and-provinces/). | Yes |
+| destination → name | First name \+ last name of the buyer. | Yes |
+| blend\_type | Accepts either of the following values.<br />1. `no_blending`<br />2. `add_rates`<br />3. `highest_rate_only`<br />4. `lowest_rate_only` | Yes |
+| postal\_code | Post-code / Zip-code / Pin-code. | No |
+| city | City name. | No |
+| address1 | Address Line 1. | No |
+| address2 | Address Line 2. | No |
+| items → name | Full name of the item (Product title \+ Variant name). | No |
+| sku | SKU. | No |
+| quantity | Quantity. | No |
+| grams | Weight of item in grams. | No |
+| price | Price of item in store’s default currency. | No |
+| vendor | Vendor name. | No |
+| properties | Key value pairs of line item properties. | No |
+| product\_id | Shopify Product ID | No |
+| variant\_id | Shopify Variant ID | No |
+
+Return Data
+
+```json
+{
+    "rates": [
+        {
+            "service_name": "Standard Shipping",
+            "service_code": "standard_shipping",
+            "currency": "INR",
+            "total_price": 600,
+            "description": "Delivery in 3-4 business days"
+        }
+    ]
+}
+```
+
+| Parameter | Description |
+| :-- | :-- |
+| service\_name | The name of the rate, which customers see at checkout. |
+| service\_code | A unique code associated with the rate. |
+| total\_price | The total price expressed in subunits. If the currency doesn't use subunits, then the value must be multiplied by 100. For example: `"total_price": 500` for 5.00 CAD, `"total_price": 100000` for 1000 JPY. |
+| currency | The currency of the shipping rate. |
+| description | A description of the rate, which customers see at checkout. |
+
+Contact \[[aditya@speedysquirrelhq.com](mailto:aditya@speedysquirrelhq.com)\]([mailto:aditya@speedysquirrelhq.com](mailto:aditya@speedysquirrelhq.com)) for API Key and any questions that you may have.

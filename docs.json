@@ -187,6 +187,6 @@
   "favicon": "/logo/shipmagic-logo.png",
   "banner": {
     "dismissible": false,
-    "content":"a"
+    "content":""
   }
 }

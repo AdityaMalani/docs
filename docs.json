@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "ShipMagic Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#A88400",
+    "light": "#A88400",
+    "dark": "#A88400"
   },
   "navigation": {
     "global": {
@@ -14,8 +14,8 @@
           "anchor": "Install ShipMagic",
           "icon": "cart-plus",
           "color": {
-            "light": "#F9D900",
-            "dark": "#F9D900"
+            "light": "#A88400",
+            "dark": "#A88400"
           },
           "href": "https://apps.shopify.com/shipping-calculator-shipmagic?referrer=mintlify-shipmagic-docs"
         },
@@ -23,8 +23,8 @@
           "anchor": "Book Demo",
           "icon": "calendar-days",
           "color": {
-            "light": "#F9D900",
-            "dark": "#F9D900"
+            "light": "#A88400",
+            "dark": "#A88400"
           },
           "href": "https://cal.com/speedysquirrel/shipmagic-setup"
         }
@@ -184,5 +184,10 @@
   },
   "description": "Learn how to create powerful, flexible shipping rules for your Shopify store. Set up rates based on products, cart value, customer tags, locations, and more without code.",
   "logo": "/logo/shipmagic-logo.png",
-  "favicon": "/logo/shipmagic-logo.png"
+  "favicon": "/logo/shipmagic-logo.png",
+  "background": {
+    "color": {
+      "dark": "#0F1115"
+    }
+  }
 }

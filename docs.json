@@ -12,7 +12,7 @@
       "anchors": [
         {
           "anchor": "Install ShipMagic",
-          "icon": "cart-plus",
+          "icon": "plus-large",
           "color": {
             "light": "#A88400",
             "dark": "#A88400"
@@ -54,7 +54,7 @@
           {
             "group": "Creating Shipping Rates",
             "pages": [
-              "essentials/markdown",
+              "shipping-rates/basic-shipping-rate",
               "essentials/adding-modifying-shipping-zones",
               {
                 "group": "Different Conditions for Creating Shipping Rates",
@@ -75,8 +75,8 @@
                   {
                     "group": "Live Carrier Rates",
                     "pages": [
-                      "3-d-boxing-algorithm",
-                      "ups",
+                      "shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm",
+                      "shipping-rates/types-of-rates/carrier-rates/ups",
                       "usps",
                       "fed-ex",
                       "australia-post",
@@ -95,7 +95,7 @@
           {
             "group": "Creating Shipping Customizations",
             "pages": [
-              "ai-tools/cursor",
+              "shipping-customizations/basic-shipping-customization",
               {
                 "group": "Different Conditions for Creating Customization Rules",
                 "pages": [
@@ -145,7 +145,7 @@
               "reducing-cart-abandonment-via-shipping"
             ]
           },
-          "api-refernce",
+          "api-reference",
           "faqs"
         ]
       }

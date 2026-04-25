@@ -38,7 +38,7 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "development",
+              "installation-guide",
               "first-rule-in-5-minutes"
             ]
           },

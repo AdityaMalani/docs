@@ -1,0 +1,81 @@
+---
+title: "Installation Guide"
+---
+
+Follow these steps to install and connect ShipMagic with your Shopify store.
+
+<Steps>
+  <Step title="Go to Shopify App Store">
+    Install ShipMagic  from [Shopify App Store](https://apps.shopify.com/shipping-calculator-shipmagic?referrer=mintlify-installation-guide).
+  </Step>
+  <Step title="Verify Shipping Rates Installation ">
+    Navigate to Settings → Shipping and Delivery → General Profile.
+
+    If ShipMagic appears as a shipping rate provider in your zones, the app is set up and connected correctly.
+
+    <Frame>
+      ![Screenshot 2026 04 25 At 6 30 15 PM](/images/Screenshot-2026-04-25-at-6.30.15-PM.png)
+    </Frame>
+
+    <Note>
+      If you don’t see ShipMagic App listed in your shipping zones, check the following:
+
+      #### 1. Verify you are checking in the General Shipping Profile
+
+      By default, ShipMagic connects to the General shipping profile.
+
+      If you’re using a custom profile, you’ll need to connect the app manually - follow the setup steps here.
+
+      #### 2. Ensure CCS is enabled on your store
+
+      Carrier Calculated Shipping (CCS) is a [Shopify feature](https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates/third-party-carrier-calculated-shipping) that allows third-party apps like ShipMagic to display shipping rates at checkout.
+
+      This is mandatory and is required for all third party shipping rate apps.\
+      \
+      You can contact [Shopify customer support](https://help.shopify.com/en#/contact) in order to enable CCS for your store.
+    </Note>
+
+    <Info>
+      **Tip:** If you're unsure whether CCS is enabled, go to the **Shipping Rates** page in the app.
+
+      If CCS is not enabled, you’ll see an error message. If no error is shown, CCS is active on your store.
+    </Info>
+  </Step>
+  <Step title="Verify Shipping Customizations Installation">
+    Shipping Customizations are installed automatically and do not require any manual verification.
+
+    They are enabled by default and work seamlessly across all stores.
+  </Step>
+</Steps>
+
+## Add ShipMagic as a Rate Provider (Custom Profiles & Zones)
+
+<Note>
+  You need to have [CCS enabled](#2-ensure-ccs-is-enabled-on-your-store) on your store to perform this operation.
+</Note>
+
+<Steps>
+  <Step title="Go to Shopify Admin → Settings → Shipping and Delivery">
+  </Step>
+  <Step title="Open the custom shipping profile where you want to add ShipMagic">
+  </Step>
+  <Step title="Under your desired shipping zone, click “Add shipping option”">
+    <Frame>
+      ![Group 45](/images/Group-45.png)
+    </Frame>
+  </Step>
+  <Step title="Set the Rate type to “Carrier or app calculated” and select “ShipMagic App” from the dropdown">
+    <Frame>
+      ![Screenshot 2026 04 25 At 8 34 14 PM](/images/Screenshot-2026-04-25-at-8.34.14-PM.png)
+    </Frame>
+  </Step>
+  <Step title="Ensure “Automatically include new services when they become available” is checked">
+  </Step>
+  <Step title='If you see an error like below after selecting "Carrier or app calculated", then it means that CCS is not enabled for you.'>
+    <Frame>
+      ![YP Oph EDJ Jt](/images/YPOphEDJJt.png)
+    </Frame>
+  </Step>
+</Steps>
+
+Curious about what changed in the latest CLI version? Check out the [CLI changelog](https://www.npmjs.com/package/mintlify?activeTab=versions).

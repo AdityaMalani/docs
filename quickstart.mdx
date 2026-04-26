@@ -114,6 +114,66 @@ You should now see the shipping rates calculated by ShipMagic based on the rules
 
 ## Shipping Customizations
 
+In this guide, we’ll set up a basic shipping customization to show free shipping to customers who have a tag "prime" and paid shipping options to others. 
+
+### Setup
+
+<Steps>
+  <Step title="Open ShipMagic">
+    Install and open ShipMagic in your Shopify admin.
+  </Step>
+  <Step title="Create shipping rates in Shopify settings">
+    Navigate to Store settings → Shipping and Delivery → General. Add the following  rates in the desired shipping zone.
+
+    <Frame>
+      ![Screenshot 2026 04 26 At 4 50 54 PM](/images/Screenshot-2026-04-26-at-4.50.54-PM.png)
+    </Frame>
+
+    Now, let's create customizations in the app to show "Free Prime Shipping" to only "prime" customers and Standard Shipping options to regular customers.
+  </Step>
+  <Step title="Go to Shipping Custoizations">
+    From the left navigation panel, open the **Shipping Customizations** page.\
+    We’ll create two customizations here:
+
+    - One for **"prime" customers**
+    - One for **regular customers**
+  </Step>
+  <Step title="Create customization for prime customers">
+    Click on "Create Customization" and add rule with following details:
+
+    ```text
+    Type: Only show specified shipping rates and hide rest
+    Name: Prime customers rule
+    Condition 1: Customer Tag <> Equals <> prime
+    Show the following shipping methods: Free Prime Shipping
+    ```
+
+    Click "Done" and then "Save" the rule.
+  </Step>
+  <Step title="Now, let's create another customization for regular customers">
+    Click on "Create Customization" and add another rule with following details:
+
+    ```text
+    Type: Hide shipping rates
+    Name: Regular customers rule
+    Condition 1: Customer Tag <> Not Equals <> prime
+    Hide the following shipping methods: Free Prime Shipping
+    
+    ```
+  </Step>
+</Steps>
+
+### Testing
+
+To test your setup:
+
+1. Go to your Shopify storefront
+2. Login using a customer with tag "prime"
+3. Add products to cart and proceed to checkout
+4. Enter the complete address. First name should be **“shipmagic”** if app is in [test mode](https://shipmagic-docs.speedysquirrelhq.com/core-concepts/testing-the-app).
+
+You should now see only the "Free Prime Shipping" option based on the rules we configured above.
+
 <Note>
   **Need help?**
 

@@ -39,20 +39,21 @@
             "pages": [
               "index",
               "installation-guide",
-              "first-rule-in-5-minutes"
+              "quickstart"
             ]
           },
           {
             "group": "Core Concepts",
             "pages": [
-              "essentials/settings",
+              "core-concepts/rates-vs-customizations",
               "essentials/navigation",
-              "essentials/what-are-actions",
-              "essentials/choosing-the-correct-paid-plan"
+              "core-concepts/testing-the-app",
+              "essentials/choosing-the-correct-paid-plan",
+              "core-concepts/syncing-products"
             ]
           },
           {
-            "group": "Creating Shipping Rates",
+            "group": "Shipping Rates",
             "pages": [
               "shipping-rates/basic-shipping-rate",
               "essentials/adding-modifying-shipping-zones",
@@ -93,7 +94,7 @@
             ]
           },
           {
-            "group": "Creating Shipping Customizations",
+            "group": "Shipping Customizations",
             "pages": [
               "shipping-customizations/basic-shipping-customization",
               {
@@ -116,7 +117,8 @@
               "setting-maximum-and-minimum-shipping-rates",
               "cloning-full-setup-from-one-store-to-another",
               "exclusive-rules",
-              "adding-translations-for-shipping-rates"
+              "adding-translations-for-shipping-rates",
+              "rate-descriptions"
             ]
           },
           {
@@ -134,7 +136,8 @@
               "shipping-rates-not-showing-on-checkout-page",
               "shipping-customizations-not-working",
               "multiple-shipping-rates-showing-on-checkout-page",
-              "test-mode-vs-live-mode"
+              "test-mode-vs-live-mode",
+              "made-changes-in-the-rule-but-still-seeing-the-old-rates"
             ]
           },
           {

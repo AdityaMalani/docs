@@ -1,0 +1,121 @@
+---
+title: "Create Your First Rule in 5 Minutes"
+description: "Get up and running quickly by creating your first rule. Learn how to set up accurate, personalized rates in just a few steps."
+---
+
+This guide covers the basic setup steps to help you get started with ShipMagic. For detailed instructions on each feature, refer to the [Shipping Rates](/shipping-rates/basic-shipping-rate) and [Shipping Customization](/shipping-customizations/basic-shipping-customization) sections.
+
+<Tip>
+  Not sure whether to use Shipping Rates or Shipping Customizations? Follow [this](/core-concepts/rates-vs-customizations) guide to choose the right option for your needs.
+</Tip>
+
+## Shipping Rates
+
+In this guide, we’ll set up a basic shipping configuration with two types of products: regular and bulky.
+
+Products tagged as “bulky” will have a shipping rate of 10% of the product price. Regular products (non-bulky) will have a flat shipping fee of \$5 for orders up to \$100, and free shipping for orders above \$100.
+
+| Products | Shipping Rate |
+| --- | --- |
+| Products with tag "bulky" | 10% of the product cost |
+| Products without tag "bulky" | <ul><li>Flat \$5 below \$100 worth of regular products</li><li>Free shipping above \$100 worth of regular products</li></ul> |
+
+### Setup
+
+<Steps>
+  <Step title="Open ShipMagic">
+    Install and open ShipMagic in your Shopify admin.
+  </Step>
+  <Step title="Go to Shipping Rates">
+    From the left navigation panel, open the **Shipping Rates** page.\
+    We’ll create two rules here:
+
+    - One for **bulky products**
+    - One for **regular products**
+  </Step>
+  <Step title="Create rule for bulky products">
+    Click on "Add Rule" and create a rule with following condition:
+
+    ```text
+    Name: Bulky Products
+    Priority: 1
+    Rule must match: All conditions
+    Condition 1: Product Tag <> Equals <> bulky
+    
+    ```
+  </Step>
+  <Step title="Add shipping rate to the bulky rule.">
+    In your desired shipping zone, click on "Add rate" and add a rate with following details:
+
+    ```text
+    Name: Standard Shipping
+    Calculaion Parameter: Percentage of total price
+    Percentage: 10
+    ```
+
+    Click "Done" and then "Save" the rule.
+  </Step>
+  <Step title="Now, let's create a rule for regular products">
+    Click on "Add Rule" to create another.  Add following condition:
+
+    ```text
+    Name: Regular Products
+    Priority: 1
+    Rule must match: All conditions
+    Condition 1: Product Tag <> Not Equals <> bulky
+    
+    ```
+  </Step>
+  <Step title="Add shipping rate to the regular rule.">
+    In your desired shipping zone, click on "Add rate" and add the first rate below \$100:
+
+    ```text
+    Name: Standard Shipping
+    Calculaion Parameter: Total price of items
+    Type: Range
+    Range Start: 0
+    Range End: 100
+    Price: 5
+    ```
+
+    Click on "Add Rate" again to add the second rate above \$100.
+
+    ```text
+    Name: Standard Shipping
+    Calculaion Parameter: Total price of items
+    Type: Range
+    Range Start: 100.01
+    Range End: LEAVE EMPTY
+    Price: 0
+    ```
+
+    Click "Done" and then "Save" the rule.
+  </Step>
+  <Step title="Sync products with the app">
+    [Some product data](/core-concepts/syncing-products) isn’t available at checkout during runtime, so syncing product data during rule set up is required. Product tag is one such parameter.
+
+    - Go to **Settings** page\*\* \*\*in the app
+    - Click **“Sync Now”** under **Products**
+
+    Sync will run in the background, you can leave the page.
+  </Step>
+</Steps>
+
+### Testing
+
+To test your setup:
+
+1. Go to your Shopify storefront
+2. Add a product tagged **“bulky”** to the cart
+3. Proceed to checkout
+4. Enter the complete address. First name should be **“shipmagic”** if app is in [test mode](/core-concepts/testing-the-app).
+
+You should now see the shipping rates calculated by ShipMagic based on the rules we configured above.
+
+## Shipping Customizations
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup)\*\*\*\* if you’d like us to help.
+</Note>

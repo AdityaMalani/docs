@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "ShipMagic Docs",
+  "name": "ShipMagic",
   "colors": {
     "primary": "#A88400",
     "light": "#A88400",

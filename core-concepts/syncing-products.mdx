@@ -1,5 +1,44 @@
 ---
 title: "Syncing Products"
 icon: "arrows-repeat"
+description: "When and why you need to sync products"
 ---
 
+## Why do you need to sync product data?
+
+Some product attributes are not available in real time during shipping rate calculation at checkout.
+
+If your shipping rules depend on these attributes, ShipMagic needs to store that product data in advance so it can be used when rates are calculated. That is why product syncing is required.
+
+## When you need to sync product data?
+
+You only need to sync product data when creating **Shipping Rate** rules based on any of the following product attributes:
+
+- Product Tag
+- Product Type
+- Product Title
+- Product Barcode
+- Product Compare-at Price
+
+<Note>
+  Product syncing is **NOT required** for **Shipping Customizations**.
+</Note>
+
+## How to sync product data?
+
+1. Open the **Settings** page in the app
+2. Click **“Sync Now”** under **Products**
+3. Syncing will run in the background, and you can safely leave the page
+
+## Automatic syncing of product data
+
+You can enable **Auto Product Sync** from the Settings page to automatically sync newly created products.
+
+**Important Notes:**
+
+- Only **newly created products** are synced automatically
+- If you update an existing product (for example tags, title, or type), you must run a **manual sync** again from the Settings page
+
+## Bottomline
+
+If your shipping rate rules use **Product Tag, Type, Title, Barcode, or Compare-at Price**, make sure your products are synced before testing or going live.

@@ -46,10 +46,10 @@
             "group": "Core Concepts",
             "pages": [
               "core-concepts/rates-vs-customizations",
-              "essentials/navigation",
+              "core-concepts/terminologies",
+              "core-concepts/syncing-products",
               "core-concepts/testing-the-app",
-              "essentials/choosing-the-correct-paid-plan",
-              "core-concepts/syncing-products"
+              "core-concepts/billing"
             ]
           },
           {

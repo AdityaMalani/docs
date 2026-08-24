@@ -1,4 +1,93 @@
 ---
-title: 'Exclusive Rules'
+title: "Exclusive Rules"
+description: "Stop lower-priority rules from being evaluated once a rule matches"
+icon: "layer-group"
 ---
 
+By default, every rule whose conditions match contributes its rates. **Exclusivity** changes that: an exclusive rule that matches stops evaluation there.
+
+## Inclusive vs. Exclusive
+
+Every rule has an **Exclusivity** setting with two choices:
+
+| Setting | Behaviour |
+| --- | --- |
+| **Inclusive** (default) | Lower-priority rules are still evaluated and their rates added. |
+| **Exclusive** | If this rule matches, all lower-priority rules are skipped. |
+
+The app states it directly on the rule form: _"If an 'Exclusive' rule is satisfied, all lower-priority rules are skipped from evaluation."_
+
+## Priority decides what "lower" means
+
+Exclusivity is meaningless without [priority](/shipping-rates/basic-shipping-rate). Rules are evaluated in **ascending** order — 1 before 2 before 10 — and an exclusive match stops everything after it.
+
+Rules with a **higher** priority number are the ones skipped. Anything with a lower number has already run.
+
+<Warning>
+  An exclusive rule at priority 1 that matches broadly will suppress your entire rule set. Give exclusive rules narrow conditions, or place them after the rules that must always run.
+</Warning>
+
+## When to use it
+
+**Overrides.** A rule for a special case that should replace normal pricing rather than add to it — hazardous goods that must ship freight, at a freight price, regardless of what else is in the cart.
+
+**Customer tiers.** A wholesale rule that should give its own rates without the retail rules also contributing.
+
+**Free shipping promotions.** A promotional free-shipping rule that must not have a surcharge rule adding to it afterwards.
+
+```text
+Rule 1 — Free shipping promo (Priority 10, Exclusive)
+Condition 1: Cart Subtotal <> Greater Than or Equal <> 150
+Rate: Standard Shipping, Fixed rate, 0
+
+Rule 2 — Standard pricing (Priority 20, Inclusive)
+Condition 1: Cart Subtotal <> Less Than <> 150
+Rate: Standard Shipping, Fixed rate, 6.95
+```
+
+## Exclusivity vs. blending
+
+These solve overlapping problems from different angles, and it's worth being clear which you want.
+
+- [**Blending**](/rate-blending) lets every matching rule contribute, then decides how to combine the results — add them, or take the highest or lowest.
+- **Exclusivity** stops the later rules producing anything at all.
+
+<Tip>
+  If the answer is "the other rules shouldn't even run", use exclusivity. If it's "they should run, but I only want the cheapest", use lowest-rate blending. Exclusivity is the blunter and more predictable of the two.
+</Tip>
+
+## A common mistake
+
+Marking several rules exclusive rarely does what people expect. Only the **first** exclusive rule to match has any effect — everything after it is skipped, exclusive or not.
+
+<Note>
+  If two exclusive rules both seem to apply, the one with the lower priority number wins and the other never runs. Check your priority ordering before concluding a rule is broken.
+</Note>
+
+## Testing
+
+Exclusivity is invisible until rules overlap, so test the overlap deliberately.
+
+1. Build a cart matching **only** the exclusive rule — confirm its rates appear
+2. Build a cart matching the exclusive rule **and** a lower-priority rule — confirm only the exclusive rule's rates appear
+3. Build a cart matching only the lower-priority rule — confirm it still works
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    The alternative to skipping rules outright.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    Priority, and why each rule needs a unique one.
+  </Card>
+
+  <Card title="Structuring rules" icon="sitemap" href="/how-to-structure-rules-cleanly">
+    Keeping a growing rule set predictable.
+  </Card>
+
+  <Card title="Multiple rates showing" icon="circle-question" href="/multiple-shipping-rates-showing-on-checkout-page">
+    When too many rules contribute.
+  </Card>
+</Columns>

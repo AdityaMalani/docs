@@ -1,3 +1,99 @@
 ---
 title: "Rate Descriptions"
+description: "Add supporting text and dynamic delivery dates beneath a shipping rate"
+icon: "message-lines"
 ---
+
+Every rate has an optional **Description**, shown beneath the rate name at checkout. It's where you set delivery expectations — and it supports dynamic dates, so the text stays accurate without anyone editing it.
+
+## Adding a description
+
+The **Description** field sits directly under **Rate name** in the rate dialog. Anything you type appears at checkout beneath the method name.
+
+```text
+Rate name: Standard Shipping
+Description: Delivery in 3-5 business days
+```
+
+## Dynamic dates
+
+Rather than a vague duration, you can show real dates using two placeholders:
+
+| Placeholder | Renders as |
+| --- | --- |
+| `{{today}}` | Today's date |
+| `{{today+3}}` | Today's date plus 3 days |
+
+The number after `+` is any number of days, so `{{today+1}}`, `{{today+7}}`, and `{{today+14}}` all work.
+
+### Examples
+
+```text
+Description: Order today, delivered by {{today+5}}
+```
+
+```text
+Description: Arrives between {{today+2}} and {{today+4}}
+```
+
+<Tip>
+  A concrete date outperforms a duration. "Arrives by 14 March" is something a customer can check against their own calendar; "3–5 business days" makes them do the arithmetic — and they will assume the worst end of the range.
+</Tip>
+
+## Choosing your day offsets
+
+The offsets are simple day arithmetic, so build your own handling time into them.
+
+If a carrier quotes 2 days transit but you dispatch the next working day, use `{{today+3}}` rather than `{{today+2}}`.
+
+<Warning>
+  The offset counts **calendar days**, not business days. A customer ordering on Friday with `{{today+2}}` is shown Sunday. Consider padding your offsets to absorb weekends, or keep to a range that reads sensibly either way.
+</Warning>
+
+## Descriptions vs. carrier estimates
+
+Carriers like FedEx and Shiprocket return their own delivery estimates, which ShipMagic passes through to checkout.
+
+Those estimates measure **transit time from collection**, not from when the customer ordered — so they're optimistic whenever you don't dispatch same day.
+
+<Tip>
+  If carrier estimates consistently promise more than you deliver, switch on **Hide estimated delivery dates** on the carrier rate and write your own description with a realistic offset instead.
+</Tip>
+
+## Translating descriptions
+
+Descriptions can be translated per language along with the rate name. See [Adding Translations for Shipping Rates](/adding-translations-for-shipping-rates).
+
+<Note>
+  Dynamic date placeholders work inside translated descriptions too — the date format follows the customer's locale.
+</Note>
+
+## What to write
+
+**Say when it arrives.** The single most useful thing a description can do.
+
+**Name the carrier if it helps.** "Delivered by Royal Mail" reassures where the brand is trusted.
+
+**Explain an unusual rate.** If a surcharge applies to bulky items, saying so pre-empts a support ticket.
+
+**Keep it short.** Checkout is not the place for a paragraph — one line is the target.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Translations" icon="language" href="/adding-translations-for-shipping-rates">
+    Localise rate names and descriptions.
+  </Card>
+
+  <Card title="Rename methods" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    Change the method name itself via a customization.
+  </Card>
+
+  <Card title="FedEx" icon="truck-fast" href="/fed-ex">
+    Suppressing carrier delivery estimates.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    The full rate dialog reference.
+  </Card>
+</Columns>

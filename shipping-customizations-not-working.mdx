@@ -1,4 +1,118 @@
 ---
-title: 'Shipping Customizations Not Working'
+title: "Shipping Customizations Not Working"
+description: "Work through the causes of a hide, show, rename, or reorder rule not taking effect"
+icon: "circle-exclamation"
 ---
 
+Customizations don't need CCS and don't need product syncing, which rules out two common classes of problem. What's left is usually conditions, method names, or mode.
+
+## 1. Is the customization active?
+
+**Check:** open the customization and confirm **Status** is _Active_.
+
+<Warning>
+  Customizations [cloned from another store](/cloning-full-setup-from-one-store-to-another) are imported **inactive** by design and must be activated manually. If you've just cloned a setup, this is almost certainly the cause.
+</Warning>
+
+## 2. Are you in test mode without the test name?
+
+In test mode, customizations only apply when the checkout's **first name is `shipmagic`**.
+
+**Check:** **Settings → App Modes** — the Shipping Customizations toggle.
+
+**Fix:** use `shipmagic` as the first name when testing, or [go live](/core-concepts/going-live). Note the toggles are independent — rates can be live while customizations are still in test mode.
+
+## 3. Does the method name match?
+
+This is the most common cause of a rule that looks right but does nothing.
+
+Method names match **partially**, but they must match _something_. `Epxress` matches nothing; `Express` matches "Express Shipping".
+
+**Check:** compare the name in your rule against the name shown at checkout, character for character.
+
+<Warning>
+  Watch for names that changed elsewhere. If another customization **renames** a method, or a carrier changed its service names, a rule matching the old name silently stops working.
+</Warning>
+
+**Fix:** copy the name from checkout rather than typing it from memory.
+
+## 4. Do the conditions match?
+
+**Check each one:**
+
+- Is **All conditions** set where you meant **Any condition**?
+- For **customer** conditions — is the customer logged in? A guest has no tags, zero spend, and zero orders.
+- For **Product Collection** — did you enter the collection **ID** rather than its name?
+- For product conditions — is the cart-evaluation mode right? _All products meet the condition_ and _At least one product meets the condition_ behave very differently.
+
+<Tip>
+  Guest checkout is the single most common condition failure. A rule keyed on `Customer Tag` never fires for a logged-out shopper. Test both states.
+</Tip>
+
+## 5. Are your attributes in the same parameter set?
+
+A rule may only use attributes from **one** [parameter set](/ai-tools/different-parameter-sets-for-conditions).
+
+**Check:** if an attribute you expected isn't in the dropdown, you're in a different set than you think.
+
+**Fix:** switch sets using the link at the top-right of the Conditions card, or split the logic across two rules.
+
+<Note>
+  Switching sets resets the rule's conditions, so decide before building a long list.
+</Note>
+
+## 6. Are two customizations fighting?
+
+Rules apply in sequence. One rule hiding a method and another showing it can produce results that look random until you trace the order.
+
+**Check:** list every customization that could match your test cart and reason through them together.
+
+<Tip>
+  **Only show specified shipping rates and hide rest** is more predictable than pairs of Hide and Show rules, because it settles the outcome in a single rule.
+</Tip>
+
+## 7. Are you seeing a cached result?
+
+Shopify caches shipping rates per address, and that cache covers customizations too.
+
+**Fix:** use a fresh, random address for every test.
+
+## 8. Is Apply rule to set correctly?
+
+If **Apply rule to** is _Only the first shipment_, the rule won't affect later shipments in a subscription or split order.
+
+**Check:** unless you specifically need the subscription behaviour, this should be **All shipments**.
+
+## 9. Is the method there to act on?
+
+A hide rule can only hide something that exists. If the underlying rate isn't being generated in the first place, the customization has nothing to do.
+
+**Check:** temporarily deactivate the customization and confirm the method appears at all. If it doesn't, the problem is on the rates side — see [Shipping Rates Not Showing](/shipping-rates-not-showing-on-checkout-page).
+
+## Still stuck?
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup), or reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    How each rule type behaves.
+  </Card>
+
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which attributes can share a rule.
+  </Card>
+
+  <Card title="Test mode vs live mode" icon="toggle-large-on" href="/test-mode-vs-live-mode">
+    Independent toggles for rates and customizations.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-exclamation" href="/shipping-rates-not-showing-on-checkout-page">
+    When the underlying rate is the problem.
+  </Card>
+</Columns>

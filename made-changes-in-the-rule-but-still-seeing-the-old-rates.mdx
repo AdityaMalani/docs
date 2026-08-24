@@ -1,4 +1,119 @@
 ---
-title: 'Made changes in the rule but still seeing the old rates'
+title: "Made changes in the rule but still seeing the old rates"
+description: "Why an edited rule appears not to have changed anything, and how to test properly"
+icon: "clock-rotate-left"
 ---
 
+You edited a rule, saved it, went back to checkout — and nothing changed. Almost always, this is caching rather than a broken rule.
+
+## Shopify caches rates per address
+
+When Shopify has quoted shipping for an address, it reuses that quote for subsequent checkouts to the same address rather than asking the app again.
+
+Your rule change is live. You're just not being shown a fresh calculation.
+
+<Warning>
+  This is the single most common source of "my change didn't work" reports. Before investigating anything else, retest with an address you have never used before.
+</Warning>
+
+## Use a fresh address every time
+
+Not a slightly different one — a genuinely new one.
+
+**Vary the street number and postcode**, not just the flat number. Small variations on an address you've already used may still hit the cache.
+
+<Tip>
+  Keep a list of test addresses and work down it, rather than editing one address repeatedly. Real, valid addresses in your delivery area work best, since live carrier rates need to resolve them.
+</Tip>
+
+## Other things that look like caching
+
+If a genuinely fresh address still shows the old behaviour, work through these.
+
+### The rule didn't save
+
+The rule form's **Save** button stays disabled until the rule has a name, a priority, and at least one condition. It's possible to make an edit, be unable to save, and navigate away.
+
+**Check:** reopen the rule and confirm your change is actually there.
+
+### Priority collision
+
+No two rules can share a priority. If you changed a rule's priority to one already in use, the save fails.
+
+**Check:** reopen the rule and confirm the priority is what you set.
+
+### You edited the wrong rule
+
+With several similar rules, it's easy to edit one and test conditions that match another.
+
+**Check:** which rule actually matches your test cart. Temporarily deactivate the others to be certain.
+
+### Products need re-syncing
+
+If your change involved **Product Tag, Type, Title, Barcode, or Compare-at Price**, and you also changed those values in Shopify, the app is still using its old synced copy.
+
+**Fix:** **Settings → Products → Sync Now**. Note that [auto-sync covers only newly created products](/core-concepts/syncing-products) — edits to existing products need a manual sync.
+
+### Zones need re-syncing
+
+If you added or renamed a zone in Shopify, sync zones from **Settings → Shipping Zones**.
+
+### A customization is overriding the result
+
+Your rate may be calculating correctly and then being hidden or renamed downstream.
+
+**Check:** temporarily deactivate your customizations and retest. See [Shipping Customizations Not Working](/shipping-customizations-not-working).
+
+### Browser or theme caching
+
+Less common, but worth ruling out on an unusual theme.
+
+**Fix:** test in a private window, or a different browser.
+
+## A reliable test loop
+
+<Steps>
+  <Step title="Make the change and confirm it saved">
+    Reopen the rule and verify.
+  </Step>
+  <Step title="Sync if needed">
+    Products if you changed tag/type/title/barcode/compare-at-price values; zones if you changed zones.
+  </Step>
+  <Step title="Open a private browser window">
+    Rules out session and browser state.
+  </Step>
+  <Step title="Use a brand new address">
+    Different street number and postcode from anything you've tested.
+  </Step>
+  <Step title="Use the test name if in test mode">
+    First name `shipmagic`.
+  </Step>
+</Steps>
+
+## Still stuck?
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup), or reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Testing the app" icon="square-terminal" href="/core-concepts/testing-the-app">
+    A full testing walkthrough.
+  </Card>
+
+  <Card title="Syncing products" icon="arrows-repeat" href="/core-concepts/syncing-products">
+    When a manual sync is required.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-exclamation" href="/shipping-rates-not-showing-on-checkout-page">
+    When no rate appears at all.
+  </Card>
+
+  <Card title="Test mode vs live mode" icon="toggle-large-on" href="/test-mode-vs-live-mode">
+    Which mode you're testing in.
+  </Card>
+</Columns>

@@ -1,4 +1,111 @@
 ---
-title: 'Shipping Rates Not Showing On Checkout Page'
+title: "Shipping Rates Not Showing On Checkout Page"
+description: "Work through the causes of ShipMagic rates failing to appear at checkout"
+icon: "circle-exclamation"
 ---
 
+Work down this list in order — the causes are roughly ordered by how often they turn out to be the problem.
+
+## 1. Is CCS enabled?
+
+Carrier Calculated Shipping is mandatory for any third-party app to return rates. Without it, ShipMagic is never even asked.
+
+**Check:** open the **Shipping Rates** page in the app. If CCS is not enabled you'll see an error message there. No error means CCS is active.
+
+**Fix:** [contact Shopify support](https://help.shopify.com/en#/contact) to have CCS enabled. See the [Installation Guide](/installation-guide#2-ensure-ccs-is-enabled-on-your-store).
+
+## 2. Are you in test mode without the test name?
+
+If the app is in test mode, it only returns rates for checkouts where the **first name is `shipmagic`**. Everyone else sees your normal Shopify rates.
+
+**Check:** **Settings → App Modes**. If the Shipping Rates toggle is off, you're in test mode.
+
+**Fix:** either enter `shipmagic` as the first name when testing, or [go live](/core-concepts/going-live). See [Test mode vs live mode](/test-mode-vs-live-mode).
+
+## 3. Is ShipMagic a rate provider on that profile?
+
+ShipMagic is added to the **General** profile automatically. Custom shipping profiles need it added manually.
+
+**Check:** **Shopify Admin → Settings → Shipping and Delivery**. Open the profile covering the products in your test cart and confirm ShipMagic appears as a rate provider in the relevant zone.
+
+**Fix:** follow [adding ShipMagic to custom profiles](/installation-guide#add-shipmagic-as-a-rate-provider-custom-profiles--zones).
+
+<Warning>
+  Products can sit in a different shipping profile than you expect. If some carts get rates and others don't, compare which profile each product belongs to — that's usually the difference.
+</Warning>
+
+## 4. Have zones been synced, and does the zone have rates?
+
+**Check:** open your rule. If you see a warning instead of your zones, they haven't been synced. If a zone shows _"No rates. Customers in this zone won't see shipping rates from ShipMagic app"_, that zone has nothing to return.
+
+**Fix:** sync from **Settings → Shipping Zones**, then attach a rate to the zone. See [Adding / Modifying Shipping Zones](/essentials/adding-modifying-shipping-zones).
+
+## 5. Do the conditions actually match your test cart?
+
+A rule that doesn't match produces nothing.
+
+**Check each condition against your cart:**
+
+- Is the rule **Active**?
+- For **Product Tag, Type, Title, Barcode, or Compare-at Price** conditions — have you [synced products](/core-concepts/syncing-products) since last editing them?
+- For **customer** conditions — are you logged in? Guests have no tags and zero spend.
+- Is **All conditions** set where you meant **Any condition**?
+- For **ranged rates**, does your cart fall inside a band? A cart above your largest band with no open-ended final band gets nothing.
+
+<Tip>
+  Isolate the problem by temporarily creating a rule with a single always-true-ish condition and a fixed rate. If that appears, the issue is your conditions. If it doesn't, the issue is higher up this list.
+</Tip>
+
+## 6. Are you seeing a cached rate?
+
+Shopify caches shipping rates per address. Re-testing with the same address shows the old result no matter what you changed.
+
+**Fix:** use a fresh, random address for every test. See [Made changes but still seeing old rates](/made-changes-in-the-rule-but-still-seeing-the-old-rates).
+
+## 7. Did a live carrier fail to respond?
+
+If a rate uses a live carrier and the carrier doesn't respond, that rate produces nothing unless a **Default rate** is set.
+
+**Check:** credentials are current, and a default rate is set on the carrier rate.
+
+**Fix:** set a **Default rate** on every live carrier rate. See the carrier's page — [USPS](/usps), [FedEx](/fed-ex), [Australia Post](/australia-post), [ShipStation](/ship-station), [Shiprocket](/shiprocket), [Stallion Express](/stallion-express), [Direct Freight Express](/direct-freight-express).
+
+## 8. Is an exclusive rule suppressing everything?
+
+An [exclusive](/exclusive-rules) rule that matches skips all lower-priority rules. An exclusive rule with broad conditions at a low priority number can silence your whole rule set.
+
+**Check:** look for exclusive rules with a low priority number and permissive conditions.
+
+## 9. Is a customization hiding the rate?
+
+A shipping rate can be generated correctly and then hidden by a customization.
+
+**Check:** review your customizations for a **Hide** or **Only show** rule matching your test conditions. See [Shipping Customizations Not Working](/shipping-customizations-not-working).
+
+## Still stuck?
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup), or reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Test mode vs live mode" icon="toggle-large-on" href="/test-mode-vs-live-mode">
+    Which mode you're in and what it changes.
+  </Card>
+
+  <Card title="Old rates showing" icon="clock-rotate-left" href="/made-changes-in-the-rule-but-still-seeing-the-old-rates">
+    Address caching and how to defeat it.
+  </Card>
+
+  <Card title="Too many rates" icon="layer-group" href="/multiple-shipping-rates-showing-on-checkout-page">
+    The opposite problem.
+  </Card>
+
+  <Card title="Testing the app" icon="square-terminal" href="/core-concepts/testing-the-app">
+    How to test properly.
+  </Card>
+</Columns>

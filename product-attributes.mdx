@@ -1,4 +1,125 @@
 ---
-title: 'Product Attributes'
+title: "Product Attributes"
+description: "Match customization rules on product tags, collections, SKUs, metafields, and subscriptions"
+icon: "box"
 ---
 
+Product conditions ask whether the items in the cart meet a test. They're how you withdraw a shipping method for goods that can't travel that way — fragile items, hazardous goods, oversized furniture.
+
+<Note>
+  Unlike shipping rates, customizations **do not require product syncing**. Shopify sends product data to customizations at checkout directly.
+</Note>
+
+## Available attributes
+
+| Attribute | Parameter set | Operators |
+| --- | --- | --- |
+| **Product Tag** | 1, 2 | Equals, Not equals |
+| **Product Title** | 1 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Product Type** | 1 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Product Vendor** | 1 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Variant Title** | 1 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Product Weight** | 1 | Numeric comparisons |
+| **Product Price** | 1 | Numeric comparisons, Is empty, Is not empty |
+| **Product Collection** | 1, 3 | Equals, Not equals |
+| **Line Item Property** | 1 | Equals, Not equals, Contains, Does not contains, Is empty, Is not empty |
+| **SKU** | 2 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Variant Metafield** | 2 | Equals, Not equals, Contains, Does not contains |
+| **Is subscription product** | 2 | True, False |
+| **Product Metafield** | 3 | Equals, Not equals, Contains, Does not contains, Is empty, Is not empty, Includes in list, Not includes in list |
+| **Number Of Product Metafield Values** | 3 | Numeric comparisons |
+
+<Warning>
+  Attributes from different sets cannot be combined in one rule. SKU (set 2) and Product Metafield (set 3) will never appear in the same dropdown. See [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions).
+</Warning>
+
+## Product Collection
+
+Collections are matched by **ID**, not by name. Enter comma-separated IDs.
+
+ShipMagic keeps a short guide on locating them: [How to find the ID of a product collection](https://shipmagic.tawk.help/article/how-to-find-the-id-of-a-product-collection).
+
+<Tip>
+  Collections are often the most maintainable way to drive shipping rules. Merchandisers already curate them, and a product joining the collection automatically picks up the shipping behaviour — no tag to remember.
+</Tip>
+
+## How the cart is evaluated
+
+For each product condition you also choose how much of the cart must satisfy it:
+
+| Option | Meaning |
+| --- | --- |
+| **All products meet the condition** | Every line item must match. |
+| **At least one product meets the condition** | Any single line item matching is enough. |
+| **Cart has exactly specified quantity** | Matching items total exactly N units. |
+| **Cart has more than specified quantity** | Matching items total more than N units. |
+| **Cart has not more than specified quantity** | Matching items total no more than N units. |
+| **Cart has more than specified total price** | Matching items exceed N in value. |
+| **Cart has not more than total price** | Matching items do not exceed N in value. |
+
+<Note>
+  This choice is what makes product conditions precise. "Hide express if **any** item is fragile" and "hide express if **all** items are fragile" are very different rules — pick deliberately.
+</Note>
+
+## Includes in list
+
+The `Includes in list` and `Not includes in list` operators test membership against a list of values, rather than a single comparison. Use them when you have a set of SKUs or titles to match and don't want a condition per value.
+
+## Number Of Product Metafield Values
+
+Counts how many **distinct values** of a given product metafield appear across the cart.
+
+<Note>
+  Products with no value for the metafield are not counted.
+</Note>
+
+This is the tool for mixed-cart problems — for example, hiding a consolidated shipping option when the cart draws from more than one warehouse or supplier.
+
+## Examples
+
+**No express delivery for fragile items**
+
+```text
+Type: Hide shipping rates
+Condition 1: Product Tag <> Equals <> fragile
+             At least one product meets the condition.
+Hide the following shipping methods: Express
+```
+
+**Freight only for a furniture collection**
+
+```text
+Type: Only show specified shipping rates and hide rest
+Condition 1: Product Collection <> Equals <> 123456789
+             At least one product meets the condition.
+Show the following shipping methods: Freight Delivery
+```
+
+**Subscriptions ship one way only**
+
+```text
+Type: Only show specified shipping rates and hide rest
+Condition 1: Is subscription product <> True
+Show the following shipping methods: Subscription Delivery
+Apply rule to: Only the first shipment
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which attributes can be combined in one rule.
+  </Card>
+
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-conditions">
+    Match on subtotal, quantity, and weight.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    What happens once conditions match.
+  </Card>
+
+  <Card title="Bulky items" icon="couch" href="/offer-different-rates-for-bulky-items">
+    A worked example for oversized goods.
+  </Card>
+</Columns>

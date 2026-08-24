@@ -1,4 +1,108 @@
 ---
 title: "Parameter Sets"
+description: "Three different condition palettes, and how to choose between them"
+icon: "layer-group"
 ---
 
+Shipping Customizations offer **three parameter sets**. Each set exposes a different list of condition attributes, and a rule may use attributes from **only one set**.
+
+<Warning>
+  You cannot mix sets within a single rule. If the two attributes you need live in different sets, you need two rules — or a different approach.
+</Warning>
+
+## Switching sets
+
+On the customization editor, the **Conditions** card has a **Switch to parameter set 2 / 3** link in its top-right corner. Clicking it cycles through the sets.
+
+<Note>
+  Switching sets resets the conditions on the rule, because the attribute you had selected may not exist in the new set. Decide which set you need before building out a long condition list.
+</Note>
+
+## What's in each set
+
+### Set 1 — the default
+
+The broadest set, and the right choice for most rules.
+
+| Group | Attributes |
+| --- | --- |
+| **Cart** | Cart Subtotal, Cart Quantity, Cart Weight |
+| **Product** | Product Tag, Product Title, Product Type, Product Weight, Product Vendor, Variant Title, Line Item Property, Product Price, Product Collection |
+| **Customer** | Customer Tag, Customer Logged In, Customer Company, Customer First Name |
+| **Shipping** | Zipcode / Postcode, Country Code, Address Line 1, Address is a PO Box, Address is not a PO Box, Shipping Method Name, Shipping Rate |
+| **Other** | Always, Number Of Vendors |
+
+### Set 2 — SKUs, subscriptions, and customer metafields
+
+| Group | Attributes |
+| --- | --- |
+| **Cart** | Cart Attribute |
+| **Product** | SKU, Product Tag, Variant Metafield, Is subscription product |
+| **Customer** | Customer Tag, Customer Metafield, Company Metafield, Customer First Name |
+| **Shipping** | Province / State Code, Country Code, Address Line 1, Address is a PO Box, Address is not a PO Box |
+
+Reach for set 2 when you need to match on **SKU**, on a **customer or company metafield**, on a **cart attribute**, or on whether the item is a **subscription**.
+
+### Set 3 — product metafields and B2B locations
+
+| Group | Attributes |
+| --- | --- |
+| **Cart** | Cart Subtotal, Cart Weight |
+| **Product** | Product Metafield, Product Collection |
+| **Customer** | Company Location Metafield, Customer First Name |
+| **Shipping** | Zipcode / Postcode, Country Code |
+| **Other** | Number Of Product Metafield Values |
+
+Reach for set 3 when you need **Product Metafield** conditions or **B2B company location metafields**.
+
+## Which attributes appear in more than one set
+
+A few attributes are deliberately available in several sets, so you can combine them with whatever else you need:
+
+| Attribute | Sets |
+| --- | --- |
+| Customer First Name | 1, 2, 3 |
+| Country Code | 1, 2, 3 |
+| Cart Subtotal | 1, 3 |
+| Cart Weight | 1, 3 |
+| Product Tag | 1, 2 |
+| Customer Tag | 1, 2 |
+| Product Collection | 1, 3 |
+| Zipcode / Postcode | 1, 3 |
+| Address Line 1 | 1, 2 |
+| Address is / is not a PO Box | 1, 2 |
+
+<Tip>
+  These overlaps are the escape hatch. If you need Product Metafield (set 3 only) _and_ a postcode check, note that Zipcode / Postcode also appears in set 3 — so both fit in one rule after all. Check the overlap table before assuming you need two rules.
+</Tip>
+
+## When you genuinely need two rules
+
+If your two attributes share no set — say **SKU** (set 2 only) and **Product Metafield** (set 3 only) — split the logic:
+
+```text
+Rule 1 (set 2): SKU based condition        → Hide "Express"
+Rule 2 (set 3): Metafield based condition  → Hide "Express"
+```
+
+Both rules act on the same shipping method, and either one firing produces the outcome you want.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Basic customization" icon="sliders" href="/shipping-customizations/basic-shipping-customization">
+    Creating a customization from scratch.
+  </Card>
+
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-conditions">
+    Cart attributes and which set holds them.
+  </Card>
+
+  <Card title="Product Attributes" icon="box" href="/product-attributes">
+    Product attributes across the three sets.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    What a rule does once its conditions match.
+  </Card>
+</Columns>

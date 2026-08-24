@@ -1,3 +1,100 @@
 ---
 title: "Adding Translations for Shipping Rates"
+description: "Show rate names and descriptions in your customer's own language"
+icon: "language"
 ---
+
+If you sell into more than one language, an English shipping method name in an otherwise translated checkout stands out. ShipMagic lets you supply a translated name and description per rate, for around 35 languages.
+
+## Adding a translation
+
+<Steps>
+  <Step title="Open the rule containing the rate">
+    Go to **Shipping Rates** and open the rule.
+  </Step>
+  <Step title="Open the rate's menu">
+    In the **Shipping zones** table, use the menu at the end of the rate's row.
+  </Step>
+  <Step title="Choose Add Translations">
+    The translation dialog opens.
+  </Step>
+  <Step title="Fill in each language">
+    For each language you support, set:
+
+    | Field | Notes |
+    | --- | --- |
+    | **Language** | Pick from the supported list |
+    | **Translated Rate Name** | What the customer sees instead of the rate name |
+    | **Translated Description** | The localised [description](/rate-descriptions) |
+  </Step>
+  <Step title="Save">
+    Save the dialog, then save the rule.
+  </Step>
+</Steps>
+
+## Live carrier rates cannot be translated
+
+<Warning>
+  The **Add Translations** option does not appear for live carrier rates. Their names come from the carrier at query time — USPS, FedEx, Shiprocket and the rest return their own service names, and ShipMagic has no fixed text to translate.
+</Warning>
+
+To localise a carrier rate's name, use a [Rename customization](/ai-tools/actions-hide-rename-sort) instead, combined with a **Cart Locale** condition so each language gets its own rename rule.
+
+## Supported languages
+
+Around 35 languages are available, including Arabic, Bulgarian, Chinese (Simplified and Traditional), Croatian, Czech, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Norwegian, Polish, Portuguese, Romanian, Russian, Spanish, Swedish, Turkish, Ukrainian, and Vietnamese.
+
+## Which translation is used
+
+The translation matching the customer's checkout locale is shown. If there's no translation for their language, the original rate name and description are used.
+
+<Tip>
+  This fallback means you can translate incrementally. Start with the languages that carry the most orders and add the rest over time — untranslated languages keep working, just in the original text.
+</Tip>
+
+## Dynamic dates still work
+
+`{{today}}` and `{{today+3}}` work inside translated descriptions exactly as they do in the original, and the date renders in the customer's locale format.
+
+```text
+Translated Description (French): Livraison prévue le {{today+3}}
+```
+
+## Matching your Shopify translations
+
+Shipping method names sit alongside the rest of your checkout, which Shopify translates through its own system.
+
+<Tip>
+  Use the same vocabulary your Shopify translations use. If your storefront says "Livraison standard", the shipping method should too — a near-synonym reads as a gap in the translation rather than a nuance.
+</Tip>
+
+## Testing
+
+1. Switch your storefront to the target language
+2. Add products and proceed to checkout
+3. Confirm the rate name and description appear translated
+4. Use a fresh address each time, since rates are cached per address
+
+<Note>
+  You can also target rules by language directly — see the **Cart Locale** condition in [Cart Conditions](/cart-subtotal#cart-locale).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Rate descriptions" icon="message-lines" href="/rate-descriptions">
+    The text being translated, and dynamic dates.
+  </Card>
+
+  <Card title="Rename methods" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    The route for localising carrier rate names.
+  </Card>
+
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-subtotal">
+    Matching rules on Cart Locale.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    The full rate dialog reference.
+  </Card>
+</Columns>

@@ -1,3 +1,107 @@
 ---
 title: "Cloning Full Setup from One Store to Another"
+description: "Copy shipping rules, customizations, and settings between two stores"
+icon: "right-left"
 ---
+
+If you run several stores, or you've built a configuration on a development store you now want in production, cloning copies the whole setup across in one operation.
+
+<Warning>
+  Cloning **overwrites the destination store's existing setup, and cannot be undone**. Everything in the modules you select is deleted and replaced with the source store's configuration.
+
+  Run this on a store whose current setup you're willing to lose.
+</Warning>
+
+## How it works
+
+Cloning is a **pull**, run from the destination store. You take a secret from the source store, then use it in the destination to fetch and import the configuration.
+
+Both stores need ShipMagic installed.
+
+## Doing the clone
+
+<Steps>
+  <Step title="Get the secret from the source store">
+    In the **source** store, open **Settings → Clone Setup** and copy the API secret.
+  </Step>
+  <Step title="Open Clone Setup in the destination store">
+    In the **destination** store, go to the **Clone Store Setup** page.
+  </Step>
+  <Step title="Paste the secret and validate">
+    Paste it into **Source Store Secret** and choose **Validate & Continue**. The app confirms the source store and shows what it contains.
+  </Step>
+  <Step title="Choose what to import">
+    Tick the modules you want:
+
+    | Module | Contents |
+    | --- | --- |
+    | **Shipping Rates** | All rules, with a count shown |
+    | **Customizations** | All customization rules, with a count shown |
+    | **Store Settings** | Blending and advanced blending configuration |
+  </Step>
+  <Step title="Map the zones">
+    The two stores have different shipping zones, so you map each source zone to a destination zone. Any zone you don't need can be set to **Skip (don't map)**.
+  </Step>
+  <Step title="Confirm and run">
+    Read the overwrite warning, then run the import.
+  </Step>
+</Steps>
+
+## Zone mapping matters
+
+Zones are the part that doesn't transfer automatically — the destination store's zones have their own identities, and rates have to be attached to the right ones.
+
+<Tip>
+  Sync the destination store's [shipping zones](/essentials/adding-modifying-shipping-zones) **before** cloning. If a zone hasn't been synced it won't be offered in the mapping step, and its rates will have nowhere to land.
+</Tip>
+
+Anything mapped to **Skip** is simply not imported.
+
+## Imported customizations arrive inactive
+
+<Warning>
+  Customizations are imported **inactive** and must be activated manually in the destination store.
+
+  This is deliberate — activating a customization registers it with Shopify, which has to happen in the destination store's own context. Until you activate them, they have no effect at checkout.
+</Warning>
+
+Go through the customization list after cloning and enable the ones you want live.
+
+## What doesn't come across
+
+Cloning covers rules, customizations, and blending settings. It does not bring:
+
+- **Carrier credentials** — API keys are per-store and must be re-entered.
+- **Product data** — dimensions and synced product attributes belong to each store's own catalogue.
+- **App mode toggles** — the destination store stays in whatever mode it was in, so a cloned setup doesn't go live unexpectedly.
+
+<Note>
+  Re-entering carrier credentials is a feature, not an oversight — it stops a development store's keys ending up somewhere unintended.
+</Note>
+
+## After cloning
+
+1. Re-enter any carrier credentials on rates that use live rates
+2. Activate the imported customizations
+3. Sync products if your rules use tags, type, title, barcode, or compare-at price
+4. [Test](/core-concepts/testing-the-app) before enabling live mode
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Cloning a rule" icon="copy" href="/essentials/cloning-a-rule">
+    Copying a single rule within one store.
+  </Card>
+
+  <Card title="Shipping zones" icon="map" href="/essentials/adding-modifying-shipping-zones">
+    Sync zones before you clone.
+  </Card>
+
+  <Card title="Testing the app" icon="square-terminal" href="/core-concepts/testing-the-app">
+    Verify the imported setup before going live.
+  </Card>
+
+  <Card title="Going live" icon="toggle-large-on" href="/core-concepts/going-live">
+    Enabling the cloned configuration.
+  </Card>
+</Columns>

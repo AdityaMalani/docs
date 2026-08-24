@@ -1,4 +1,113 @@
 ---
-title: 'Rate Blending'
+title: "Rate Blending"
+description: "Decide what happens when several rules each produce a rate"
+icon: "code-merge"
 ---
 
+When more than one rule matches a cart, you can end up with several rates. **Blending** decides what the customer actually sees — one combined price, the cheapest, or the dearest.
+
+Blending is configured on the app's **Settings** page and applies store-wide.
+
+## Basic blending
+
+**Basic** blending controls how rates that share the **same name** combine.
+
+| Option | Result |
+| --- | --- |
+| **Add rates** | The rates are summed into one. |
+| **Show the highest rate only** | Only the dearest is shown. |
+| **Show the lowest rate only** | Only the cheapest is shown. |
+
+<Note>
+  This only applies to rates with **matching names**. Two rates called "Standard Shipping" blend; a "Standard Shipping" and an "Express Shipping" do not — they appear as separate options.
+</Note>
+
+### Add rates
+
+The right choice when different rules cover different parts of the cart and each contributes its share of the cost. A rule charging \$5 for regular items and another charging \$15 for a bulky item produce a single \$20 "Standard Shipping".
+
+<Warning>
+  **Add rates** is the option that can run away with you. Several matching rules each contributing to one total can produce a figure you didn't anticipate. This is exactly why maximum and minimum limits are only available with this option — see below.
+</Warning>
+
+### Highest / Lowest
+
+Use these when your rules represent **alternative** ways of pricing the same shipment rather than parts of one cost. Lowest is customer-friendly; highest protects margin when one rule reflects a genuine cost you can't absorb.
+
+## Maximum and minimum limits
+
+When basic blending is set to **Add rates**, an extra control appears: **Set limits while adding rates**.
+
+Toggle it on and you can cap or floor named shipping methods. For each entry give the **method name**, and a **Maximum**, a **Minimum**, or both.
+
+<Warning>
+  These limits are only available with **Add rates**. Switch basic blending to highest or lowest and the limits no longer apply — the app won't save them.
+</Warning>
+
+See [Setting Maximum and Minimum Shipping Rates](/setting-maximum-and-minimum-shipping-rates) for the detail.
+
+## Advanced blending (by tag)
+
+**Advanced** blending handles rates with **different names**, grouping them by tag.
+
+Every rate you create has a **Tags** field, taking comma-separated values. Advanced blending rules act on those tags.
+
+<Steps>
+  <Step title="Tag your rates">
+    In the rate dialog, add one or more tags — for example `ground`.
+  </Step>
+  <Step title="Add a blending rule">
+    On the Settings page, under **Advanced**, add a blending rule.
+  </Step>
+  <Step title="Configure it">
+    | Field | Meaning |
+    | --- | --- |
+    | **Blend type** | Add, Lowest, or Highest |
+    | **Tags** | Which tagged rates this rule collects, comma-separated |
+    | **Maximum** / **Minimum** | Optional bounds on the result |
+    | **Rate name** | What the customer sees for the blended result |
+    | **Description** | Optional text beneath the name |
+  </Step>
+</Steps>
+
+<Note>
+  Because the source rates have different names, you must supply a **Rate name** for the blended result — the app has no name to inherit.
+</Note>
+
+## Which to use
+
+**Basic** is the store-wide default and handles most cases. Give rates that should combine the same name and let basic blending do the work.
+
+**Advanced** is for when rates must keep distinct names for other reasons — carrier rates named by the carrier, say — but should still be presented as one option.
+
+<Tip>
+  If your rates already share a name, you don't need advanced blending. Reach for it only when renaming isn't an option.
+</Tip>
+
+## Testing blending
+
+Blending only shows itself when several rules match at once, so test with carts that deliberately trigger more than one.
+
+1. Build a cart matching a single rule and note the rate
+2. Build one matching two rules and check the result is what blending should produce
+3. If using Add rates with limits, test a cart large enough to hit the cap
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Maximum and minimum" icon="arrows-up-down" href="/setting-maximum-and-minimum-shipping-rates">
+    Bounding the result of Add rates.
+  </Card>
+
+  <Card title="Exclusive rules" icon="layer-group" href="/exclusive-rules">
+    Stop lower-priority rules contributing at all.
+  </Card>
+
+  <Card title="Multiple rates showing" icon="circle-question" href="/multiple-shipping-rates-showing-on-checkout-page">
+    When checkout shows more options than expected.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    Rule priority and how rates are produced.
+  </Card>
+</Columns>

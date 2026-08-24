@@ -1,4 +1,98 @@
 ---
-title: 'Setting Maximum and Minimum Shipping Rates'
+title: "Setting Maximum and Minimum Shipping Rates"
+description: "Put a ceiling and a floor on calculated shipping rates"
+icon: "arrows-up-down"
 ---
 
+Calculated rates — percentages, incremental rates, summed metafields, blended totals — have no natural ceiling. Maximum and minimum limits bound the result so a large or unusual cart can't produce an absurd shipping price.
+
+## Where to find it
+
+Limits live on the app's **Settings** page, under **Blending → Basic**.
+
+<Warning>
+  The control only appears when basic blending is set to **Add rates**. With **Show the highest rate only** or **Show the lowest rate only** selected, the option is hidden and limits do not apply.
+
+  If you can't find the setting, this is why.
+</Warning>
+
+## Setting limits
+
+<Steps>
+  <Step title="Set basic blending to Add rates">
+    On the Settings page, under **Blending → Basic**.
+  </Step>
+  <Step title="Turn on Set limits while adding rates">
+    A table appears.
+  </Step>
+  <Step title="Add an entry per shipping method">
+    Give the **method name** and a **Maximum**, a **Minimum**, or both. Add more entries with **Add**.
+  </Step>
+  <Step title="Save">
+    Each entry needs a method name and at least one of maximum or minimum — an incomplete row prevents the settings saving.
+  </Step>
+</Steps>
+
+## Why a maximum matters
+
+A percentage rate on a large order, or an incremental rate on a bulk purchase, can produce a shipping charge far above what the shipment actually costs you.
+
+<Tip>
+  Set the maximum near the most you would ever genuinely pay to ship an order. That way the cap only engages in the cases where the formula has stopped reflecting reality.
+</Tip>
+
+This is the single most valuable safeguard when using [percentage rates](/percentage-of-cart-subtotal).
+
+## Why a minimum matters
+
+A minimum protects against the opposite failure — a rate calculating to near zero because of a small order, a discount, or a product with missing data.
+
+Common reasons a rate comes out too low:
+
+- A percentage rate on a very small cart
+- A metafield rate where products have no value set and the default rate is low
+- Add-rates blending where only one small contributing rule matched
+
+<Note>
+  A minimum also guards against silent data problems. If products are missing [dimensions](/adding-dimensions-to-products) or metafield values, a floor stops you shipping at a loss while you find out.
+</Note>
+
+## Method names must match
+
+Limits are applied per shipping method name, matched against the rate name shown at checkout.
+
+<Warning>
+  If the method name in your limit doesn't match the rate name exactly, the limit silently does nothing. Copy the name from the rate rather than typing it from memory, and re-check after any rate rename.
+</Warning>
+
+## Interaction with blending
+
+Limits apply to the **final blended figure**, not to each contributing rate. Three rules each adding \$10 against a \$25 maximum produce \$25, not \$30.
+
+## Testing
+
+Limits only reveal themselves at the extremes, which are exactly the carts you're least likely to try by accident.
+
+1. Build a cart large enough to exceed your maximum — confirm the capped figure
+2. Build a minimal cart — confirm the floor engages
+3. Confirm the method name matches by checking a normal cart still prices as before
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Why limits are tied to Add rates.
+  </Card>
+
+  <Card title="Percentage rates" icon="percent" href="/percentage-of-cart-subtotal">
+    The rate type that most needs a cap.
+  </Card>
+
+  <Card title="Incremental rates" icon="plus-minus" href="/incremental-per-item-rates">
+    The other unbounded rate type.
+  </Card>
+
+  <Card title="Rates from metafields" icon="database" href="/rates-from-metafields">
+    Where a floor protects against missing data.
+  </Card>
+</Columns>

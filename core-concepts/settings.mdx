@@ -1,0 +1,98 @@
+---
+title: "Settings"
+description: "A reference for every option on the app's Settings page"
+icon: "gear"
+---
+
+The **Settings** page holds the store-wide options that sit behind your rules. Several of them — syncing, app modes, blending — are referenced throughout the rest of these docs, so this is the reference for what each one does.
+
+## App Modes
+
+Two independent toggles control whether ShipMagic affects real customers.
+
+| Toggle | Off (test mode) | On (live mode) |
+| --- | --- | --- |
+| **Shipping Rates** | Rates only for checkouts with first name `shipmagic` | Rates for every customer |
+| **Shipping Customizations** | Customizations only for `shipmagic` checkouts | Customizations for every customer |
+
+<Warning>
+  These are **separate toggles**. Turning on rates does not turn on customizations. A half-live launch — rates showing but the hide rules that should accompany them still dormant — is a common and avoidable mistake.
+</Warning>
+
+Live mode requires a paid plan. See [Billing](/core-concepts/billing) and [Going Live](/core-concepts/going-live).
+
+## Products
+
+### Sync Now
+
+Syncs your product catalogue into the app. Required for rules using **Product Tag, Product Type, Product Title, Product Barcode, or Product Compare-at Price** — Shopify doesn't send these at checkout, so ShipMagic reads its own copy.
+
+Syncing runs in the background; you can leave the page.
+
+### Auto Product Sync
+
+Automatically syncs **newly created** products.
+
+<Warning>
+  Auto sync covers new products only. If you **edit** an existing product's tags, type, or title, you must run a manual sync — auto sync will not pick the change up.
+</Warning>
+
+Full detail in [Syncing Products](/core-concepts/syncing-products).
+
+## Shipping Zones
+
+**Sync now** pulls your Shopify shipping zones into the app so you can attach rates to them. The page shows a **Last synced** timestamp, or _Not synced yet_.
+
+Re-sync whenever you add, rename, or delete a zone in Shopify. See [Adding / Modifying Shipping Zones](/essentials/adding-modifying-shipping-zones).
+
+## Blending
+
+### Basic
+
+How rates **with the same name** combine: **Add rates**, **Show the highest rate only**, or **Show the lowest rate only**.
+
+### Set limits while adding rates
+
+Appears only when Basic blending is **Add rates**. Lets you cap or floor named shipping methods. See [Setting Maximum and Minimum Shipping Rates](/setting-maximum-and-minimum-shipping-rates).
+
+### Advanced
+
+How rates **with different names** combine, grouped by the tags on each rate. See [Rate Blending](/rate-blending).
+
+## Contact Email
+
+The address ShipMagic uses to reach you — including where the [product dimensions CSV export](/adding-dimensions-to-products) is sent. If that export isn't arriving, check this field first.
+
+## Clone Setup
+
+### Your Store API Secret
+
+The secret other stores use to clone **from** this store. Share it only with stores you want to grant a copy of your configuration.
+
+<Warning>
+  Anyone holding this secret can read this store's shipping configuration. Treat it as a credential.
+</Warning>
+
+### Clone Configuration
+
+Imports rules, customizations, and settings **from** another store using its secret. This overwrites the current store's setup and cannot be undone — see [Cloning Full Setup from One Store to Another](/cloning-full-setup-from-one-store-to-another).
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Syncing products" icon="arrows-repeat" href="/core-concepts/syncing-products">
+    Which attributes need a sync.
+  </Card>
+
+  <Card title="Going live" icon="toggle-large-on" href="/core-concepts/going-live">
+    Turning the app modes on.
+  </Card>
+
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Basic and advanced blending in detail.
+  </Card>
+
+  <Card title="Test mode vs live mode" icon="toggle-large-on" href="/test-mode-vs-live-mode">
+    What each mode changes.
+  </Card>
+</Columns>

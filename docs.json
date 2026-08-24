@@ -87,7 +87,8 @@
                       "stallion-express",
                       "adding-dimensions-to-products"
                     ]
-                  }
+                  },
+                  "distance-based-rates"
                 ]
               },
               "essentials/cloning-a-rule"

@@ -1,4 +1,113 @@
 ---
-title: 'Customer Attributes'
+title: "Customer Attributes"
+description: "Match customization rules on customer tags, login state, company, and metafields"
+icon: "user"
 ---
 
+Customizations have a considerably richer set of customer conditions than shipping rates do — including B2B company data and customer metafields.
+
+<Warning>
+  Customer data only exists for **logged-in** customers. For a guest checkout, ShipMagic sees no tags, zero total spend, and zero previous orders. A guest fails `Customer Tag Equals vip` and _passes_ `Customer Total Order Count Less than 1` — check both when you test.
+</Warning>
+
+## Available attributes
+
+| Attribute | Parameter set | Operators |
+| --- | --- | --- |
+| **Customer Tag** | 1, 2 | Equals, Not equals |
+| **Customer Logged In** | 1 | True, False |
+| **Customer First Name** | 1, 2, 3 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Customer Company** | 1 | Contains, Does not contains, Is empty, Is not empty |
+| **Customer Total Spend** | 1 | Numeric comparisons |
+| **Customer Total Order Count** | 1 | Numeric comparisons |
+| **Customer Metafield** | 2 | Equals, Not equals, Contains, Does not contains, Is empty, Is not empty |
+| **Company Metafield** | 2 | The above, plus Includes in list, Not includes in list |
+| **Company Location Metafield** | 3 | The above, plus Includes in list, Not includes in list |
+
+## Customer Logged In
+
+The clean way to handle the guest problem. Rather than relying on a customer condition failing silently, test login state directly:
+
+```text
+Type: Hide shipping rates
+Condition 1: Customer Logged In <> False
+Hide the following shipping methods: Member Delivery
+```
+
+<Tip>
+  If a rule depends on customer data, consider pairing it with a `Customer Logged In` rule so guests get a deliberate outcome rather than an accidental one.
+</Tip>
+
+## Customer Tag
+
+Tag customers in Shopify Admin or from your loyalty or ERP system, then match:
+
+```text
+Condition 1: Customer Tag <> Equals <> wholesale,vip
+```
+
+Multiple tags are comma-separated and match if **any** is present.
+
+## B2B: Company, Company Metafield, Company Location Metafield
+
+For Shopify B2B stores, these expose the company behind the order:
+
+- **Customer Company** — the company name, with `Is empty` / `Is not empty` to distinguish B2B from retail orders.
+- **Company Metafield** (set 2) — custom data on the company record, such as a negotiated shipping tier.
+- **Company Location Metafield** (set 3) — custom data on the specific location being shipped to, useful when a company's sites have different arrangements.
+
+<Note>
+  `Customer Company Is not empty` is a compact test for "is this a B2B order", without needing to enumerate company names.
+</Note>
+
+## Customer Total Spend and Order Count
+
+Lifetime values from the customer record, for loyalty-based shipping:
+
+```text
+Type: Show shipping rates
+Condition 1: Customer Total Spend <> Greater than <> 1000
+Show the following shipping methods: Priority Delivery
+```
+
+<Warning>
+  Both read `0` for guests, so a condition like `Customer Total Order Count Less than 1` matches every guest. If you meant "new registered customers", add a `Customer Logged In <> True` condition alongside it.
+</Warning>
+
+## Examples
+
+**Free shipping for VIP customers**
+
+```text
+Type: Only show specified shipping rates and hide rest
+Condition 1: Customer Tag <> Equals <> vip
+Show the following shipping methods: Free VIP Shipping
+```
+
+**B2B accounts get freight, retail doesn't**
+
+```text
+Type: Hide shipping rates
+Condition 1: Customer Company <> Is empty
+Hide the following shipping methods: Freight
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which attributes can be combined in one rule.
+  </Card>
+
+  <Card title="Location and Address" icon="location-dot" href="/customer-location-and-address-1">
+    Postcode, country, province, and PO Box checks.
+  </Card>
+
+  <Card title="Rate-side customer conditions" icon="gear" href="/customer-attributes">
+    The smaller set available to shipping rates.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    What happens once conditions match.
+  </Card>
+</Columns>

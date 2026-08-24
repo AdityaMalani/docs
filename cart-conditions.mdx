@@ -1,4 +1,96 @@
 ---
-title: 'Cart Conditions'
+title: "Cart Conditions"
+description: "Match customization rules on cart subtotal, quantity, weight, and cart attributes"
+icon: "cart-shopping"
 ---
 
+Cart conditions for customizations look at the order as a whole. They're how you gate a shipping method on order value or weight.
+
+<Note>
+  This page covers cart conditions for **Shipping Customizations**. For the rate equivalent — which has a larger attribute list — see [Cart Conditions](/cart-subtotal) under Shipping Rates.
+</Note>
+
+## Available attributes
+
+| Attribute | Parameter set | Operators |
+| --- | --- | --- |
+| **Cart Subtotal** | 1, 3 | Equals, Not equals, Greater than, Less than, Greater than or equal, Less than or equal |
+| **Cart Quantity** | 1 | Equals, Not equals, Greater than, Less than, Greater than or equal, Less than or equal |
+| **Cart Weight** | 1, 3 | Equals, Not equals, Greater than, Less than, Greater than or equal, Less than or equal |
+| **Cart Attribute** | 2 | Equals, Not equals, Contains, Does not contains, Is empty, Is not empty |
+
+<Warning>
+  A rule may only use attributes from **one parameter set**. Cart Attribute lives in set 2, so it cannot be combined with Cart Quantity (set 1). See [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions).
+</Warning>
+
+## Cart Attribute
+
+Cart attributes are custom key/value pairs attached to the cart by your theme or a third-party app — gift options, delivery preferences, a chosen pickup location.
+
+Because they're set by your storefront rather than by Shopify, what's available depends entirely on your theme. Check what your cart is actually sending before building a rule on it.
+
+<Tip>
+  `Is empty` and `Is not empty` are useful here — they let you test whether the customer made a choice at all, without caring what they chose.
+</Tip>
+
+## Cart Subtotal
+
+The most common cart condition, used for free-shipping eligibility:
+
+```text
+Condition 1: Cart Subtotal <> Greater than or equal <> 100
+```
+
+<Note>
+  Unlike the rates side, customizations expose a single **Cart Subtotal** rather than separate before-discount and after-discount values.
+</Note>
+
+## Cart Weight
+
+Weight is in your store's weight unit. Use it to withdraw options a carrier can't actually handle:
+
+```text
+Type: Hide shipping rates
+Condition 1: Cart Weight <> Greater than <> 30
+Hide the following shipping methods: Express
+```
+
+## Examples
+
+**Free shipping only above a threshold**
+
+```text
+Type: Hide shipping rates
+Condition 1: Cart Subtotal <> Less than <> 75
+Hide the following shipping methods: Free Shipping
+```
+
+**No express option for very large orders**
+
+```text
+Type: Hide shipping rates
+Rule must match: Any condition
+Condition 1: Cart Quantity <> Greater than <> 20
+Condition 2: Cart Weight <> Greater than <> 30
+Hide the following shipping methods: Express
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which attributes can be combined in one rule.
+  </Card>
+
+  <Card title="Product Attributes" icon="box" href="/product-attributes">
+    Match on tags, collections, SKUs, and metafields.
+  </Card>
+
+  <Card title="Customer Attributes" icon="user" href="/customer-attributes-1">
+    Match on tags, company, and login state.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    What happens once conditions match.
+  </Card>
+</Columns>

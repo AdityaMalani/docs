@@ -48,9 +48,9 @@ Customizations act on rates that already exist, so set those up first in **Shopi
 
     See [Cart Conditions](/cart-conditions), [Product Attributes](/product-attributes), [Customer Attributes](/customer-attributes-1), and [Customer Location and Address](/customer-location-and-address-1).
 
-    <Tip>
-      Need to check two unrelated groups of products in one rule? Use [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions).
-    </Tip>
+    <Warning>
+      The attributes are split across **three parameter sets**, and a rule may only use attributes from one of them. If the attribute you need isn't in the dropdown, switch sets using the link at the top-right of the Conditions card. See [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions).
+    </Warning>
   </Step>
   <Step title="List the shipping methods to act on">
     Under **Action**, enter the name of each method the rule should affect. Click **Add another method** for more than one.
@@ -123,7 +123,7 @@ Full details in [Testing the App](/core-concepts/testing-the-app). When it looks
   </Card>
 
   <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
-    Match two independent groups of products in one rule.
+    The three condition palettes, and which attributes can be combined.
   </Card>
 
   <Card title="Hide methods by region" icon="map-location-dot" href="/hide-shipping-methods-for-specific-regions">

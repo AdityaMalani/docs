@@ -1,4 +1,97 @@
 ---
-title: 'Actions (Hide / Rename / Sort)'
+title: "Actions (Hide / Rename / Sort)"
+description: "What a customization rule does to your shipping methods once its conditions match"
+icon: "wand-magic-sparkles"
 ---
 
+The **Type** you pick when creating a customization decides what happens to your shipping methods when the rule's conditions match. There are five.
+
+## The five types
+
+| Type | Effect |
+| --- | --- |
+| **Hide shipping rates** | Removes the listed methods from checkout. |
+| **Show shipping rates** | Displays the listed methods. |
+| **Only show specified shipping rates and hide rest** | Displays the listed methods and removes every other option. |
+| **Reorder shipping rates** | Changes the position of the listed methods. |
+| **Rename shipping rates** | Changes the label shown to the customer. |
+
+## Naming the methods
+
+Every type asks you to list which shipping methods it applies to, under **Action**. Add as many as you need with **Add another method**.
+
+<Tip>
+  **Method names match partially.** Entering `Express` affects both "Express Shipping" and "Express Delivery". This is useful for catching a family of methods at once, but be careful — `Standard` would also match "Standard Overnight" if you have one.
+</Tip>
+
+## Hide vs. Only show
+
+These two solve the same problem from opposite directions, and choosing well saves you a second rule.
+
+- **Hide** is subtractive. You name what to remove; everything else stays.
+- **Only show** is exclusive. You name what to keep; everything else goes.
+
+<Note>
+  **Only show** is usually the safer choice for eligibility rules. If you later add a new shipping method in Shopify, a **Hide** rule won't know about it and the new method will leak through to customers who shouldn't see it. An **Only show** rule keeps working.
+</Note>
+
+## Show
+
+**Show** displays the named methods without hiding anything else. It's mainly useful as the counterpart to a broad hide rule — one rule hides a method for everyone, another shows it back to a qualifying group.
+
+<Warning>
+  Order matters when combining rules. If one rule hides a method and another shows it, test the combination rather than assuming — check both a customer who should see it and one who shouldn't.
+</Warning>
+
+## Rename
+
+**Rename** changes only the customer-facing label. The underlying rate, its price, and its behaviour are untouched.
+
+For each method you give the name to match and the new name to display.
+
+Common uses:
+
+- Turning a carrier's internal code into something readable — "FEDEX\_GROUND" into "Standard Delivery (3–5 days)".
+- Adding context for a segment — renaming "Standard Shipping" to "Free Wholesale Shipping" for tagged accounts.
+- Localising a label for a particular market.
+
+<Tip>
+  To add a delivery estimate rather than change the name, consider whether a [rate description](/rate-descriptions) fits better — descriptions appear beneath the method name and support dynamic dates.
+</Tip>
+
+## Reorder
+
+**Reorder** changes which methods appear first. For each method you give the name to match and its new position.
+
+Checkout defaults to ordering by price, which is not always what you want — the cheapest option is often the slowest, and putting it first can push customers toward a delivery experience they'll be unhappy with.
+
+<Tip>
+  Promoting your best-value option rather than your cheapest is one of the few checkout changes that reliably affects both margin and satisfaction. See [Optimizing checkout experience](/optimizing-checkout-experience).
+</Tip>
+
+## Apply rule to
+
+Every customization also has an **Apply rule to** setting:
+
+- **All shipments** — the default; the rule applies to every shipment in the order.
+- **Only the first shipment** — for subscription sellers, so the rule affects only the first shipment's shipping method.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Basic customization" icon="sliders" href="/shipping-customizations/basic-shipping-customization">
+    Creating a customization from scratch.
+  </Card>
+
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which conditions are available to your rule.
+  </Card>
+
+  <Card title="Hide methods by region" icon="map-location-dot" href="/hide-shipping-methods-for-specific-regions">
+    A worked regional example.
+  </Card>
+
+  <Card title="Not working?" icon="circle-question" href="/shipping-customizations-not-working">
+    Common causes when a rule doesn't fire.
+  </Card>
+</Columns>

@@ -1,4 +1,115 @@
 ---
-title: 'Customer Location and Address'
+title: "Customer Location and Address"
+description: "Match customization rules on postcode, country, province, address, and PO Boxes"
+icon: "location-dot"
 ---
 
+Location conditions are the most common reason to build a customization — withdrawing options that a carrier can't serve, or that you don't want to offer in a particular region.
+
+## Available attributes
+
+| Attribute | Parameter set | Operators |
+| --- | --- | --- |
+| **Zipcode / Postcode** | 1, 3 | Equals, Not equals |
+| **Country Code** | 1, 2, 3 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Province / State Code** | 2 | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| **Address Line 1** | 1, 2 | Contains, Does not contains |
+| **Address is a PO Box** | 1, 2 | True, False |
+| **Address is not a PO Box** | 1, 2 | True, False |
+| **Shipping Method Name** | 1 | Contains, Does not contains |
+| **Shipping Rate** | 1 | Numeric comparisons |
+
+<Warning>
+  **Province / State Code is only in set 2.** If you need province matching alongside a postcode check (sets 1 and 3), those cannot share a rule — see [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions).
+</Warning>
+
+## Postcode matching
+
+Postcodes accept the same flexible syntax as the rates side:
+
+| Syntax | Example | Matches |
+| --- | --- | --- |
+| Exact | `444001` | That postcode only |
+| Wildcard | `AB14*` | Anything starting `AB14` |
+| Range | `444001-444099` | Everything numerically within the range |
+| Multiple | `AB14*, 444001-444099` | Any of the above, comma-separated |
+
+## PO Box detection
+
+**Address is a PO Box** and **Address is not a PO Box** scan the address the customer entered for any mention of a PO Box.
+
+Most couriers won't deliver to a PO Box, so this is how you withdraw courier options before the order is placed rather than discovering the problem in fulfilment.
+
+```text
+Type: Hide shipping rates
+Condition 1: Address is a PO Box <> True
+Hide the following shipping methods: Courier
+```
+
+<Note>
+  Detection is text-based — it looks for mentions of a PO Box in what the customer typed. An unusually worded address may slip through, so treat it as a strong filter rather than a guarantee.
+</Note>
+
+## Shipping Method Name and Shipping Rate
+
+These two are unusual: they match against **the shipping options themselves** rather than the customer.
+
+- **Shipping Method Name** — matches part of a method's name. Lets you write rules about a family of methods.
+- **Shipping Rate** — matches the method's **price**, numerically.
+
+**Shipping Rate** is the tool for price-driven presentation:
+
+```text
+Type: Hide shipping rates
+Condition 1: Shipping Rate <> Greater than <> 50
+Hide the following shipping methods: Express
+```
+
+<Tip>
+  This is how you suppress an option whose live carrier rate has come back implausibly high — a useful safety net when showing real-time rates.
+</Tip>
+
+## Country and province codes
+
+Two-letter Shopify codes, not full names.
+
+- **Country Code** — ISO 3166-1 alpha-2 (`US`, `GB`, `AU`, `IN`). [Full list](https://shopify.dev/docs/api/admin-graphql/2023-10/enums/CountryCode).
+- **Province / State Code** — two-letter province codes (`CA`, `NY`, `VIC`, `MH`). [Full list](https://matrixify.app/documentation/shopify-address-countries-and-provinces/).
+
+## Examples
+
+**No express to remote postcodes**
+
+```text
+Type: Hide shipping rates
+Condition 1: Zipcode / Postcode <> Equals <> 4800-4899, 6700-6799
+Hide the following shipping methods: Express
+```
+
+**Domestic-only options hidden internationally**
+
+```text
+Type: Hide shipping rates
+Condition 1: Country Code <> Not equals <> GB
+Hide the following shipping methods: Royal Mail
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which attributes can be combined in one rule.
+  </Card>
+
+  <Card title="Hide methods by region" icon="map-location-dot" href="/hide-shipping-methods-for-specific-regions">
+    A worked regional example.
+  </Card>
+
+  <Card title="Rate-side location conditions" icon="gear" href="/customer-location-and-address">
+    The equivalent for shipping rates.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    What happens once conditions match.
+  </Card>
+</Columns>

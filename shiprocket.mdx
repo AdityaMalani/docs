@@ -1,4 +1,94 @@
 ---
-title: 'Shiprocket'
+title: "Shiprocket"
+description: "Show live Shiprocket rates at checkout for Indian shipping"
+icon: "truck-fast"
 ---
 
+Shiprocket is an Indian shipping aggregator. Connecting it exposes the courier partners in your Shiprocket account through a single integration.
+
+<Note>
+  Shiprocket serves **Indian domestic shipping**. Rates are returned for destinations within India.
+</Note>
+
+## Credentials
+
+Shiprocket authenticates with your **Email ID** and **Password** — the same credentials you use to sign in to the Shiprocket dashboard, rather than a separate API key.
+
+<Warning>
+  Because this is your account login, treat it carefully. If you change your Shiprocket password, update it here too or rate queries will start failing silently and customers will fall back to your default rate.
+</Warning>
+
+## Setting up the rate
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    In your rule, click **Add rate** on the zone you want.
+  </Step>
+  <Step title="Set the calculation parameter to Shiprocket">
+    Choose **Shiprocket** under the live carrier options.
+  </Step>
+  <Step title="Enter your Email ID and Password">
+    Your Shiprocket account credentials.
+  </Step>
+  <Step title="Decide on delivery estimates">
+    Tick **Hide estimated delivery dates** to suppress the estimates Shiprocket returns.
+  </Step>
+  <Step title="Select which rates to show">
+    Choose **All rates**, **Highest rate only**, or **Lowest rate only**.
+  </Step>
+  <Step title="Configure packaging">
+    Set **Packaging box distribution** and define your boxes. See [the packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm).
+  </Step>
+  <Step title="Set a default rate">
+    **Default rate** is used if Shiprocket doesn't respond.
+  </Step>
+</Steps>
+
+## Selecting which rates to show
+
+Shiprocket typically returns quotes from **many courier partners at once**. Showing all of them puts a long, confusing list in front of the customer.
+
+| Option | Best for |
+| --- | --- |
+| **Lowest rate only** | Most stores. One clear price, the cheapest available. |
+| **Highest rate only** | Rare — usually when the priciest partner is also the most reliable. |
+| **All rates** | Letting customers choose their courier, at the cost of a busier checkout. |
+
+<Tip>
+  **Lowest rate only** is the sensible default. Customers rarely have a view on which Indian courier partner should carry their parcel, and a shorter list converts better.
+</Tip>
+
+## Pincode serviceability
+
+Shiprocket returns rates based on whether the destination pincode is serviceable by its partners. An unserviceable pincode returns nothing — which is exactly when your **Default rate** matters.
+
+<Warning>
+  Without a default rate, a customer in a pincode no partner serves sees no shipping option at all. Set one, even if it's a conservative figure you'd rather not charge.
+</Warning>
+
+## Testing
+
+1. Add products with accurate weights and dimensions
+2. Check out to a real Indian address, using a fresh address each time
+3. Test a metro pincode and a remote one — they price very differently
+4. Confirm the fallback behaves as you expect for an unserviceable pincode
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    How items are distributed into parcels before quoting.
+  </Card>
+
+  <Card title="Location conditions" icon="location-dot" href="/customer-location-and-address">
+    Pincode wildcards and ranges for regional rules.
+  </Card>
+
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Combining carrier rates with your own.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-question" href="/shipping-rates-not-showing-on-checkout-page">
+    When a carrier rate fails to appear.
+  </Card>
+</Columns>

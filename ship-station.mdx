@@ -1,4 +1,80 @@
 ---
-title: 'Ship Station'
+title: "Ship Station"
+description: "Show rates from every carrier connected to your ShipStation account"
+icon: "truck-fast"
 ---
 
+ShipStation is an aggregator rather than a carrier. Connecting it exposes **all the carriers already configured in your ShipStation account** through a single integration — useful when you ship with several carriers and would rather manage them in one place.
+
+## Getting credentials
+
+In ShipStation, go to **Account Settings → API Settings** and generate an **API Key** and **API Secret**.
+
+## Setting up the rate
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    In your rule, click **Add rate** on the zone you want.
+  </Step>
+  <Step title="Set the calculation parameter to ShipStation">
+    Choose **ShipStation** under the live carrier options.
+  </Step>
+  <Step title="Enter your API Key and API Secret">
+    Both are required before you can fetch carriers.
+  </Step>
+  <Step title="Fetch your carriers">
+    Use the fetch action to pull the list of carriers connected to your ShipStation account. ShipMagic queries ShipStation directly, so the list reflects your live configuration.
+  </Step>
+  <Step title="Select which carriers to offer">
+    Tick the carriers whose rates should appear at checkout. Leave the rest unticked.
+  </Step>
+  <Step title="Configure packaging">
+    Set **Packaging box distribution** and define your boxes. See [the packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm).
+  </Step>
+</Steps>
+
+<Note>
+  If the carrier list comes back empty, the credentials are usually wrong or the API key lacks permission. Confirm the key works in ShipStation before troubleshooting further.
+</Note>
+
+## Choosing carriers deliberately
+
+Because ShipStation can return rates from many carriers at once, an unfiltered setup can put a long list of options in front of the customer — several of which may be near-identical in price.
+
+<Warning>
+  Too many shipping options measurably hurts conversion. Select the two or three carriers you actually want to offer rather than everything your account supports.
+</Warning>
+
+If you do want breadth, consider a [customization](/ai-tools/actions-hide-rename-sort) to hide the noisier options, or use rate blending to show only the cheapest.
+
+## ShipStation vs. a direct integration
+
+If you ship with one carrier that ShipMagic supports directly — USPS, FedEx, Australia Post, Shiprocket, Stallion Express, Direct Freight Express — the direct integration is usually the better choice. Fewer moving parts, and one less service that can be slow or down.
+
+ShipStation earns its place when you use several carriers, or a carrier ShipMagic doesn't integrate with directly.
+
+## Testing
+
+1. Add products with accurate weights and dimensions
+2. Check out to a real address, using a fresh one each time
+3. Confirm the carriers appearing are the ones you selected, and no others
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    How items are distributed into parcels before quoting.
+  </Card>
+
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Show only the cheapest of several returned rates.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    Hide or rename the options that come back.
+  </Card>
+
+  <Card title="Multiple rates showing" icon="circle-question" href="/multiple-shipping-rates-showing-on-checkout-page">
+    When checkout shows more options than you expected.
+  </Card>
+</Columns>

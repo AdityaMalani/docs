@@ -1,4 +1,85 @@
 ---
-title: 'Adding Dimensions to Products'
+title: "Adding Dimensions to Products"
+description: "Populate length, width, and height so volume-based packing and carrier rates work"
+icon: "ruler-combined"
 ---
 
+Product dimensions drive volume-based packing and any condition using **Product Length**, **Width**, **Height**, or **Volume**. Shopify has no native dimension field, so ShipMagic stores them for you.
+
+<Note>
+  All dimensions are in **millimetres**.
+</Note>
+
+## Where to enter them
+
+Open the **Products** page in the app. Every product is listed with editable **Length**, **Breadth**, and **Height** fields. Enter values and save.
+
+For a handful of products this is the fastest route. For a full catalogue, use the CSV flow below.
+
+## Bulk upload by CSV
+
+<Steps>
+  <Step title="Download the template">
+    On the Products page, choose **Bulk upload dimensions**, then **Download CSV format**. This gives you a file with your products already listed.
+
+    <Note>
+      The export is emailed to you rather than downloaded directly. It goes to the **Contact Email** set on the app's Settings page — change it there if the mail should go elsewhere.
+    </Note>
+  </Step>
+  <Step title="Fill in the dimensions">
+    Add length, breadth, and height in millimetres for each row. Leave rows blank if you don't have data for them yet.
+  </Step>
+  <Step title="Upload the file">
+    Back on the Products page, open **Bulk upload dimensions** and drop the completed `.csv` into the upload area.
+  </Step>
+</Steps>
+
+<Tip>
+  Export first, fill in the file you get back, and upload that. Building a CSV from scratch means matching product identifiers by hand, which is where mistakes creep in.
+</Tip>
+
+## What dimensions are used for
+
+**Volume-based packing.** The **By items volume** distribution in the [packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm) cannot work without them.
+
+**Carrier rate accuracy.** Carriers price on dimensional weight as well as actual weight. Wrong dimensions mean quotes that don't match your invoice.
+
+**Rate conditions.** [Product Length / Width / Height / Volume](/cart) conditions let you route oversized items to a freight rate.
+
+## Measure the shipped size
+
+Enter the dimensions of the product **as it ships**, including its own packaging — not the bare item.
+
+<Warning>
+  Dimensional weight is where carriers make their margin. A product measured without its retail box can be significantly under-quoted, and the difference lands on your invoice rather than the customer's.
+</Warning>
+
+## Products with no dimensions
+
+A product with no dimensions contributes nothing to a volume calculation. On a **By items volume** rate this quietly understates parcel size, producing a rate that's too low rather than an error you'd notice.
+
+<Tip>
+  If your catalogue is only partly measured, use **By items count** or **By weight** packing until the data is complete. They degrade more gracefully than volume packing does.
+</Tip>
+
+New products start with no dimensions, so make measuring part of adding a product.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    Box setup and the four distribution methods.
+  </Card>
+
+  <Card title="Product Attributes" icon="box" href="/cart">
+    Dimension-based rate conditions.
+  </Card>
+
+  <Card title="Bulky items" icon="couch" href="/offer-different-rates-for-bulky-items">
+    Routing oversized goods to their own rate.
+  </Card>
+
+  <Card title="Syncing products" icon="arrows-repeat" href="/core-concepts/syncing-products">
+    The separate sync for tags, type, and title.
+  </Card>
+</Columns>

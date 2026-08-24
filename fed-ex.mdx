@@ -1,4 +1,93 @@
 ---
-title: 'FedEx'
+title: "FedEx"
+description: "Show live FedEx rates at checkout using your own account"
+icon: "truck-fast"
 ---
 
+Connect your FedEx account and ShipMagic will query real FedEx rates at checkout, priced against your negotiated contract.
+
+## Getting credentials
+
+FedEx issues API credentials through the [FedEx Developer Portal](https://developer.fedex.com/). Create a project and copy the **API Key**, **Secret Key**, and your FedEx **Account Number**.
+
+<Note>
+  The account number matters. FedEx prices against the contract attached to it, so the rates your customers see reflect your negotiated pricing rather than list rates.
+</Note>
+
+## Setting up the rate
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    In your rule, click **Add rate** on the zone you want.
+  </Step>
+  <Step title="Set the calculation parameter to Fedex">
+    Choose **Fedex** under the live carrier options.
+  </Step>
+  <Step title="Enter your credentials">
+    Fill in **API Key**, **Secret Key**, and **Account Number**.
+  </Step>
+  <Step title="Decide on delivery estimates">
+    Tick **Hide estimated delivery dates** to suppress the delivery dates FedEx returns.
+  </Step>
+  <Step title="Configure packaging">
+    Set **Packaging box distribution** and define your boxes. See [the packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm).
+  </Step>
+  <Step title="Set a discount and default rate">
+    **Discount (Optional)** reduces every returned rate by a percentage. **Default rate (Optional)** is used if FedEx doesn't respond.
+  </Step>
+</Steps>
+
+## Estimated delivery dates
+
+FedEx calculates delivery estimates itself and returns them with each rate. ShipMagic passes them through to checkout.
+
+**Hide estimated delivery dates** turns this off. Consider it if:
+
+- Your dispatch time means FedEx's estimate is misleading — it measures transit, not the day you actually hand the parcel over.
+- You'd rather set expectations yourself with a [rate description](/rate-descriptions), which supports dynamic dates like `{{today+3}}`.
+
+<Tip>
+  A FedEx estimate assumes same-day handover. If you dispatch next working day, every date shown at checkout is a day optimistic — and customers hold you to it.
+</Tip>
+
+## The Discount field
+
+**Discount (Optional)** applies a percentage reduction to every rate FedEx returns, after the quote comes back. Use it to subsidise shipping or pass on part of a contract advantage.
+
+## Always set a Default rate
+
+<Warning>
+  The default rate is optional in the form but important in practice. If FedEx is slow or unavailable and no default is set, the customer sees no shipping option and cannot check out.
+</Warning>
+
+## Testing
+
+1. Add products with accurate weights and dimensions
+2. Check out to a real, complete address
+3. Compare the quote against what FedEx bills you for the same parcel
+
+<Tip>
+  Use a fresh address each time — Shopify caches rates per address.
+</Tip>
+
+If quotes come back consistently low, suspect dimensions before suspecting the integration. FedEx prices on dimensional weight, and [missing product dimensions](/adding-dimensions-to-products) understate parcel size.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    How items are distributed into parcels before quoting.
+  </Card>
+
+  <Card title="Adding dimensions" icon="ruler-combined" href="/adding-dimensions-to-products">
+    Dimension data that carrier quotes depend on.
+  </Card>
+
+  <Card title="Rate descriptions" icon="message-lines" href="/rate-descriptions">
+    Set delivery expectations in your own words.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-question" href="/shipping-rates-not-showing-on-checkout-page">
+    When a carrier rate fails to appear.
+  </Card>
+</Columns>

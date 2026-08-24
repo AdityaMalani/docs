@@ -1,34 +1,142 @@
 ---
 title: "Create a Basic Shipping Customization"
-description: "Configure Cursor for your documentation workflow"
-icon: "arrow-pointer"
+description: "Hide, show, rename, or reorder the shipping methods your customers see at checkout"
+icon: "sliders"
 ---
 
-Set up Cursor to help you write and maintain your Mintlify documentation.
+A **shipping customization** changes the delivery options a customer sees at checkout, based on conditions you set. It doesn't calculate prices — it acts on the rates you already have.
 
-## Prerequisites
+<Note>
+  Shipping Customizations change **what customers see**. To calculate a price Shopify can't work out natively, use [Shipping Rates](/shipping-rates/basic-shipping-rate) instead. Not sure which you need? See [Rates vs Customizations](/core-concepts/rates-vs-customizations).
+</Note>
 
-- Cursor editor installed
+## Before you start
 
-## Setup
+Customizations act on rates that already exist, so set those up first in **Shopify Admin → Settings → Shipping and Delivery**. They can be manual Shopify rates, ShipMagic rates, or both.
+
+<Tip>
+  Two things that make customizations easier than rates:
+
+  - They work on **all Shopify plans** — CCS is not required.
+  - They **don't need product syncing**. Shopify sends product data to customizations at checkout directly.
+</Tip>
+
+## Create the customization
 
 <Steps>
-  <Step title="Open your docs directory in Cursor">
-    Open the root of your documentation repository where `docs.json` is located.
+  <Step title="Open Shipping Customizations and click Create Customization">
+    From the left navigation panel in the app, open **Shipping Customizations**.
   </Step>
-  <Step title="Install the Mintlify skill">
-    In the integrated terminal, run:
+  <Step title="Choose a Type">
+    The type decides what the rule does when it matches:
 
-    ```bash
-    npx skills add https://mintlify.com/docs
-    ```
+    | Type | Effect |
+    | --- | --- |
+    | **Hide shipping rates** | Hides the methods you list. |
+    | **Show shipping rates** | Shows the methods you list. |
+    | **Only show specified shipping rates and hide rest** | Shows the methods you list and hides everything else. |
+    | **Reorder shipping rates** | Changes the order methods appear in. |
+    | **Rename shipping rates** | Changes the label the customer sees. |
 
-    This gives Cursor Mintlify's component reference, writing standards, and workflow guidance.
+    See [Actions (Hide / Rename / Sort)](/ai-tools/actions-hide-rename-sort) for the details of each.
   </Step>
-  <Step title="Customize project instructions">
-    Edit `AGENTS.md` in your project root to add project-specific terminology, style preferences, and content boundaries.
+  <Step title="Name the rule">
+    For example `Hide free shipping for heavy items`. This name is internal and is never shown to customers.
   </Step>
-  <Step title="Start writing with Cursor">
-    Open a file and use Cursor's AI features to draft and edit documentation.
+  <Step title="Add your conditions">
+    Choose whether the rule must match **All conditions** or **Any condition**, then add conditions. Customizations can match on cart, product, customer, address, and shipping-method attributes — including some that aren't available to shipping rates, such as **Product Collection**, **Shopify Market**, **Customer Company**, **Is subscription product**, and **Address is a PO Box**.
+
+    See [Cart Conditions](/cart-conditions), [Product Attributes](/product-attributes), [Customer Attributes](/customer-attributes-1), and [Customer Location and Address](/customer-location-and-address-1).
+
+    <Tip>
+      Need to check two unrelated groups of products in one rule? Use [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions).
+    </Tip>
+  </Step>
+  <Step title="List the shipping methods to act on">
+    Under **Action**, enter the name of each method the rule should affect. Click **Add another method** for more than one.
+
+    <Tip>
+      **Partial names match.** Entering `Express` matches both "Express Shipping" and "Express Delivery". Use this to catch several methods at once — but keep it specific enough that it doesn't catch methods you meant to leave alone.
+    </Tip>
+
+    For **Rename**, you also give the new name. For **Reorder**, you also give the new position.
+  </Step>
+  <Step title="Set Apply rule to">
+    - **All shipments** (default) — the rule applies to every shipment in the order.
+    - **Only the first shipment** — for subscription sellers who want the rule to affect only the first shipment's shipping method.
+  </Step>
+  <Step title="Set status and save">
+    Leave **Status** as _Active_, then **Save**.
   </Step>
 </Steps>
+
+## A worked example
+
+Show a "Free Prime Shipping" method only to customers tagged `prime`. This takes two customizations — one to show it to members, one to hide it from everyone else.
+
+<Steps>
+  <Step title="Create the rate in Shopify">
+    In **Settings → Shipping and Delivery**, add a rate named `Free Prime Shipping` to your zone.
+  </Step>
+  <Step title="Customization 1 — show it to prime customers">
+    ```text
+    Type: Only show specified shipping rates and hide rest
+    Name: Prime customers rule
+    Condition 1: Customer Tag <> Equals <> prime
+    Show the following shipping methods: Free Prime Shipping
+    ```
+  </Step>
+  <Step title="Customization 2 — hide it from everyone else">
+    ```text
+    Type: Hide shipping rates
+    Name: Regular customers rule
+    Condition 1: Customer Tag <> Not equals <> prime
+    Hide the following shipping methods: Free Prime Shipping
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+  Customer conditions only work for **logged-in** customers. Shopify sends no customer record for a guest checkout, so ShipMagic treats a guest as having **no tags**, **zero total spend**, and **zero previous orders**.
+
+  A guest will therefore fail a condition like `Customer Tag Equals prime` — and _pass_ one like `Customer Total Order Count Less than 1`. Check both cases when you test.
+</Warning>
+
+## Test your customization
+
+1. Open your storefront and log in as a customer who matches your conditions
+2. Add matching products to the cart and proceed to checkout
+3. Enter a complete address
+4. In test mode, enter `shipmagic` as the **first name**
+
+<Tip>
+  Use a fresh, random address each time — Shopify caches shipping rates per address.
+</Tip>
+
+Full details in [Testing the App](/core-concepts/testing-the-app). When it looks right, follow [Going Live](/core-concepts/going-live).
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Actions in detail" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    How hide, show, rename, and reorder each behave.
+  </Card>
+
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Match two independent groups of products in one rule.
+  </Card>
+
+  <Card title="Hide methods by region" icon="map-location-dot" href="/hide-shipping-methods-for-specific-regions">
+    A common use case, start to finish.
+  </Card>
+
+  <Card title="Not working?" icon="circle-question" href="/shipping-customizations-not-working">
+    The usual causes and how to fix them.
+  </Card>
+</Columns>
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup) if you'd like us to help.
+</Note>

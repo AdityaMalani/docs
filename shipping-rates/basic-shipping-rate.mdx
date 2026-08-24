@@ -1,88 +1,204 @@
 ---
 title: "Create a Basic Shipping Rate"
-description: "Text, title, and styling in standard markdown"
-icon: "text-size"
+description: "Build your first rule-based shipping rate and show it at checkout"
+icon: "gear"
 ---
 
-## Titles
+A **shipping rate** in ShipMagic is a price the app calculates and returns to Shopify at checkout. You group rates inside a **rule** — the rule decides _when_ the rates apply, and each rate decides _how much_ to charge.
 
-Best used for section headers.
+<Note>
+  Shipping Rates change **what customers pay**. If you only want to hide, rename, or reorder rates you already have in Shopify, use [Shipping Customizations](/shipping-customizations/basic-shipping-customization) instead.
+</Note>
 
-```md
-## Titles
-```
+## Before you start
 
-### Subtitles
+<Steps>
+  <Step title="CCS must be enabled on your store">
+    Carrier Calculated Shipping is required for any third-party app to return rates at checkout. See the [Installation Guide](/installation-guide#2-ensure-ccs-is-enabled-on-your-store) if you're not sure whether it's on.
+  </Step>
+  <Step title="ShipMagic must be added as a rate provider">
+    It's added to the General profile automatically. For custom profiles, [add it manually](/installation-guide#add-shipmagic-as-a-rate-provider-custom-profiles--zones).
+  </Step>
+  <Step title="Your shipping zones must be synced">
+    Open **Settings** in the app and sync zones. Until you do, the rule editor shows a warning instead of your zones and you won't be able to add rates.
+  </Step>
+</Steps>
 
-Best used for subsection headers.
+## Create the rule
 
-```md
-### Subtitles
-```
+<Steps>
+  <Step title="Open Shipping Rates and click Add Rule">
+    From the left navigation panel in the app, open **Shipping Rates**, then click **Add Rule**.
+  </Step>
+  <Step title="Name the rule">
+    Use something you'll recognise later — for example `Heavy products rule`. This name is internal and is never shown to customers.
+  </Step>
+  <Step title="Set a priority">
+    Rules are evaluated in **ascending order of priority**, so priority `1` is checked before priority `2`.
+
+    <Warning>
+      **No two rules can share the same priority.** The app will not let you save a second rule with a priority that's already taken, so give each rule its own number.
+    </Warning>
+
+    Leaving gaps (10, 20, 30) makes it easy to slot new rules in later without renumbering everything.
+  </Step>
+  <Step title="Add your conditions">
+    Choose whether the rule must match **All conditions** or **Any condition**, then add one or more conditions. Each condition is an attribute, an operator, and a value:
+
+    ```text
+    Product Tag  <>  Equals  <>  bulky
+    ```
+
+    You can build conditions from more than 25 attributes across four groups:
+
+    | Group | Examples |
+    | --- | --- |
+    | **Product** | Title, Tag, SKU, Barcode, Vendor, Price, Compare-at Price, Quantity, Type, Weight, Metafield, Line item property, Length / Width / Height / Volume |
+    | **Cart** | Cart Quantity, Cart Subtotal, Cart Total after discount, Cart Weight, Cart Volume, Cart Contains, Cart Locale |
+    | **Shipping** | Zipcode / Postcode, Province / State Code, Address Line 1, Country Code, Time of Day, Day of the Week, Warehouse Zipcode |
+    | **Customer** | Customer Tag, First Name, Last Name |
+
+    See [Cart Conditions](/cart-subtotal), [Product Attributes](/cart), [Customer Attributes](/customer-attributes), and [Customer Location and Address](/customer-location-and-address) for the full reference.
+
+    <Tip>
+      Several attributes accept multiple values in one condition. Tags are separated by **commas**, while titles, SKUs and types are separated by **semicolons**. Postcodes support wildcards (`AB14*`) and ranges (`90209-90231`).
+    </Tip>
+
+    <Warning>
+      Conditions on **Product Tag, Product Type, Product Title, Product Barcode, or Product Compare-at Price** need your products [synced](/core-concepts/syncing-products) first. Shopify doesn't send these to the app at checkout, so ShipMagic reads them from its own copy.
+    </Warning>
+  </Step>
+  <Step title="Add a rate to a shipping zone">
+    Scroll to **Shipping zones**. Each synced zone is listed separately — click **Add rate** on the zone you want.
+
+    A zone with no rates shows a warning, and customers in that zone will see no ShipMagic rates at all.
+
+    The rate dialog is covered in [the next section](#adding-a-rate).
+  </Step>
+  <Step title="Set status and exclusivity, then save">
+    **Status** controls whether the rule runs at all. **Exclusivity** controls what happens after it matches:
+
+    - **Inclusive** (default) — lower-priority rules are still evaluated, and their rates are added too.
+    - **Exclusive** — if this rule matches, every lower-priority rule is skipped. See [Exclusive Rules](/exclusive-rules).
+
+    **Save** stays disabled until the rule has a name, a priority, and at least one condition.
+  </Step>
+</Steps>
+
+## Adding a rate
+
+Every rate starts with two fields:
+
+| Field | Notes |
+| --- | --- |
+| **Rate name** | Required. This is what the customer sees at checkout. |
+| **Description** | Optional, shown under the rate name at checkout. Supports `{{today}}` and `{{today+3}}` to insert dates dynamically — see [Rate Descriptions](/rate-descriptions). |
+
+Then pick a **Calculation parameter**, which decides how the price is worked out.
+
+### Calculation parameters
+
+| Parameter | What it does |
+| --- | --- |
+| **Fixed rate** | One flat price, no calculation. |
+| **Number of items** | Price based on how many items are in the cart. |
+| **Total price of items** | Price based on cart value. |
+| **Total weight of items** | Price based on cart weight. |
+| **Percentage of total price** | Charge a percentage of the cart value. See [Percentage of Cart Subtotal](/percentage-of-cart-subtotal). |
+| **Product / Variant Metafield** | Read the price straight out of a metafield. See [Rates from Metafields](/rates-from-metafields). |
+| **Sum of Product / Variant Metafield** | Add up a metafield value across every item in the cart. |
+| **Distance** | Price based on distance between warehouse and destination. |
+| **Live carrier rate** | Fetch a real rate from USPS, FedEx, Australia Post, ShipStation, Shiprocket, Stallion Express, or Direct Freight Express. |
+
+**Fixed rate** just asks for a price. **Percentage of total price** asks for a percentage, with an optional _Round up to nearest integer_ checkbox. Everything else asks for a **Rate Type** as well.
+
+### Rate types
+
+| Rate type | Fields | Use it for |
+| --- | --- | --- |
+| **Range** | Range Start, Range End, Price | One price for a band of values. Leave Range End empty for "and above". |
+| **Incremental** | Base price, Incremental price, Per each, Start from | A base price plus a top-up for every N units. See [Incremental / Per Item Rates](/incremental-per-item-rates). |
+| **Range \+ Incremental** | Range Start / End, then base \+ incremental | An incremental rate that only applies inside a band. |
+| **Range \+ Range** | Range Start / End, a second parameter, then its own range and price | Two parameters at once — for example weight _and_ cart value. |
 
 <Tip>
-  Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
+  To cover a whole scale, add several **Range** rates with the same rate name and adjoining bands — `0–100`, `100.01–200`, `200.01` and up. Shopify shows the customer whichever one matches their cart. See [Ranged Rates](/ranged-rates).
 </Tip>
 
-## Text formatting
+## A worked example
 
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+Charge \$5 below \$100 and free shipping at \$100 or more:
 
-| Style | How to write it | Result |
-| --- | --- | --- |
-| Bold | `**bold**` | **bold** |
-| Italic | `_italic_` | _italic_ |
-| Strikethrough | `~strikethrough~` | ~~strikethrough~~ |
+<Steps>
+  <Step title="Create the rule">
+    ```text
+    Name: Regular products
+    Priority: 10
+    Rule must match: All conditions
+    Condition 1: Product Tag <> Does Not Equal <> bulky
+    ```
+  </Step>
+  <Step title="Add the first rate">
+    ```text
+    Rate name: Standard Shipping
+    Calculation parameter: Total price of items
+    Rate Type: Range
+    Range Start: 0
+    Range End: 100
+    Price: 5
+    ```
+  </Step>
+  <Step title="Add the second rate">
+    ```text
+    Rate name: Standard Shipping
+    Calculation parameter: Total price of items
+    Rate Type: Range
+    Range Start: 100.01
+    Range End: (leave empty)
+    Price: 0
+    ```
+  </Step>
+  <Step title="Save the rule">
+    Click **Done** on the rate dialog, then **Save** on the rule.
+  </Step>
+</Steps>
 
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
+## Test your rate
 
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
+Rules take effect immediately, so test before you go live.
 
-| Text Size | How to write it | Result |
-| --- | --- | --- |
-| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Subscript | `<sub>subscript</sub>` | <sub>subscript</sub> |
+1. Open your storefront and add matching products to the cart
+2. Proceed to checkout and enter a complete address
+3. In test mode, enter `shipmagic` as the **first name**
 
-## Linking to pages
+<Tip>
+  Use a fresh, random address each time. Shopify caches shipping rates per address, so reusing one is the most common reason a change appears not to have worked.
+</Tip>
 
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
+Full details in [Testing the App](/core-concepts/testing-the-app). When everything looks right, follow [Going Live](/core-concepts/going-live).
 
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
+## Next steps
 
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
+<Columns cols={2}>
+  <Card title="Rate conditions" icon="filter" href="/cart-subtotal">
+    Every attribute and operator you can build conditions from.
+  </Card>
 
-## Blockquotes
+  <Card title="Live carrier rates" icon="truck-bolt" href="/usps">
+    Connect your own carrier account and show real-time rates.
+  </Card>
 
-### Singleline
+  <Card title="Exclusive rules" icon="layer-group" href="/exclusive-rules">
+    Control how multiple matching rules combine.
+  </Card>
 
-To create a blockquote, add a `>` in front of a paragraph.
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Add, or take the highest or lowest of, several matching rates.
+  </Card>
+</Columns>
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
+<Note>
+  **Need help?**
 
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
-```
-
-### Multiline
-
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-```
-
-### LaTeX
-
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
-
-<Latex>
-  8 x (vk x H1 - H2) = (0,1)
-</Latex>
-
-```md
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-```
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup) if you'd like us to help.
+</Note>

@@ -46,7 +46,6 @@
             "group": "Core Concepts",
             "pages": [
               "core-concepts/rates-vs-customizations",
-              "core-concepts/terminologies",
               "core-concepts/syncing-products",
               "core-concepts/testing-the-app",
               "core-concepts/billing",

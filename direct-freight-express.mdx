@@ -1,4 +1,90 @@
 ---
-title: 'Direct Freight Express'
+title: "Direct Freight Express"
+description: "Show live Direct Freight Express rates, including pallet and skid freight"
+icon: "truck-fast"
 ---
 
+Direct Freight Express is an Australian freight carrier. The integration supports both parcel and pallet-scale consignments, which makes it the right choice for heavy or oversized goods that a parcel carrier won't take.
+
+## Getting credentials
+
+Direct Freight Express provides an **API Key** and your **Account Number** through your account manager or their customer portal.
+
+## Setting up the rate
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    In your rule, click **Add rate** on the zone you want.
+  </Step>
+  <Step title="Set the calculation parameter to Direct Freight Express">
+    Choose it under the live carrier options.
+  </Step>
+  <Step title="Enter your credentials">
+    Fill in **API Key** and **Account Number**.
+  </Step>
+  <Step title="Choose a Rate Type">
+    Select the consignment type — including **Pallet** and **Skid** options for freight-scale orders.
+  </Step>
+  <Step title="Decide on fuel levy">
+    Tick **Fuel Levy Charges** to add the fuel levy to the final delivery cost.
+  </Step>
+  <Step title="Configure packaging">
+    Set **Packaging box distribution** and define your boxes or pallets.
+  </Step>
+  <Step title="Set a default rate">
+    **Default rate** is used if Direct Freight Express doesn't respond.
+  </Step>
+</Steps>
+
+## Fuel Levy Charges
+
+Freight carriers bill a fuel levy on top of the base rate, and it moves with fuel prices.
+
+<Warning>
+  Leave **Fuel Levy Charges** unticked and the quote your customer sees excludes a charge you will be billed for. On freight consignments the levy is a meaningful percentage, not a rounding error.
+
+  Tick it unless you have a deliberate reason to absorb the cost.
+</Warning>
+
+## Pallets and skids
+
+Setting **Rate Type** to a pallet or skid option changes what ShipMagic quotes for — a pallet consignment rather than a set of cartons.
+
+Pallet configuration asks for the pallet's **Length**, **Width**, and a **Max Pallet Height**. Items are distributed onto pallets up to that height.
+
+<Tip>
+  If you sell both small parcels and pallet-scale goods, split them across two rules with a product condition — for example on [product weight or dimensions](/cart) — so each consignment type is quoted correctly.
+</Tip>
+
+## Always set a Default rate
+
+<Warning>
+  If the carrier is unavailable and no default rate is set, the customer sees no shipping option and cannot complete checkout. This matters more on freight, where a failed quote can lose a high-value order.
+</Warning>
+
+## Testing
+
+1. Add products with accurate weights and dimensions
+2. Check out to a real Australian address, using a fresh address each time
+3. Test both a small cart and one large enough to trigger pallet rating
+4. Confirm the fuel levy is included if you enabled it
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    Box and pallet distribution methods.
+  </Card>
+
+  <Card title="Adding dimensions" icon="ruler-combined" href="/adding-dimensions-to-products">
+    Dimension data that freight quotes depend on.
+  </Card>
+
+  <Card title="Australia Post" icon="truck-fast" href="/australia-post">
+    The parcel-scale Australian option.
+  </Card>
+
+  <Card title="Bulky items" icon="couch" href="/offer-different-rates-for-bulky-items">
+    Routing oversized goods to a freight rate.
+  </Card>
+</Columns>

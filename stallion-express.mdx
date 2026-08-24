@@ -1,4 +1,91 @@
 ---
-title: 'Stallion Express'
+title: "Stallion Express"
+description: "Show live Stallion Express rates at checkout for Canadian shipping"
+icon: "truck-fast"
 ---
 
+Stallion Express is a Canadian shipping service, widely used for cross-border shipping into the US. The integration supports package types, signature, and insurance options.
+
+## Getting credentials
+
+Generate an **API Key** from your Stallion Express dashboard under API settings.
+
+## Setting up the rate
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    In your rule, click **Add rate** on the zone you want.
+  </Step>
+  <Step title="Set the calculation parameter to Stallion Express">
+    Choose it under the live carrier options.
+  </Step>
+  <Step title="Enter your API Key">
+    Paste the key from your Stallion dashboard.
+  </Step>
+  <Step title="Choose a Package type">
+    Select the packaging format — including **Pallet** for freight-scale consignments.
+  </Step>
+  <Step title="Set parcel distribution">
+    Configure how cart items are distributed into parcels. See [the packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm).
+  </Step>
+  <Step title="Choose signature and insurance">
+    Tick **Signature required** and **Insured** as needed. Both affect the quoted price.
+  </Step>
+  <Step title="Set a discount and default rate">
+    **Discount (Optional)** reduces every returned rate by a percentage. **Default rate (Optional)** is used if Stallion doesn't respond.
+  </Step>
+</Steps>
+
+## Signature and insurance
+
+These two options change the price Stallion quotes, so set them to match how you actually ship.
+
+- **Signature required** — proof of delivery. Adds cost, reduces disputes.
+- **Insured** — declared-value coverage. Adds cost, protects high-value goods.
+
+<Tip>
+  If only some of your catalogue warrants signature or insurance, don't enable them globally. Create a second rule with a [product condition](/cart) — for example on price or a `high-value` tag — and enable the options only on that rule's rate.
+</Tip>
+
+<Warning>
+  Enabling these on every rate means every customer pays for coverage most orders don't need, which shows up as an uncompetitive shipping price at checkout.
+</Warning>
+
+## Cross-border shipping
+
+Stallion is commonly used to ship from Canada into the United States. Which services return depends on the destination and your account configuration.
+
+If you ship both domestically within Canada and across the border, consider separate rules with [country conditions](/customer-location-and-address) so each is configured appropriately.
+
+## Always set a Default rate
+
+<Warning>
+  If Stallion is unavailable and no default rate is set, the customer sees no shipping option and cannot complete checkout.
+</Warning>
+
+## Testing
+
+1. Add products with accurate weights and dimensions
+2. Check out to a real address, using a fresh address each time
+3. Test both a Canadian and a US destination if you ship to both
+4. Confirm the price reflects your signature and insurance settings
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    How items are distributed into parcels before quoting.
+  </Card>
+
+  <Card title="Adding dimensions" icon="ruler-combined" href="/adding-dimensions-to-products">
+    Dimension data that carrier quotes depend on.
+  </Card>
+
+  <Card title="Location conditions" icon="location-dot" href="/customer-location-and-address">
+    Splitting domestic and cross-border rules.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-question" href="/shipping-rates-not-showing-on-checkout-page">
+    When a carrier rate fails to appear.
+  </Card>
+</Columns>

@@ -1,4 +1,79 @@
 ---
-title: 'Australia Post'
+title: "Australia Post"
+description: "Show live Australia Post rates at checkout using your own account"
+icon: "truck-fast"
 ---
 
+Connect your Australia Post account and ShipMagic will query real rates at checkout.
+
+## Getting credentials
+
+Australia Post issues an **API Key** through its [Developer Centre](https://developers.auspost.com.au/). You'll need a business account to request access.
+
+## Setting up the rate
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    In your rule, click **Add rate** on the zone you want.
+  </Step>
+  <Step title="Set the calculation parameter to Australia Post">
+    Choose **Australia Post** under the live carrier options.
+  </Step>
+  <Step title="Enter your API Key">
+    Paste the key from the Developer Centre.
+  </Step>
+  <Step title="Configure packaging">
+    Set **Packaging box distribution** and define your boxes. See [the packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm).
+  </Step>
+  <Step title="Set a default rate">
+    **Default rate** is used if Australia Post doesn't respond.
+  </Step>
+</Steps>
+
+## Domestic and international
+
+Australia Post covers both domestic Australian parcels and international destinations. Which services return depends on the destination address and on what your account is enabled for.
+
+<Tip>
+  If you ship both domestically and internationally, consider separate rules with [country conditions](/customer-location-and-address) so each region gets a rate configured for it, rather than one rule trying to cover everything.
+</Tip>
+
+## Weight and dimensions
+
+Australia Post prices on both weight and cubic size. Parcels above certain dimensions attract cubing charges, so accurate [product dimensions](/adding-dimensions-to-products) matter as much as weight.
+
+<Warning>
+  A large, light parcel is priced on its volume, not its weight. If you ship bulky lightweight goods and haven't entered dimensions, quotes will be well below what you're billed.
+</Warning>
+
+## Always set a Default rate
+
+<Warning>
+  If Australia Post is unavailable and no default rate is set, the customer sees no shipping option and cannot complete checkout.
+</Warning>
+
+## Testing
+
+1. Add products with accurate weights and dimensions
+2. Check out to a real Australian address, using a fresh address each time
+3. Compare the quote against Australia Post's own calculator for the same parcel
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Packing algorithm" icon="box-taped" href="/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm">
+    How items are distributed into parcels before quoting.
+  </Card>
+
+  <Card title="Adding dimensions" icon="ruler-combined" href="/adding-dimensions-to-products">
+    Dimension data that cubing charges depend on.
+  </Card>
+
+  <Card title="Direct Freight Express" icon="truck-fast" href="/direct-freight-express">
+    The other Australian carrier ShipMagic supports.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-question" href="/shipping-rates-not-showing-on-checkout-page">
+    When a carrier rate fails to appear.
+  </Card>
+</Columns>

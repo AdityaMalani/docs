@@ -1,3 +1,100 @@
 ---
 title: "How to Setup Packing Algorithm for your Products"
+description: "Configure boxes and packing distribution so carrier rates reflect real parcels"
+icon: "box-taped"
 ---
+
+When ShipMagic asks a carrier for a rate, the carrier needs to know what it's quoting for. The packing algorithm decides how your cart's items are distributed into parcels before that question is asked.
+
+Get this right and live rates match what you're actually charged. Get it wrong and every quote is off.
+
+## Packaging box distribution
+
+Every live carrier rate has a **Packaging box distribution** setting with four options:
+
+| Option | How items are packed |
+| --- | --- |
+| **None - Use product dimensions** | Each product is quoted using its own dimensions. No boxes involved. |
+| **By items count** | Items are packed into your boxes up to a maximum number of items per box. |
+| **By items volume** | Items are packed by volume using a 3D bin-packing algorithm. |
+| **By weight** | Items are packed into your boxes up to a maximum weight per box. |
+
+<Warning>
+  All four options except **None** need you to define at least one box. **By items volume** additionally needs accurate **product dimensions** — see [Adding Dimensions to Products](/adding-dimensions-to-products). Without them the algorithm has nothing to pack.
+</Warning>
+
+## Defining boxes
+
+Once you pick a distribution method other than **None**, a box table appears. Each box takes:
+
+| Field | Meaning |
+| --- | --- |
+| **Max limit** | For _By items count_: how many items fit in this box. For _By weight_: the weight ceiling. |
+| **Length / Width / Height** | The box's internal dimensions, in millimetres. |
+| **Weight** | The weight of the **empty box**, added to the parcel's total. |
+
+Add as many box types as you use with **Add another box**.
+
+<Tip>
+  Include the empty box weight. It's easy to leave at zero, but a heavy carton on a light order can shift the parcel into the next weight bracket and make every quote too low.
+</Tip>
+
+## How the 3D algorithm works
+
+**By items volume** is the most sophisticated option. It uses 3D bin packing: each item is treated as a rectangular solid with a width, height, depth, and weight, and the algorithm fills your boxes by volume, tracking remaining space and accumulated weight as it goes.
+
+When one box is full it opens another of the same or the next suitable type, until every item is placed. ShipMagic then asks the carrier for a rate on the resulting set of parcels.
+
+<Note>
+  The algorithm packs by **volume**, not by simulating physical orientation. It won't detect that a long item cannot fit diagonally into a box whose volume is technically sufficient. For awkward-shaped goods, define a box that genuinely fits them and use **By items count**.
+</Note>
+
+## Choosing a method
+
+**None - Use product dimensions** suits stores where each product ships in its own packaging — furniture, appliances, anything already boxed by the manufacturer.
+
+**By items count** is the simplest to reason about and the easiest to keep accurate. If you ship a fairly uniform catalogue in one or two carton sizes, start here.
+
+**By weight** suits dense goods where weight, not space, is the binding constraint.
+
+**By items volume** is the most accurate for mixed carts of varied sizes, and the most demanding — every product needs correct dimensions.
+
+<Tip>
+  Start with **By items count** and move to **By items volume** once your dimension data is complete and trustworthy. An accurate simple model beats an inaccurate sophisticated one.
+</Tip>
+
+## Pallets
+
+For freight-scale orders, ShipMagic also supports pallet configuration — see the pallet fields on carriers that support them, such as Direct Freight Express.
+
+## Verifying your setup
+
+Live carrier rates are hard to eyeball. Test with real carts:
+
+1. Add a cart you know the true shipping cost for
+2. Check the rate at checkout against what the carrier actually charges you
+3. Try a cart that should need two boxes, and confirm the rate rises appropriately
+
+<Warning>
+  Always set a **Default rate** on live carrier rates. If the carrier doesn't respond, that fallback is the only thing standing between your customer and a checkout with no shipping options.
+</Warning>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Adding dimensions" icon="ruler-combined" href="/adding-dimensions-to-products">
+    Populate length, width, and height across your catalogue.
+  </Card>
+
+  <Card title="USPS" icon="truck-fast" href="/usps">
+    Connect a USPS account.
+  </Card>
+
+  <Card title="FedEx" icon="truck-fast" href="/fed-ex">
+    Connect a FedEx account.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-question" href="/shipping-rates-not-showing-on-checkout-page">
+    When a carrier rate fails to appear.
+  </Card>
+</Columns>

@@ -118,7 +118,8 @@
               "cloning-full-setup-from-one-store-to-another",
               "exclusive-rules",
               "adding-translations-for-shipping-rates",
-              "rate-descriptions"
+              "rate-descriptions",
+              "scheduling-rule-changes"
             ]
           },
           {

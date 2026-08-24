@@ -1,4 +1,121 @@
 ---
-title: 'Incremental / Per Item Rates'
+title: "Incremental / Per Item Rates"
+description: "Charge a base price plus an additional amount for every unit"
+icon: "plus-minus"
 ---
 
+An **Incremental** rate charges a base price, then adds more for every N units beyond a starting point. It's the natural shape for "\$5 for the first item, \$2 for each additional one".
+
+## Setting one up
+
+<Steps>
+  <Step title="Add a rate and pick what to count">
+    Set **Calculation parameter** to **Number of items**, **Total weight of items**, or **Total price of items** — whatever the increment should be measured in.
+  </Step>
+  <Step title="Set Rate Type to Incremental">
+    Four fields appear.
+  </Step>
+  <Step title="Fill in the four fields">
+    | Field | Meaning |
+    | --- | --- |
+    | **Base price** | The starting charge, applied once. |
+    | **Incremental price** | Added for each step beyond the start. |
+    | **Per each** | The size of one step. |
+    | **Start from** | Where incrementing begins. Leave empty for the default. |
+  </Step>
+</Steps>
+
+## How the fields combine
+
+The rate is:
+
+```text
+Base price  +  (Incremental price × steps beyond "Start from")
+```
+
+where a step is **Per each** units.
+
+With Base price `5`, Incremental price `2`, Per each `1`, and Start from `1`:
+
+| Items in cart | Price |
+| --- | --- |
+| 1 | 5.00 |
+| 2 | 7.00 |
+| 3 | 9.00 |
+| 5 | 13.00 |
+
+Setting **Per each** to `2` would instead add \$2 for every _two_ extra items.
+
+<Tip>
+  **Start from** is what stops the first item being charged twice. Leave it empty and the app uses its default; set it explicitly when you want the increment to kick in later — for example free up to 3 items, then charge per item after that.
+</Tip>
+
+## Weight-based increments
+
+The same structure works for weight. With **Total weight of items** as the calculation parameter, Base price `10`, Incremental price `1.50`, Per each `1`, and Start from `5`, a 5kg parcel costs \$10 and each kilo above 5 adds \$1.50.
+
+<Note>
+  **Per each** is expressed in your store's weight unit, shown as a suffix on the field.
+</Note>
+
+## Incremental vs. Ranged
+
+Both produce a rising price, but they behave differently between steps:
+
+- **Incremental** is smooth and unbounded — it keeps climbing with no ceiling.
+- [**Ranged**](/ranged-rates) is a lookup table — one flat price per band.
+
+Choose Incremental when cost genuinely tracks quantity. Choose Ranged when you have negotiated carrier prices for specific brackets.
+
+<Warning>
+  An incremental rate has no upper limit by default. On a very large order it can produce a surprising number — set a ceiling with [Setting Maximum and Minimum Shipping Rates](/setting-maximum-and-minimum-shipping-rates).
+</Warning>
+
+## Range \+ Incremental
+
+To apply an incremental charge only inside a particular band, use the **Range \+ Incremental** rate type. You give a Range Start and Range End first, then the base and incremental fields. Outside the band, the rate does not apply.
+
+## Examples
+
+**\$5 first item, \$2 each additional**
+
+```text
+Rate name: Standard Shipping
+Calculation parameter: Number of items
+Rate Type: Incremental
+Base price: 5
+Incremental price: 2
+Per each: 1
+Start from: 1
+```
+
+**Free up to 3 items, then \$1.50 each**
+
+```text
+Calculation parameter: Number of items
+Rate Type: Incremental
+Base price: 0
+Incremental price: 1.50
+Per each: 1
+Start from: 3
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Ranged Rates" icon="chart-simple" href="/ranged-rates">
+    Flat price per band instead of a smooth climb.
+  </Card>
+
+  <Card title="Charge shipping per product" icon="boxes-stacked" href="/per-item-shipping-rate">
+    The per-product use case, start to finish.
+  </Card>
+
+  <Card title="Maximum and minimum" icon="arrows-up-down" href="/setting-maximum-and-minimum-shipping-rates">
+    Cap an incremental rate.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    The full rate dialog reference.
+  </Card>
+</Columns>

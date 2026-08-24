@@ -1,3 +1,107 @@
 ---
 title: "Product Attributes"
+description: "Match shipping rate rules on product tags, type, SKU, weight, dimensions, and metafields"
+icon: "box"
 ---
+
+Product conditions are evaluated **per line item**. A rule with a product condition matches when the items in the cart satisfy it — so these are what you use to separate bulky goods from regular ones, or to price by weight.
+
+<Warning>
+  Five of these attributes require [product syncing](/core-concepts/syncing-products) before they will work: **Product Tag**, **Product Type**, **Product Title**, **Product Barcode**, and **Product Compare-at Price**. Shopify does not send them to the app at checkout, so ShipMagic reads them from its own synced copy. Sync from **Settings → Products → Sync Now**.
+</Warning>
+
+## Available attributes
+
+| Attribute | Operators | Notes |
+| --- | --- | --- |
+| **Product Title** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Variant Title** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Product Tag** | Equals, Does Not Equal | Multiple values separated by `,` |
+| **SKU** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Product Barcode** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Product Vendor** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Product Price** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Store currency |
+| **Product Compare-at Price** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Store currency |
+| **Product Quantity** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Units of that line item |
+| **Product Type** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Product Weight** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Store weight unit |
+| **Product Metafield** | Equals, Does Not Equal, Contains, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal, Is True, Is False | See [Metafields](#metafields) |
+| **Variant Metafield** | The above, plus Is Empty and Is Not Empty | See [Metafields](#metafields) |
+| **Line item property** | Equals, Does Not Equal, Contains, Does Not Contain | Multiple values separated by `;` |
+| **Product Length / Width / Height** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Millimetres |
+| **Product Volume** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | mm³ |
+| **Shopify Product ID** | Equals, Does Not Equal | Multiple values separated by `;` |
+| **Shopify Variant ID** | Equals, Does Not Equal | Multiple values separated by `;` |
+
+## Separators: commas or semicolons?
+
+This trips people up, because it isn't consistent — it follows what the data itself can contain.
+
+- **Product Tag** takes **commas**: `bulky,oversized,freight`
+- **Everything else** takes **semicolons**: `Blue Sofa;Red Sofa`
+
+<Tip>
+  Titles and types can legitimately contain a comma ("Sofa, Large"), which is why they use semicolons. Tags cannot contain commas in Shopify, so commas are safe there.
+</Tip>
+
+## Metafields
+
+For **Product Metafield**, enter the metafield key. For **Variant Metafield**, enter it as `Namespace.Key`.
+
+Metafield conditions support type-aware operators — numeric comparisons for number fields, `Is True` / `Is False` for booleans, and `Is Empty` / `Is Not Empty` on variant metafields to test whether a value has been set at all.
+
+<Note>
+  Metafields can also be used to _set the price itself_, not just to match. See [Rates from Metafields](/rates-from-metafields).
+</Note>
+
+## Dimensions
+
+**Length**, **Width**, **Height**, and **Volume** are always in **millimetres** (volume in mm³), regardless of your store's display units. They come from the dimension data on the product — see [Adding Dimensions to Products](/adding-dimensions-to-products) for how to populate them.
+
+## Per line item vs. per cart
+
+A product condition asks about the items in the cart. If you need to ask whether the cart _contains_ a matching product without requiring every product to match, use **Cart Contains** instead — see [Cart Conditions](/cart-subtotal#cart-contains).
+
+## Examples
+
+**Separate bulky products from the rest**
+
+```text
+Rule 1 — Bulky
+Condition 1: Product Tag <> Equals <> bulky
+
+Rule 2 — Regular
+Condition 1: Product Tag <> Does Not Equal <> bulky
+```
+
+**A freight rate for anything longer than 2 metres**
+
+```text
+Condition 1: Product Length <> Greater Than <> 2000
+```
+
+**Match several vendors at once**
+
+```text
+Condition 1: Product Vendor <> Equals <> Acme;Globex;Initech
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-subtotal">
+    Match on cart value, quantity, weight, and contents.
+  </Card>
+
+  <Card title="Adding dimensions" icon="ruler-combined" href="/adding-dimensions-to-products">
+    Populate length, width, and height on your products.
+  </Card>
+
+  <Card title="Syncing products" icon="arrows-repeat" href="/core-concepts/syncing-products">
+    Which attributes need a sync, and how to run one.
+  </Card>
+
+  <Card title="Rates from metafields" icon="database" href="/rates-from-metafields">
+    Read the shipping price straight out of a metafield.
+  </Card>
+</Columns>

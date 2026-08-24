@@ -1,4 +1,102 @@
 ---
-title: 'Customer Attributes'
+title: "Customer Attributes"
+description: "Match shipping rate rules on customer tags and names"
+icon: "user"
 ---
 
+Customer conditions let you price shipping differently for particular groups of customers — wholesale accounts, loyalty tiers, or staff.
+
+<Warning>
+  Customer data is only available when the customer is **logged in**. For a guest checkout Shopify sends no customer record, so these conditions will not match. Always have a rule that covers guests, or guests may see no rates at all.
+</Warning>
+
+## Available attributes
+
+| Attribute | Operators | Notes |
+| --- | --- | --- |
+| **Customer Tag** | Equals, Does Not Equal | Multiple values separated by `,` |
+| **Customer First Name** | Equals, Does Not Equal, Contains, Does Not Contain | Single value |
+| **Customer Last Name** | Equals, Does Not Equal, Contains, Does Not Contain | Single value |
+
+<Note>
+  Shipping **Customizations** offer a wider set of customer conditions, including Total Spend, Order Count, Company, and Customer Metafield. See [Customer Attributes](/customer-attributes-1) under Shipping Customizations.
+</Note>
+
+## Customer Tag
+
+The workhorse of this group. Tag customers in Shopify Admin (or via your ERP / loyalty app), then match on the tag:
+
+```text
+Condition 1: Customer Tag <> Equals <> wholesale
+```
+
+Multiple tags are separated by commas and match if **any** of them is present:
+
+```text
+Condition 1: Customer Tag <> Equals <> wholesale,vip,staff
+```
+
+<Tip>
+  Tag matching is the most reliable customer condition because you control the tags. Prefer it over name matching, which depends on how the customer typed their name.
+</Tip>
+
+## First and Last Name
+
+Available mainly for edge cases and testing. Name conditions match against the name on the customer record.
+
+<Warning>
+  Do not build business logic on names — they are not unique and customers type them inconsistently. If you need to identify a group of people, tag them.
+</Warning>
+
+Note that the **first name `shipmagic`** is reserved for [test mode](/core-concepts/testing-the-app). While the app is in test mode it only returns rates for checkouts using that first name.
+
+## Covering guests
+
+Because customer conditions silently fail for guests, a rule set built only on customer tags will leave guest shoppers with nothing. The usual pattern is a pair of rules:
+
+```text
+Rule 1 — Wholesale (Priority 10)
+Condition 1: Customer Tag <> Equals <> wholesale
+
+Rule 2 — Everyone else (Priority 20)
+Condition 1: Customer Tag <> Does Not Equal <> wholesale
+```
+
+A guest fails rule 1 and passes rule 2, so they still get a rate.
+
+## Examples
+
+**Free shipping for wholesale customers**
+
+```text
+Rule must match: All conditions
+Condition 1: Customer Tag <> Equals <> wholesale
+```
+
+**Staff rate, combined with a cart condition**
+
+```text
+Rule must match: All conditions
+Condition 1: Customer Tag <> Equals <> staff
+Condition 2: Cart Subtotal (total before discount) <> Greater Than <> 50
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-subtotal">
+    Match on cart value, quantity, weight, and contents.
+  </Card>
+
+  <Card title="Location and Address" icon="location-dot" href="/customer-location-and-address">
+    Match on postcode, country, province, and warehouse.
+  </Card>
+
+  <Card title="Customization customer conditions" icon="users" href="/customer-attributes-1">
+    The larger customer condition set available to customizations.
+  </Card>
+
+  <Card title="Testing the app" icon="square-terminal" href="/core-concepts/testing-the-app">
+    How test mode uses the first name field.
+  </Card>
+</Columns>

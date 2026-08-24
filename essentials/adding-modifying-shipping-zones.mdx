@@ -1,4 +1,81 @@
 ---
-title: 'Adding / Modifying Shipping Zones'
+title: "Adding / Modifying Shipping Zones"
+description: "Sync your Shopify shipping zones into ShipMagic and keep them current"
+icon: "map"
 ---
 
+Shipping zones live in **Shopify**, not in ShipMagic. The app reads a copy of them so you can attach rates to each zone inside a rule.
+
+## Syncing zones
+
+<Steps>
+  <Step title="Set up your zones in Shopify">
+    Go to **Shopify Admin → Settings → Shipping and Delivery** and create the zones you need on the relevant shipping profile.
+  </Step>
+  <Step title="Sync them into ShipMagic">
+    Open the **Settings** page in the app, find **Shipping Zones**, and click **Sync now**.
+  </Step>
+  <Step title="Wait for it to finish">
+    The button shows a loading state while syncing. When it completes, the page shows **Last synced** with a timestamp.
+  </Step>
+</Steps>
+
+Once synced, every zone appears as its own section under **Shipping zones** when you create or edit a rule, each with its own **Add rate** action.
+
+## When you need to re-sync
+
+Zones are not synced automatically. Run a manual sync whenever you:
+
+- Add a new shipping zone in Shopify
+- Rename an existing zone
+- Delete a zone
+- Add ShipMagic as a rate provider to a new shipping profile
+
+<Warning>
+  If you add a zone in Shopify and don't re-sync, it won't appear in the rule editor and you can't attach rates to it — customers in that zone will see no ShipMagic rates.
+</Warning>
+
+## If no zones appear
+
+The rule editor shows a warning banner instead of your zones, with a link to the settings page. This means either the sync hasn't been run, or ShipMagic isn't attached as a rate provider yet.
+
+Check both:
+
+1. **Settings → Shipping Zones → Sync now** in the app.
+2. **Shopify Admin → Settings → Shipping and Delivery** — confirm ShipMagic is listed as a rate provider on the profile. See the [Installation Guide](/installation-guide#add-shipmagic-as-a-rate-provider-custom-profiles--zones) for custom profiles.
+
+## Zones with no rates
+
+A synced zone that has no rates attached shows a warning inside the rule:
+
+> No rates. Customers in this zone won't see shipping rates from ShipMagic app.
+
+This is worth taking seriously. A rule can match a customer's cart perfectly and still return nothing if their zone has no rate attached.
+
+<Tip>
+  When you add a new country to an existing zone in Shopify, no re-sync is needed — the zone already exists and its rates carry over. Re-sync only when the zone list itself changes.
+</Tip>
+
+## Custom shipping profiles
+
+ShipMagic connects to the **General** profile automatically. Custom profiles need the app added manually as a rate provider, and then a zone sync so the app picks up their zones.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Installation Guide" icon="download" href="/installation-guide">
+    Adding ShipMagic as a rate provider.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    Attaching rates to a zone.
+  </Card>
+
+  <Card title="Location conditions" icon="location-dot" href="/customer-location-and-address">
+    Finer regional control than zones alone.
+  </Card>
+
+  <Card title="Rates not showing" icon="circle-question" href="/shipping-rates-not-showing-on-checkout-page">
+    When a zone is configured but nothing appears.
+  </Card>
+</Columns>

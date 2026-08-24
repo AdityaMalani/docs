@@ -1,4 +1,105 @@
 ---
 title: "Cart Conditions"
+description: "Match shipping rate rules on cart value, quantity, weight, volume, and contents"
+icon: "cart-shopping"
 ---
 
+Cart conditions look at the order as a whole rather than at individual products. They're the most common way to build free-shipping thresholds and weight-based rules.
+
+<Note>
+  This page covers cart conditions for **Shipping Rates**. For the customization equivalent, see [Cart Conditions](/cart-conditions) under Shipping Customizations — the available attributes differ.
+</Note>
+
+## Available attributes
+
+| Attribute | Operators | Value |
+| --- | --- | --- |
+| **Cart Quantity** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Number of items |
+| **Cart Subtotal (total before discount)** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Amount in store currency |
+| **Cart Total (total after discount)** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Amount in store currency |
+| **Cart Weight** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Weight in your store's unit |
+| **Cart Volume** | Equals, Does Not Equal, Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Volume in mm³ |
+| **Cart Contains** | Depends on the sub-attribute you pick | See [Cart Contains](#cart-contains) |
+| **Cart Does Not Contain** | Depends on the sub-attribute you pick | See [Cart Contains](#cart-contains) |
+| **Cart Locale** | Equals, Does Not Equal, Contains, Does Not Contain | Shopify locale code |
+
+## Subtotal before or after discount?
+
+These two are easy to confuse, and picking the wrong one is a common source of surprise:
+
+- **Cart Subtotal (total before discount)** — the cart value _ignoring_ discount codes.
+- **Cart Total (total after discount)** — what the customer actually pays for goods.
+
+<Warning>
+  For a free-shipping threshold, decide deliberately which one you want. Using **Cart Total** means a discount code can drop a customer below your threshold and take their free shipping away at the last moment. Using **Cart Subtotal** means they keep it.
+</Warning>
+
+## Cart Contains
+
+**Cart Contains** and **Cart Does Not Contain** are different from the other attributes: instead of comparing one cart-level number, they ask whether _any product in the cart_ matches a condition.
+
+When you pick one, you then choose a product attribute to test against — Product Tag, Product Type, Product Metafield, and so on — and give it an operator and value, exactly as you would in a [product condition](/cart).
+
+### Quantity and amount checks
+
+**Cart Contains** adds one more control, letting you require a certain quantity or value of matching products rather than just their presence:
+
+| Option | Meaning |
+| --- | --- |
+| **Cart contains at least one product** | Default. Any matching product satisfies the condition. |
+| **Cart contains more than X products** | Matching products must total more than X units. |
+| **Cart contains less than X products** | Matching products must total fewer than X units. |
+| **Cart contains more than X amount** | Matching products must total more than X in value. |
+| **Cart contains less than X amount** | Matching products must total less than X in value. |
+
+<Tip>
+  **Cart Contains** is how you write "if the cart has any fragile item" without forcing the whole cart to be fragile. A plain [Product Tag](/cart) condition applies per line item; Cart Contains asks a question about the cart.
+</Tip>
+
+## Cart Locale
+
+Matches the locale the customer is browsing in — useful for language-specific rates. Enter the Shopify locale code (`en`, `fr`, `de-DE`). You can enter several separated by semicolons.
+
+## Examples
+
+**Free shipping over \$100, before discounts are applied**
+
+```text
+Rule must match: All conditions
+Condition 1: Cart Subtotal (total before discount) <> Greater Than or Equal <> 100
+```
+
+**A surcharge when the cart is heavy**
+
+```text
+Rule must match: All conditions
+Condition 1: Cart Weight <> Greater Than <> 20
+```
+
+**A handling fee when the cart holds more than 3 fragile items**
+
+```text
+Rule must match: All conditions
+Condition 1: Cart Contains <> Product Tag <> Equals <> fragile
+             Quantity check: Cart contains more than X products, Quantity: 3
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Product Attributes" icon="box" href="/cart">
+    Match on tags, type, SKU, weight, dimensions, and metafields.
+  </Card>
+
+  <Card title="Customer Attributes" icon="user" href="/customer-attributes">
+    Match on customer tags and names.
+  </Card>
+
+  <Card title="Location and Address" icon="location-dot" href="/customer-location-and-address">
+    Match on postcode, country, province, and warehouse.
+  </Card>
+
+  <Card title="Ranged Rates" icon="chart-simple" href="/ranged-rates">
+    Turn a cart value into a sliding scale of prices.
+  </Card>
+</Columns>

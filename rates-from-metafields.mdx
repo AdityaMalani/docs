@@ -1,4 +1,104 @@
 ---
-title: 'Rates from Metafields'
+title: "Rates from Metafields"
+description: "Store a shipping price on each product or variant and have ShipMagic read it"
+icon: "database"
 ---
 
+Instead of expressing shipping in rules, you can store a price directly on each product or variant as a metafield and have ShipMagic read it at checkout. This suits catalogues where every item has its own negotiated shipping cost that no formula would capture.
+
+## The four options
+
+Set **Calculation parameter** to one of:
+
+| Parameter | Reads from | Behaviour |
+| --- | --- | --- |
+| **Product Metafield** | A product-level metafield | Uses the value from the matching product |
+| **Variant Metafield** | A variant-level metafield | Uses the value from the matching variant |
+| **Sum Of Product Metafield** | Product-level metafields | Adds the values across every item in the cart |
+| **Sum Of Variant Metafield** | Variant-level metafields | Adds the values across every item in the cart |
+
+The **Sum Of** variants are what you want when each product carries its own shipping cost and the order total should be the sum of them.
+
+## Setting one up
+
+<Steps>
+  <Step title="Create the metafield in Shopify">
+    In **Settings → Custom data**, add a metafield definition on Product or Variant. Give it a numeric type and populate it on your products.
+  </Step>
+  <Step title="Add a rate and pick the parameter">
+    In your rule, click **Add rate** and set **Calculation parameter** to one of the four options above.
+  </Step>
+  <Step title="Enter the metafield reference">
+    - For a **product** metafield, enter the **Key**.
+    - For a **variant** metafield, enter it as **`Namespace.Key`**.
+  </Step>
+  <Step title="Decide whether to multiply by quantity">
+    Tick **Increase rate per item** if the stored value is a _per-unit_ price that should be multiplied by how many the customer bought. Leave it off if the value is a flat charge for that product regardless of quantity.
+  </Step>
+  <Step title="Set a default rate">
+    Enter a **Default rate**. This is used whenever a product or variant has no value in the metafield.
+  </Step>
+</Steps>
+
+## Always set a default rate
+
+The **Default rate** is the single most important field on this form.
+
+<Warning>
+  If a product has no value in the metafield and no default rate is set, that product contributes nothing to the shipping calculation. On a **Sum Of** rate this quietly undercharges; on a single-product rate the customer may see no shipping option at all.
+
+  Set a default rate that is safe to charge for an unconfigured product.
+</Warning>
+
+Any new product added to your catalogue starts with an empty metafield, so the default rate is what protects you between a product going live and someone remembering to fill in its shipping cost.
+
+## Keeping the data current
+
+Metafield values are read at checkout, so edits in Shopify take effect immediately — there is no sync step for metafield _values_.
+
+<Note>
+  This is different from [product syncing](/core-concepts/syncing-products), which applies to tags, type, title, barcode, and compare-at price used in **conditions**. Metafield rate values are read live.
+</Note>
+
+## Examples
+
+**Each variant carries its own shipping cost**
+
+```text
+Rate name: Standard Shipping
+Calculation parameter: Sum Of Variant Metafield
+Namespace and key: shipping.cost
+Increase rate per item: on
+Default rate: 9.95
+```
+
+Each line item contributes its metafield value multiplied by its quantity, and those totals are added together. A cart holding one variant at `4.00` and two of a variant at `6.00` produces `4.00 + (6.00 × 2)` = `16.00`.
+
+**A flat per-product charge, not multiplied by quantity**
+
+```text
+Calculation parameter: Sum Of Product Metafield
+Key: shipping_surcharge
+Increase rate per item: off
+Default rate: 0
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Product Attributes" icon="box" href="/cart">
+    Using metafields in conditions rather than as prices.
+  </Card>
+
+  <Card title="Maximum and minimum" icon="arrows-up-down" href="/setting-maximum-and-minimum-shipping-rates">
+    Bound the summed result.
+  </Card>
+
+  <Card title="Shopify custom data" icon="database" href="https://help.shopify.com/en/manual/custom-data/metafields">
+    How to create metafield definitions in Shopify.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    The full rate dialog reference.
+  </Card>
+</Columns>

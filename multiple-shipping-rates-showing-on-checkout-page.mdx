@@ -1,4 +1,97 @@
 ---
-title: 'Multiple Shipping Rates Showing On Checkout Page'
+title: "Multiple Shipping Rates Showing On Checkout Page"
+description: "Reduce a cluttered checkout down to the options you meant to offer"
+icon: "layer-group"
 ---
 
+Too many shipping options is a conversion problem, not just an aesthetic one. Here's where the extras usually come from.
+
+## 1. Old Shopify rates alongside ShipMagic rates
+
+The most common cause. Your manual Shopify rates don't disappear when ShipMagic starts returning its own — both are offered.
+
+**Check:** **Shopify Admin → Settings → Shipping and Delivery**, and look at the manual rates in your profile.
+
+**Fix:** delete the manual rates you no longer want. See [Going Live](/core-concepts/going-live#removing-old-shopify-rates).
+
+## 2. Several rules matching the same cart
+
+Every matching rule contributes its rates. Three rules matching one cart produce three sets.
+
+**Fix, depending on what you want:**
+
+- **They should combine into one price** — give the rates the **same name** and set basic blending to **Add rates**. See [Rate Blending](/rate-blending).
+- **Only one should apply** — mark the winning rule [Exclusive](/exclusive-rules) so lower-priority rules are skipped.
+- **They're genuinely alternatives** — set blending to **lowest** or **highest** so only one shows.
+
+<Tip>
+  Blending only merges rates with **matching names**. Two rates that should combine but are called "Standard Shipping" and "Standard Delivery" will stubbornly stay separate. Check the names first.
+</Tip>
+
+## 3. Ranged rate bands overlapping
+
+If two [ranged rates](/ranged-rates) cover the same value, a cart in the overlap matches both.
+
+**Check:** your band boundaries. Bands `0–100` and `100–200` overlap at exactly 100.
+
+**Fix:** start each band just above the previous one — `0–100`, then `100.01–200`.
+
+## 4. A carrier returning many services
+
+Live carrier rates can return a long list — Shiprocket in particular queries many courier partners, and ShipStation exposes every carrier in your account.
+
+**Fix:**
+
+- Use **Lowest rate only** or **Highest rate only** on the carrier rate.
+- Select fewer services in the carrier's configuration.
+- Hide the extras with a [customization](/ai-tools/actions-hide-rename-sort).
+
+## 5. Rates duplicated across zones
+
+If a destination falls into two overlapping zones, both zones' rates can appear.
+
+**Check:** your zone definitions in Shopify for overlapping country or region coverage.
+
+## 6. A multi-location order charging twice
+
+An order fulfilled from two locations can produce shipping for each.
+
+**Fix:** see [Prevent double shipping charges](/avoid-doubling-of-shipping-charges-due-to-multiple-locations).
+
+## Reducing the list deliberately
+
+Once the duplicates are gone, decide how many options you actually want to offer.
+
+<Tip>
+  Two or three is the practical sweet spot — typically a standard option, a faster one, and free shipping if you offer it. Beyond that, extra choices tend to cause hesitation rather than satisfaction.
+</Tip>
+
+To trim without changing your rate logic, use **Only show specified shipping rates and hide rest** in a customization. It settles the outcome in one rule and keeps working as new methods appear.
+
+## Still stuck?
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup), or reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Combining several matching rates into one.
+  </Card>
+
+  <Card title="Exclusive rules" icon="layer-group" href="/exclusive-rules">
+    Stopping lower-priority rules contributing.
+  </Card>
+
+  <Card title="Going live" icon="toggle-large-on" href="/core-concepts/going-live">
+    Removing your old Shopify rates.
+  </Card>
+
+  <Card title="Actions" icon="wand-magic-sparkles" href="/ai-tools/actions-hide-rename-sort">
+    Hiding the options you don't want shown.
+  </Card>
+</Columns>

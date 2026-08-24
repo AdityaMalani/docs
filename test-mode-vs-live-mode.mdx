@@ -1,4 +1,95 @@
 ---
-title: 'Test mode vs live mode'
+title: "Test mode vs live mode"
+description: "What each mode does, and how to tell which one you're in"
+icon: "toggle-large-on"
 ---
 
+ShipMagic runs in one of two modes, controlled from **Settings → App Modes**. Understanding which you're in explains most "it works for me but not for customers" confusion — and its reverse.
+
+## The two modes
+
+|  | Test mode | Live mode |
+| --- | --- | --- |
+| **Toggle** | Off | On |
+| **Who sees ShipMagic rates** | Only checkouts with first name `shipmagic` | Every customer |
+| **Everyone else sees** | Your normal Shopify rates | ShipMagic rates |
+| **Requires a paid plan** | No | Yes |
+
+## Two independent toggles
+
+<Warning>
+  **Shipping Rates and Shipping Customizations have separate toggles.** One can be live while the other is still in test mode.
+
+  This catches people out regularly: rates go live, customizations are forgotten, and the hide rules that were supposed to accompany the launch never fire for real customers.
+</Warning>
+
+Check both before assuming you're fully live.
+
+## Testing in test mode
+
+With the toggle off, enter **`shipmagic`** as the **first name** in the checkout address. ShipMagic then returns rates for that session only.
+
+Anyone else checking out is unaffected and sees your existing Shopify rates — which is the point: you can build and test against a live store without risk.
+
+<Tip>
+  The name goes in the **first name** field of the shipping address, not the last name and not the account name. It's case-insensitive.
+</Tip>
+
+## Going live
+
+Live mode needs a paid plan. See [Billing](/core-concepts/billing) for which plan covers what — Starter for customizations only, Pro for rates.
+
+Once the toggle is on:
+
+- Every customer gets ShipMagic rates
+- The `shipmagic` first-name requirement no longer applies
+- Your rules run in real time on real orders
+
+Full checklist in [Going Live](/core-concepts/going-live).
+
+## Which mode am I in?
+
+**Settings → App Modes** is the direct answer. Two practical symptoms:
+
+- **Rates appear for you but not for customers** — you're in test mode and using the test name without realising.
+- **Rates appear for everyone unexpectedly** — you're live. Turn the toggle off to pull back.
+
+<Note>
+  Rules take effect immediately in both modes. Editing a rule while live changes what customers see straight away — there's no separate publish step.
+</Note>
+
+## Testing while live
+
+You can still test in live mode; you just can't isolate yourself from customers. Your changes are their changes.
+
+<Warning>
+  For anything substantial, build the new rule **Inactive**, or test on a development store, rather than editing a live rule and watching what happens. A rule saved mid-edit is live the moment it's saved.
+</Warning>
+
+## Common mistakes
+
+**Testing with the same address twice.** Shopify caches rates per address, so the second test shows the first result. Use a fresh address each time.
+
+**Forgetting the customizations toggle.** See the warning above.
+
+**Assuming test mode blocks orders.** It doesn't. Real customers continue checking out normally on your existing Shopify rates.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Testing the app" icon="square-terminal" href="/core-concepts/testing-the-app">
+    A full testing walkthrough.
+  </Card>
+
+  <Card title="Going live" icon="toggle-large-on" href="/core-concepts/going-live">
+    The pre-launch checklist.
+  </Card>
+
+  <Card title="Billing" icon="money-bill-1" href="/core-concepts/billing">
+    Which plan live mode requires.
+  </Card>
+
+  <Card title="Old rates showing" icon="clock-rotate-left" href="/made-changes-in-the-rule-but-still-seeing-the-old-rates">
+    Address caching during testing.
+  </Card>
+</Columns>

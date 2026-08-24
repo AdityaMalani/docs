@@ -1,4 +1,105 @@
 ---
-title: 'Ranged Rates'
+title: "Ranged Rates"
+description: "Charge a different price for each band of weight, value, or quantity"
+icon: "chart-simple"
 ---
 
+A **Range** rate charges one price for a band of values. Stack several of them and you get a price table — the classic "0–5kg costs \$8, 5–10kg costs \$12" structure.
+
+## Setting one up
+
+<Steps>
+  <Step title="Add a rate and pick what to measure">
+    Set **Calculation parameter** to whatever the bands should be measured against — **Total weight of items**, **Total price of items**, or **Number of items**.
+  </Step>
+  <Step title="Set Rate Type to Range">
+    Three fields appear: Range Start, Range End, and Price.
+  </Step>
+  <Step title="Enter the band">
+    **Range Start** is required. **Range End** can be left empty, which means "and above".
+  </Step>
+  <Step title="Repeat for each band">
+    Click **Add rate** again and create the next band, using the **same rate name** each time.
+  </Step>
+</Steps>
+
+<Tip>
+  Using the same **rate name** across bands is what makes this work. The customer sees one shipping option; ShipMagic returns only the band that matches their cart. Different names would show them several options at once.
+</Tip>
+
+## Covering the whole scale
+
+Bands must not overlap, and should not leave gaps. If a cart falls into no band, that rate produces nothing.
+
+A complete weight table looks like this:
+
+| Range Start | Range End | Price |
+| --- | --- | --- |
+| 0 | 5 | 8.00 |
+| 5.01 | 10 | 12.00 |
+| 10.01 | 20 | 18.00 |
+| 20.01 | _(empty)_ | 25.00 |
+
+<Warning>
+  Mind the boundary. If one band ends at `5` and the next starts at `5`, a cart weighing exactly 5 is ambiguous. Start the next band just above — `5.01` — and always test a cart sitting exactly on a boundary.
+</Warning>
+
+The final band with an empty **Range End** is important: without it, a cart heavier than your largest band gets no rate at all.
+
+## Range \+ Incremental
+
+When a band should have a base price _plus_ a per-unit charge inside it, set **Rate Type** to **Range \+ Incremental**. You give the band (Range Start / End), then a base price, an incremental price, and a "per each" step.
+
+Use it for tables like "5–10kg is \$12 plus \$1.50 for every kg over 5".
+
+## Range \+ Range
+
+**Range \+ Range** matches on **two parameters at once**. You set a band on the rate's main calculation parameter, then choose a second parameter and give it its own band and price.
+
+Use it for tables that vary along two axes — for example weight _and_ order value, where heavy-but-cheap and heavy-but-expensive orders should price differently.
+
+<Note>
+  Range \+ Range is the most intricate rate type in the app. If you find yourself needing three or more axes, that is usually a sign to split the logic across several rules with [priorities](/shipping-rates/basic-shipping-rate) instead.
+</Note>
+
+## Examples
+
+**Free shipping above a threshold**
+
+```text
+Rate 1 — Standard Shipping
+Calculation parameter: Total price of items
+Rate Type: Range | Start: 0 | End: 100 | Price: 5
+
+Rate 2 — Standard Shipping
+Calculation parameter: Total price of items
+Rate Type: Range | Start: 100.01 | End: (empty) | Price: 0
+```
+
+**Price by number of items**
+
+```text
+Rate Type: Range | Start: 1 | End: 3  | Price: 4.95
+Rate Type: Range | Start: 4 | End: 10 | Price: 7.95
+Rate Type: Range | Start: 11 | End: (empty) | Price: 12.95
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Incremental rates" icon="plus-minus" href="/incremental-per-item-rates">
+    A base price plus a charge per unit.
+  </Card>
+
+  <Card title="Percentage rates" icon="percent" href="/percentage-of-cart-subtotal">
+    Scale with order value instead of bands.
+  </Card>
+
+  <Card title="Maximum and minimum" icon="arrows-up-down" href="/setting-maximum-and-minimum-shipping-rates">
+    Bound the result of any calculation.
+  </Card>
+
+  <Card title="Basic shipping rate" icon="gear" href="/shipping-rates/basic-shipping-rate">
+    The full rate dialog reference.
+  </Card>
+</Columns>

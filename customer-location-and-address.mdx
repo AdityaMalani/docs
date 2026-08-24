@@ -1,4 +1,111 @@
 ---
-title: 'Customer Location and Address'
+title: "Customer Location and Address"
+description: "Match shipping rate rules on postcode, province, country, warehouse, and time"
+icon: "location-dot"
 ---
 
+Location conditions are how you build regional pricing — remote-area surcharges, island rates, metro vs. rural, or restricting a rate to certain countries.
+
+## Available attributes
+
+| Attribute | Operators | Notes |
+| --- | --- | --- |
+| **Zipcode / Postcode** | Equals, Does Not Equal | Wildcards and ranges supported — see below |
+| **Province / State Code** | Equals, Does Not Equal | Two-letter Shopify province codes, separated by `,` |
+| **Address Line 1** | Contains, Does Not Contain | Multiple values separated by `;` |
+| **Country Code** | Equals, Does Not Equal | Two-letter ISO codes, separated by `;` |
+| **Warehouse Zipcode / Postcode** | Equals, Does Not Equal | Same wildcard and range syntax |
+| **Time of the Day** | Greater Than, Less Than, Greater Than or Equal, Less Than or Equal | Store timezone |
+| **Day of the Week** | Equals, Does Not Equal | Full day names, separated by `,` |
+
+## Postcode matching
+
+The postcode fields accept three syntaxes, and you can mix them in one condition.
+
+| Syntax | Example | Matches |
+| --- | --- | --- |
+| Exact | `90210` | That postcode only |
+| Wildcard | `AB14*` | Anything starting `AB14` |
+| Range | `90209-90231` | Every postcode numerically within the range |
+| Multiple | `AB14*,90210,3000-3999` | Any of the above, separated by commas |
+
+<Tip>
+  Wildcards are the practical choice for UK, Canadian, and Dutch postcodes, where the first characters identify the area. Ranges suit numeric systems like US ZIP and Australian postcodes.
+</Tip>
+
+<Warning>
+  Ranges compare numerically. A range like `AB1-AB9` will not behave as you expect on alphanumeric postcodes — use wildcards there instead.
+</Warning>
+
+## Country and province codes
+
+Both take the two-letter codes Shopify uses, not full names.
+
+- **Country Code** — ISO 3166-1 alpha-2 (`US`, `GB`, `AU`, `IN`). Separate multiple with semicolons. [Full list](https://shopify.dev/docs/api/admin-graphql/2023-10/enums/CountryCode).
+- **Province / State Code** — two-letter province codes (`CA`, `NY`, `VIC`, `MH`). Separate multiple with commas. [Full list](https://matrixify.app/documentation/shopify-address-countries-and-provinces/).
+
+## Warehouse Zipcode
+
+Matches the **origin** rather than the destination — the location the order would ship from. Use it when you have several warehouses and want rates to differ depending on which one fulfils the order.
+
+<Note>
+  This pairs with [preventing double shipping charges](/avoid-doubling-of-shipping-charges-due-to-multiple-locations) when an order splits across locations.
+</Note>
+
+## Time and day
+
+**Time of the Day** and **Day of the Week** are evaluated in your **store's timezone**, not the customer's.
+
+Day names are entered in full and separated by commas:
+
+```text
+Condition 1: Day of the Week <> Equals <> Saturday,Sunday
+```
+
+<Tip>
+  Use these for cut-off logic — for example, hiding an express option after 2pm, or over the weekend when your warehouse is closed.
+</Tip>
+
+## Examples
+
+**A remote-area surcharge for specific postcode ranges**
+
+```text
+Rule must match: All conditions
+Condition 1: Zipcode / Postcode <> Equals <> 4800-4899,6700-6799
+```
+
+**Restrict a rate to mainland UK by excluding island postcodes**
+
+```text
+Rule must match: All conditions
+Condition 1: Country Code <> Equals <> GB
+Condition 2: Zipcode / Postcode <> Does Not Equal <> BT*,IM*,JE*,GY*,HS*,ZE*
+```
+
+**No weekend express delivery**
+
+```text
+Rule must match: All conditions
+Condition 1: Day of the Week <> Does Not Equal <> Saturday,Sunday
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Shipping zones" icon="map" href="/essentials/adding-modifying-shipping-zones">
+    How zones interact with location conditions.
+  </Card>
+
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-subtotal">
+    Match on cart value, quantity, weight, and contents.
+  </Card>
+
+  <Card title="Multi-location orders" icon="warehouse" href="/avoid-doubling-of-shipping-charges-due-to-multiple-locations">
+    Stop split orders charging shipping twice.
+  </Card>
+
+  <Card title="Hide methods by region" icon="eye-slash" href="/hide-shipping-methods-for-specific-regions">
+    The customization approach to regional control.
+  </Card>
+</Columns>

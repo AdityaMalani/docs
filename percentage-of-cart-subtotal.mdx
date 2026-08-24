@@ -1,4 +1,89 @@
 ---
-title: 'Percentage of Cart Subtotal'
+title: "Percentage of Cart Subtotal"
+description: "Charge shipping as a percentage of the order value"
+icon: "percent"
 ---
 
+Percentage rates scale shipping with the value of the order. They suit high-value or insured goods, where cost tracks price rather than weight or size.
+
+## Setting one up
+
+<Steps>
+  <Step title="Add a rate to your zone">
+    Inside your rule, click **Add rate** on the shipping zone you want.
+  </Step>
+  <Step title="Choose the calculation parameter">
+    Set **Calculation parameter** to **Percentage of total price**.
+  </Step>
+  <Step title="Enter the percentage">
+    Enter the number only — `10` means 10%, not 0.1.
+  </Step>
+  <Step title="Decide on rounding">
+    Tick **Round up to nearest integer** if you want whole-currency prices. With it on, a calculated \$2.67 becomes \$3.
+  </Step>
+</Steps>
+
+Percentage rates do **not** ask for a Rate Type — there are no ranges or increments to configure. The price is simply the percentage applied to the cart.
+
+## What the percentage applies to
+
+The percentage is taken from the **total price of the items the rule matched**, not necessarily the whole cart.
+
+This matters when a rule targets a subset of products. If a rule matches only items tagged `fragile`, a 10% rate charges 10% of the fragile items' value — not 10% of the entire order.
+
+<Tip>
+  This is what makes percentage rates work well with product conditions: you can charge 10% on artwork and a flat fee on everything else, in two separate rules, and each rate only sees its own products.
+</Tip>
+
+## Capping the result
+
+A pure percentage has no ceiling, which on a large order can produce an unreasonable shipping charge. Use [Setting Maximum and Minimum Shipping Rates](/setting-maximum-and-minimum-shipping-rates) to bound it.
+
+<Warning>
+  A percentage rate with no maximum is one of the more common causes of complaints about shipping cost at checkout. If you use percentage rates, set a cap.
+</Warning>
+
+## Examples
+
+**10% of order value, capped**
+
+```text
+Rate name: Insured Shipping
+Calculation parameter: Percentage of total price
+Percentage: 10
+Round up to nearest integer: on
+```
+
+Then set a maximum on the rule so it never exceeds your ceiling.
+
+**Percentage on artwork only, flat rate on the rest**
+
+```text
+Rule 1 — Artwork (Priority 10)
+Condition 1: Product Type <> Equals <> Artwork
+Rate: Percentage of total price, 8%
+
+Rule 2 — Everything else (Priority 20)
+Condition 1: Product Type <> Does Not Equal <> Artwork
+Rate: Fixed rate, 6.95
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Maximum and minimum" icon="arrows-up-down" href="/setting-maximum-and-minimum-shipping-rates">
+    Put a floor and ceiling on any calculated rate.
+  </Card>
+
+  <Card title="Ranged Rates" icon="chart-simple" href="/ranged-rates">
+    Price bands instead of a smooth percentage.
+  </Card>
+
+  <Card title="Cart Conditions" icon="cart-shopping" href="/cart-subtotal">
+    Choose whether to measure before or after discounts.
+  </Card>
+
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    Combine a percentage rate with others.
+  </Card>
+</Columns>

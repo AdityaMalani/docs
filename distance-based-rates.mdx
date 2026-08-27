@@ -56,18 +56,6 @@ Distance pairs naturally with the standard rate types:
 
 A distance rate alone doesn't stop someone far away from ordering — it just prices them. To decline delivery beyond a radius, cap your bands at that distance and don't add an open-ended final band, so no rate is produced past it.
 
-<Warning>
-  Do this deliberately. "No rate" and "we don't deliver there" look the same to the app but not to the customer, who simply sees a checkout they cannot complete with no explanation.
-
-  Consider a fallback rate with a [description](/rate-descriptions) explaining the situation, or a [customization](/ai-tools/actions-hide-rename-sort) that presents a clearer message.
-</Warning>
-
-## Multiple origins
-
-The origin is set per rate, so several warehouses means several rules — each with its own origin postcode and its own rate.
-
-Use the **Warehouse Zipcode / Postcode** [condition](/customer-location-and-address) to route each rule to the right origin.
-
 ## Cost and reliability
 
 Every rate query calls Google, which has two consequences worth planning for.

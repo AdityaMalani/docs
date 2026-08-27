@@ -131,7 +131,8 @@
               "per-item-shipping-rate",
               "offer-different-rates-for-bulky-items",
               "hide-shipping-methods-for-specific-regions"
-            ]
+            ],
+            "hidden": true
           },
           {
             "group": "Troubleshooting",
@@ -149,7 +150,8 @@
               "how-to-structure-rules-cleanly",
               "optimizing-checkout-experience",
               "reducing-cart-abandonment-via-shipping"
-            ]
+            ],
+            "hidden": true
           },
           "api-reference",
           "faqs",

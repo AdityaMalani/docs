@@ -35,12 +35,6 @@ Match the placeholder to the days you actually dispatch:
 - **`sd`** — you also dispatch on Saturdays.
 - **plain `+N`** — genuinely every day including Sundays, or a short offset where the distinction doesn't matter.
 
-<Tip>
-  `{{today+3wd}}` on a Friday correctly lands on Wednesday, skipping the weekend. The plain `{{today+3}}` would say Monday and set an expectation you can't meet.
-
-  If you dispatch on working days, use `wd` or `sd`. The plain form is the one most likely to over-promise.
-</Tip>
-
 ### How the date is rendered
 
 All three render in the same fixed format — abbreviated weekday, abbreviated month, and the day with an ordinal suffix:
@@ -69,12 +63,8 @@ Description: Arrives between {{today+2wd}} and {{today+4wd}}
 
 The offset counts from **today**, not from dispatch. If you pick and pack the next working day, add that day yourself.
 
-A carrier quoting 2 working days transit, with next-day dispatch, is `{{today+3wd}}` — not `{{today+2wd}}`.
-
 <Warning>
   **None of the three forms know about public holidays.** Over a long weekend or a seasonal shutdown, every quoted date runs optimistic — `wd` will happily count a bank holiday Monday as a working day.
-
-  Widen the range ahead of known closures, or use [scheduling](/scheduling-rule-changes) to swap in a holiday variant of the rule automatically.
 </Warning>
 
 ## Descriptions vs. carrier estimates

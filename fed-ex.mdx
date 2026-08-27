@@ -54,6 +54,33 @@ FedEx calculates delivery estimates itself and returns them with each rate. Ship
 
 **Discount (Optional)** applies a percentage reduction to every rate FedEx returns, after the quote comes back. Use it to subsidise shipping or pass on part of a contract advantage.
 
+## Handling Fees
+
+FedEx rates have a **Handling Fees** section with two fields, which can be used together:
+
+| Field | Effect |
+| --- | --- |
+| **Percentage** | Adds a percentage of the returned rate |
+| **Flat amount** | Adds a fixed amount in your store currency |
+
+Both are applied on top of the rate FedEx returns, so this is where you recover packaging, labour, or insurance costs the carrier's quote doesn't include.
+
+<Note>
+  Handling fees are specific to the FedEx integration — no other carrier offers them. To add a surcharge elsewhere, create a separate rule with a fixed rate and let [blending](/rate-blending) add the two together.
+</Note>
+
+<Tip>
+  A flat handling fee is easier for customers to accept, and easier for you to reason about, than an inflated shipping rate. A percentage fee compounds with FedEx's own pricing and grows faster than you expect on large consignments.
+</Tip>
+
+<Warning>
+  **Order matters when you combine these.** The discount is applied to the carrier's rate first, and the handling fee is then calculated on the already-discounted price.
+
+  So a 10% discount plus a 10% percentage handling fee does **not** cancel out — a \$100 rate becomes \$90, then \$99. If you want the two to offset exactly, the handling fee has to be slightly larger than the discount.
+</Warning>
+
+When both handling fee fields are set, the percentage is applied first and the flat amount is added afterwards.
+
 ## Always set a Default rate
 
 <Warning>

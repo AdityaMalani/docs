@@ -12,10 +12,7 @@ Metafields let you drive shipping from data stored on your products rather than 
 | --- | --- | --- |
 | **Direct** | Product Metafield, Variant Metafield | **The shipping price itself** |
 | **Summed** | Sum Of Product Metafield, Sum Of Variant Metafield | **An input** measured against a range or incremental table |
-
-<Note>
-  The quickest way to tell them apart in the app: the **Sum Of** options show a **Rate Type** selector, the direct ones don't. If you're being asked for ranges, you're on a Sum Of parameter.
-</Note>
+|  |  |  |
 
 ## Direct: the metafield holds the price
 
@@ -50,7 +47,7 @@ Use **Product Metafield** or **Variant Metafield** when each product carries its
 
 ## Summed: the metafield feeds a rate table
 
-Use **Sum Of Product Metafield** or **Sum Of Variant Metafield** when the metafield holds a _quantity_ rather than a price — a shipping score, a volume figure, a handling weight — and you want to price bands of that total.
+Use **Sum Of Product Metafield** or **Sum Of Variant Metafield** when the metafield holds a _quantity_ rather than a price — a shipping score, a volume figure, a handling weight — and you want to price on tiers of that total.
 
 ShipMagic adds the metafield value across every item in the cart, then evaluates that total against a rate table exactly as it would for cart weight or item count.
 
@@ -69,10 +66,6 @@ ShipMagic adds the metafield value across every item in the cart, then evaluates
   </Step>
 </Steps>
 
-<Note>
-  Sum Of parameters have **no Default rate** and **no Increase rate per item** — neither applies. A product with no metafield value simply contributes `0` to the total.
-</Note>
-
 ### Cover the whole scale
 
 Because the summed value drives a table, the same rules apply as any [ranged rate](/ranged-rates): bands must not overlap, and the final band should have an empty **Range End** so an unusually large cart still gets a price.
@@ -80,17 +73,6 @@ Because the summed value drives a table, the same rules apply as any [ranged rat
 <Warning>
   Products with no metafield value contribute zero. A cart made entirely of unconfigured products sums to `0` — make sure your first band starts at `0` and produces a sensible price, or such a cart may get no rate.
 </Warning>
-
-## Which one do I want?
-
-Ask what the number in the metafield means.
-
-- **"This product costs \$6 to ship."** → Direct. The value is a price.
-- **"This product has a shipping score of 6."** → Summed. The value is a unit you price in bands.
-
-<Tip>
-  Direct is simpler and right for most catalogues where you know each item's shipping cost. Summed is more powerful when cost isn't linear — when the first few units are expensive and additional ones are cheap, which a per-product price cannot express.
-</Tip>
 
 ## Keeping the data current
 
@@ -112,12 +94,12 @@ Increase rate per item: on
 Default rate: 9.95
 ```
 
-**Products carry a shipping score, priced in bands** (summed)
+**Products carry a volume, priced in bands** (summed)
 
 ```text
 Rate name: Standard Shipping
 Calculation parameter: Sum Of Product Metafield
-Key: shipping_score
+Key: shipping_volume
 Rate Type: Range
   Range Start: 0  | Range End: 10        | Price: 5.00
   Range Start: 11 | Range End: 25        | Price: 9.00

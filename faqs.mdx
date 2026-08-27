@@ -1,5 +1,136 @@
 ---
 title: "FAQs"
+description: "Answers to the questions merchants ask most often about ShipMagic"
+icon: "circle-question"
 ---
 
-FAQs
+## Getting started
+
+<AccordionGroup>
+  <Accordion title="What is the difference between Shipping Rates and Shipping Customizations?">
+    **Shipping Rates** create and show new rates from the app, letting you build pricing that isn't possible in Shopify natively — percentage-based rates, rules by product or customer, live carrier rates.
+
+    **Shipping Customizations** work on the rates you already have in Shopify, conditionally hiding, renaming, or reordering them.
+
+    In short: rates change **what customers pay**, customizations change **what customers see**.
+
+    Full comparison in [Rates vs Customizations](/core-concepts/rates-vs-customizations).
+  </Accordion>
+
+  <Accordion title="Do I need CCS for this app to work?">
+    You need **Carrier Calculated Shipping** only if you want to create **shipping rates** in the app. This is the official Shopify mechanism through which all shipping rate apps, including ShipMagic, are permitted to show rates at checkout.
+
+    If you only want to control the visibility or names of rates you already have in Shopify, you **do not need CCS** — [Shipping Customizations](/shipping-customizations/basic-shipping-customization) work on every Shopify plan.
+
+    To check whether you have it, open the **Shipping Rates** page in the app. If CCS isn't enabled you'll see an error; no error means it's active. See the [Installation Guide](/installation-guide#2-ensure-ccs-is-enabled-on-your-store).
+  </Accordion>
+
+  <Accordion title="I need help setting up the app.">
+    We offer **free setup** of the app for your store. Our founders will personally help you get to the right configuration.
+
+    [Book a free onboarding call](https://cal.com/speedysquirrel/shipmagic-setup), or reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5).
+  </Accordion>
+
+  <Accordion title="My requirements aren't covered by the app.">
+    Get in touch on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5). We'll do our best to incorporate your use case into the app.
+
+    For shipping logic that can't be expressed with the standard rule engine, the **Pro\+ plan** includes custom-coded logic built for your business. See [Billing](/core-concepts/billing).
+  </Accordion>
+</AccordionGroup>
+
+## Setup and testing
+
+<AccordionGroup>
+  <Accordion title="Do I need to sync my products?">
+    Only if your **shipping rate** rules use one of these product attributes:
+
+    - Product Tag
+    - Product Type
+    - Product Title
+    - Product Barcode
+    - Product Compare-at Price
+
+    Shopify doesn't send these to the app at checkout, so ShipMagic reads them from its own synced copy. Sync from **Settings → Products → Sync Now**.
+
+    Product syncing is **not** required for Shipping Customizations. See [Syncing Products](/core-concepts/syncing-products).
+  </Accordion>
+
+  <Accordion title="Can I test without affecting real customers?">
+    Yes. Leave the app in **test mode** — the toggles on **Settings → App Modes** switched off — and enter `shipmagic` as the **first name** at checkout. ShipMagic rates then appear only for your session, while real customers continue to see your existing Shopify rates.
+
+    Rates and customizations have **separate toggles**, so check both. See [Testing the App](/core-concepts/testing-the-app) and [Test mode vs live mode](/test-mode-vs-live-mode).
+  </Accordion>
+
+  <Accordion title="I changed a rule but still see the old rates. Why?">
+    Shopify **caches shipping rates per address**. If you retest with an address you've already used, you'll see the previous quote regardless of what you changed.
+
+    Use a genuinely new address each time — vary the street number and postcode, not just the flat number.
+
+    If a fresh address still shows the old behaviour, work through [Made changes but still seeing old rates](/made-changes-in-the-rule-but-still-seeing-the-old-rates).
+  </Accordion>
+
+  <Accordion title="Why are no shipping rates showing at checkout?">
+    The usual causes, in rough order of likelihood: CCS isn't enabled; the app is in test mode and you didn't use the `shipmagic` first name; ShipMagic isn't a rate provider on that shipping profile; zones haven't been synced; or the rule's conditions don't match your test cart.
+
+    Work through [Shipping Rates Not Showing On Checkout Page](/shipping-rates-not-showing-on-checkout-page), which covers all nine causes with a check and fix for each.
+  </Accordion>
+</AccordionGroup>
+
+## Billing
+
+<AccordionGroup>
+  <Accordion title="Which plan do I need?">
+    - **Starter** — Shipping Customizations only. Hide, rename, and reorder existing rates.
+    - **Pro** — Shipping Rates, including rates by zipcode, product, and customer, plus live carrier rates. Customizations are included.
+    - **Pro\+** — custom-coded shipping logic for requirements the standard rule engine can't express.
+
+    You only need a paid plan to run in **live mode**; testing is free. See [Billing](/core-concepts/billing).
+  </Accordion>
+
+  <Accordion title="How do I cancel my subscription?">
+    Uninstall the app from your store and the subscription is cancelled automatically. Removal is clean, with no residual code left in your theme.
+
+    Your rules and settings are preserved. If you reinstall later, you can reactivate a plan and continue with your saved setup.
+  </Accordion>
+</AccordionGroup>
+
+## Common shipping problems
+
+<AccordionGroup>
+  <Accordion title="How do I avoid double shipping charges from multiple locations?">
+    When an order is fulfilled from more than one location, Shopify can charge shipping for each — and Shopify itself offers no way to prevent it.
+
+    We've developed a solution that works well for flat rate shipping. Reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5) and we'll help you set it up.
+
+    See also [Prevent double shipping charges](/avoid-doubling-of-shipping-charges-due-to-multiple-locations).
+  </Accordion>
+
+  <Accordion title="Why does checkout show more shipping options than I expected?">
+    Most often your original Shopify rates are still in place alongside ShipMagic's. Delete the manual rates you no longer want from **Settings → Shipping and Delivery**.
+
+    Other causes include several rules matching one cart, overlapping ranged-rate bands, and live carriers returning many services at once. See [Multiple Shipping Rates Showing On Checkout Page](/multiple-shipping-rates-showing-on-checkout-page).
+  </Accordion>
+
+  <Accordion title="Can I show live rates from my own carrier account?">
+    Yes. ShipMagic connects directly to USPS, FedEx, Australia Post, ShipStation, Shiprocket, Stallion Express, and Direct Freight Express using your own account, so rates reflect your negotiated pricing.
+
+    Always set a **Default rate** on a carrier rate — if the carrier doesn't respond and no default is set, the customer sees no shipping option at all. Start with [the packing algorithm](/shipping-rates/types-of-rates/carrier-rates/3-d-boxing-algorithm), which determines what gets quoted.
+  </Accordion>
+</AccordionGroup>
+
+## Still have a question?
+
+<Columns cols={3}>
+  <Column>
+    <Card title="Live Chat" icon="message" href="https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5">
+    </Card>
+  </Column>
+  <Column>
+    <Card title="Email" icon="envelope" href="mailto:aditya@speedysquirrelhq.com">
+    </Card>
+  </Column>
+  <Column>
+    <Card title="Book a call" icon="calendar-days" href="https://cal.com/speedysquirrel/shipmagic-setup">
+    </Card>
+  </Column>
+</Columns>

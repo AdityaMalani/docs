@@ -92,7 +92,7 @@ Every rate starts with two fields:
 | Field | Notes |
 | --- | --- |
 | **Rate name** | Required. This is what the customer sees at checkout. |
-| **Description** | Optional, shown under the rate name at checkout. Supports `{{today}}` and `{{today+3}}` to insert dates dynamically — see [Rate Descriptions](/rate-descriptions). |
+| **Description** | Optional, shown under the rate name at checkout. Supports `{{today+3}}`, `{{today+3wd}}` (weekdays), and `{{today+3sd}}` (skipping Sundays) to insert delivery dates dynamically — see [Rate Descriptions](/rate-descriptions). |
 
 Then pick a **Calculation parameter**, which decides how the price is worked out.
 
@@ -105,12 +105,18 @@ Then pick a **Calculation parameter**, which decides how the price is worked out
 | **Total price of items** | Price based on cart value. |
 | **Total weight of items** | Price based on cart weight. |
 | **Percentage of total price** | Charge a percentage of the cart value. See [Percentage of Cart Subtotal](/percentage-of-cart-subtotal). |
-| **Product / Variant Metafield** | Read the price straight out of a metafield. See [Rates from Metafields](/rates-from-metafields). |
-| **Sum of Product / Variant Metafield** | Add up a metafield value across every item in the cart. |
+| **Product / Variant Metafield** | Use a metafield value as the price itself. See [Rates from Metafields](/rates-from-metafields). |
+| **Sum of Product / Variant Metafield** | Total a metafield across the cart and price that total in bands. |
 | **Distance** | Price based on distance between warehouse and destination. |
 | **Live carrier rate** | Fetch a real rate from USPS, FedEx, Australia Post, ShipStation, Shiprocket, Stallion Express, or Direct Freight Express. |
 
-**Fixed rate** just asks for a price. **Percentage of total price** asks for a percentage, with an optional _Round up to nearest integer_ checkbox. Everything else asks for a **Rate Type** as well.
+Not every parameter asks for a **Rate Type**. Three of them set the price directly:
+
+- **Fixed rate** just asks for a price.
+- **Percentage of total price** asks for a percentage, with an optional _Round up to nearest integer_ checkbox.
+- **Product Metafield** and **Variant Metafield** take the price from the metafield, with a default rate for products that have no value.
+
+Everything else — including the **Sum of** metafield parameters — asks for a **Rate Type** and a table of bands.
 
 ### Rate types
 

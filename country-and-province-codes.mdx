@@ -1,0 +1,201 @@
+---
+title: "Country and Province Codes"
+description: "Searchable reference of the country and province codes ShipMagic conditions expect"
+icon: "globe"
+---
+
+The **Country Code** and **Province / State Code** conditions match on short codes, not on full names. Entering `United States` will never match — you need `US`.
+
+Use the search below to find a code by country or province name.
+
+<Tip>
+  Country codes are separated by **semicolons** (`US;CA;GB`). Province codes are separated by **commas** (`CA,NY,TX`).
+</Tip>
+
+export const CodeLookup = () => {
+  const COUNTRIES = "AD:Andorra|AE:United Arab Emirates|AF:Afghanistan|AG:Antigua & Barbuda|AI:Anguilla|AL:Albania|AM:Armenia|AO:Angola|AQ:Antarctica|AR:Argentina|AS:American Samoa|AT:Austria|AU:Australia|AW:Aruba|AX:Aland Islands|AZ:Azerbaijan|BA:Bosnia & Herzegovina|BB:Barbados|BD:Bangladesh|BE:Belgium|BF:Burkina Faso|BG:Bulgaria|BH:Bahrain|BI:Burundi|BJ:Benin|BL:St. Barthelemy|BM:Bermuda|BN:Brunei|BO:Bolivia|BQ:Caribbean Netherlands|BR:Brazil|BS:Bahamas|BT:Bhutan|BV:Bouvet Island|BW:Botswana|BY:Belarus|BZ:Belize|CA:Canada|CC:Cocos (Keeling) Islands|CD:Congo - Kinshasa|CF:Central African Republic|CG:Congo - Brazzaville|CH:Switzerland|CI:Cote d'Ivoire|CK:Cook Islands|CL:Chile|CM:Cameroon|CN:China|CO:Colombia|CR:Costa Rica|CU:Cuba|CV:Cape Verde|CW:Curacao|CX:Christmas Island|CY:Cyprus|CZ:Czechia|DE:Germany|DJ:Djibouti|DK:Denmark|DM:Dominica|DO:Dominican Republic|DZ:Algeria|EC:Ecuador|EE:Estonia|EG:Egypt|EH:Western Sahara|ER:Eritrea|ES:Spain|ET:Ethiopia|FI:Finland|FJ:Fiji|FK:Falkland Islands|FM:Micronesia|FO:Faroe Islands|FR:France|GA:Gabon|GB:United Kingdom|GD:Grenada|GE:Georgia|GF:French Guiana|GG:Guernsey|GH:Ghana|GI:Gibraltar|GL:Greenland|GM:Gambia|GN:Guinea|GP:Guadeloupe|GQ:Equatorial Guinea|GR:Greece|GS:South Georgia & South Sandwich Islands|GT:Guatemala|GU:Guam|GW:Guinea-Bissau|GY:Guyana|HK:Hong Kong SAR China|HM:Heard & McDonald Islands|HN:Honduras|HR:Croatia|HT:Haiti|HU:Hungary|ID:Indonesia|IE:Ireland|IL:Israel|IM:Isle of Man|IN:India|IO:British Indian Ocean Territory|IQ:Iraq|IR:Iran|IS:Iceland|IT:Italy|JE:Jersey|JM:Jamaica|JO:Jordan|JP:Japan|KE:Kenya|KG:Kyrgyzstan|KH:Cambodia|KI:Kiribati|KM:Comoros|KN:St. Kitts & Nevis|KP:North Korea|KR:South Korea|KW:Kuwait|KY:Cayman Islands|KZ:Kazakhstan|LA:Laos|LB:Lebanon|LC:St. Lucia|LI:Liechtenstein|LK:Sri Lanka|LR:Liberia|LS:Lesotho|LT:Lithuania|LU:Luxembourg|LV:Latvia|LY:Libya|MA:Morocco|MC:Monaco|MD:Moldova|ME:Montenegro|MF:St. Martin|MG:Madagascar|MH:Marshall Islands|MK:North Macedonia|ML:Mali|MM:Myanmar (Burma)|MN:Mongolia|MO:Macao SAR China|MP:Northern Mariana Islands|MQ:Martinique|MR:Mauritania|MS:Montserrat|MT:Malta|MU:Mauritius|MV:Maldives|MW:Malawi|MX:Mexico|MY:Malaysia|MZ:Mozambique|NA:Namibia|NC:New Caledonia|NE:Niger|NF:Norfolk Island|NG:Nigeria|NI:Nicaragua|NL:Netherlands|NO:Norway|NP:Nepal|NR:Nauru|NU:Niue|NZ:New Zealand|OM:Oman|PA:Panama|PE:Peru|PF:French Polynesia|PG:Papua New Guinea|PH:Philippines|PK:Pakistan|PL:Poland|PM:St. Pierre & Miquelon|PN:Pitcairn Islands|PR:Puerto Rico|PS:Palestinian Territories|PT:Portugal|PW:Palau|PY:Paraguay|QA:Qatar|RE:Reunion|RO:Romania|RS:Serbia|RU:Russia|RW:Rwanda|SA:Saudi Arabia|SB:Solomon Islands|SC:Seychelles|SD:Sudan|SE:Sweden|SG:Singapore|SH:St. Helena|SI:Slovenia|SJ:Svalbard & Jan Mayen|SK:Slovakia|SL:Sierra Leone|SM:San Marino|SN:Senegal|SO:Somalia|SR:Suriname|SS:South Sudan|ST:Sao Tome & Principe|SV:El Salvador|SX:Sint Maarten|SY:Syria|SZ:Eswatini|TC:Turks & Caicos Islands|TD:Chad|TF:French Southern Territories|TG:Togo|TH:Thailand|TJ:Tajikistan|TK:Tokelau|TL:Timor-Leste|TM:Turkmenistan|TN:Tunisia|TO:Tonga|TR:Turkiye|TT:Trinidad & Tobago|TV:Tuvalu|TW:Taiwan|TZ:Tanzania|UA:Ukraine|UG:Uganda|UM:U.S. Outlying Islands|US:United States|UY:Uruguay|UZ:Uzbekistan|VA:Vatican City|VC:St. Vincent & Grenadines|VE:Venezuela|VG:British Virgin Islands|VI:U.S. Virgin Islands|VN:Vietnam|VU:Vanuatu|WF:Wallis & Futuna|WS:Samoa|XK:Kosovo|YE:Yemen|YT:Mayotte|ZA:South Africa|ZM:Zambia|ZW:Zimbabwe";
+
+  const PROVINCES = [
+    ["US", "United States", "AL:Alabama|AK:Alaska|AZ:Arizona|AR:Arkansas|CA:California|CO:Colorado|CT:Connecticut|DE:Delaware|DC:District of Columbia|FL:Florida|GA:Georgia|HI:Hawaii|ID:Idaho|IL:Illinois|IN:Indiana|IA:Iowa|KS:Kansas|KY:Kentucky|LA:Louisiana|ME:Maine|MD:Maryland|MA:Massachusetts|MI:Michigan|MN:Minnesota|MS:Mississippi|MO:Missouri|MT:Montana|NE:Nebraska|NV:Nevada|NH:New Hampshire|NJ:New Jersey|NM:New Mexico|NY:New York|NC:North Carolina|ND:North Dakota|OH:Ohio|OK:Oklahoma|OR:Oregon|PA:Pennsylvania|RI:Rhode Island|SC:South Carolina|SD:South Dakota|TN:Tennessee|TX:Texas|UT:Utah|VT:Vermont|VA:Virginia|WA:Washington|WV:West Virginia|WI:Wisconsin|WY:Wyoming|AS:American Samoa|GU:Guam|MP:Northern Mariana Islands|PR:Puerto Rico|VI:U.S. Virgin Islands|AA:Armed Forces Americas|AE:Armed Forces Europe|AP:Armed Forces Pacific"],
+    ["CA", "Canada", "AB:Alberta|BC:British Columbia|MB:Manitoba|NB:New Brunswick|NL:Newfoundland and Labrador|NT:Northwest Territories|NS:Nova Scotia|NU:Nunavut|ON:Ontario|PE:Prince Edward Island|QC:Quebec|SK:Saskatchewan|YT:Yukon"],
+    ["AU", "Australia", "ACT:Australian Capital Territory|NSW:New South Wales|NT:Northern Territory|QLD:Queensland|SA:South Australia|TAS:Tasmania|VIC:Victoria|WA:Western Australia"],
+    ["IE", "Ireland", "CW:Carlow|CN:Cavan|CE:Clare|CO:Cork|DL:Donegal|D:Dublin|G:Galway|KY:Kerry|KE:Kildare|KK:Kilkenny|LS:Laois|LM:Leitrim|LK:Limerick|LD:Longford|LH:Louth|MO:Mayo|MH:Meath|MN:Monaghan|OY:Offaly|RN:Roscommon|SO:Sligo|TA:Tipperary|WD:Waterford|WH:Westmeath|WX:Wexford|WW:Wicklow"],
+    ["NZ", "New Zealand", "AUK:Auckland|BOP:Bay of Plenty|CAN:Canterbury|CIT:Chatham Islands|GIS:Gisborne|HKB:Hawke's Bay|MWT:Manawatu-Wanganui|MBH:Marlborough|NSN:Nelson|NTL:Northland|OTA:Otago|STL:Southland|TKI:Taranaki|TAS:Tasman|WKO:Waikato|WGN:Wellington|WTC:West Coast"],
+    ["ZA", "South Africa", "EC:Eastern Cape|FS:Free State|GP:Gauteng|KZN:KwaZulu-Natal|LP:Limpopo|MP:Mpumalanga|NW:North West|NC:Northern Cape|WC:Western Cape"],
+    ["AE", "United Arab Emirates", "AZ:Abu Dhabi|AJ:Ajman|DU:Dubai|FU:Fujairah|RK:Ras al-Khaimah|SH:Sharjah|UQ:Umm al-Quwain"],
+    ["MY", "Malaysia", "JHR:Johor|KDH:Kedah|KTN:Kelantan|MLK:Melaka|NSN:Negeri Sembilan|PHG:Pahang|PRK:Perak|PLS:Perlis|PNG:Pulau Pinang|SBH:Sabah|SWK:Sarawak|SGR:Selangor|TRG:Terengganu|KUL:Kuala Lumpur|LBN:Labuan|PJY:Putrajaya"],
+    ["JP", "Japan", "JP-01:Hokkaido|JP-02:Aomori|JP-03:Iwate|JP-04:Miyagi|JP-05:Akita|JP-06:Yamagata|JP-07:Fukushima|JP-08:Ibaraki|JP-09:Tochigi|JP-10:Gunma|JP-11:Saitama|JP-12:Chiba|JP-13:Tokyo|JP-14:Kanagawa|JP-15:Niigata|JP-16:Toyama|JP-17:Ishikawa|JP-18:Fukui|JP-19:Yamanashi|JP-20:Nagano|JP-21:Gifu|JP-22:Shizuoka|JP-23:Aichi|JP-24:Mie|JP-25:Shiga|JP-26:Kyoto|JP-27:Osaka|JP-28:Hyogo|JP-29:Nara|JP-30:Wakayama|JP-31:Tottori|JP-32:Shimane|JP-33:Okayama|JP-34:Hiroshima|JP-35:Yamaguchi|JP-36:Tokushima|JP-37:Kagawa|JP-38:Ehime|JP-39:Kochi|JP-40:Fukuoka|JP-41:Saga|JP-42:Nagasaki|JP-43:Kumamoto|JP-44:Oita|JP-45:Miyazaki|JP-46:Kagoshima|JP-47:Okinawa"]
+  ];
+
+  const parse = (s) => s.split("|").map((p) => {
+    const i = p.indexOf(":");
+    return { code: p.slice(0, i), name: p.slice(i + 1) };
+  });
+
+  const [q, setQ] = useState("");
+  const term = q.trim().toLowerCase();
+
+  const countries = useMemo(() => parse(COUNTRIES), []);
+  const provinceGroups = useMemo(
+    () => PROVINCES.map(([cc, cname, data]) => ({ cc, cname, rows: parse(data) })),
+    []
+  );
+
+  const hit = (r) =>
+    !term ||
+    r.code.toLowerCase().indexOf(term) === 0 ||
+    r.name.toLowerCase().indexOf(term) !== -1;
+
+  const shownCountries = countries.filter(hit);
+  const shownProvinces = provinceGroups
+    .map((g) => ({
+      ...g,
+      rows: g.cname.toLowerCase().indexOf(term) !== -1 ? g.rows : g.rows.filter(hit)
+    }))
+    .filter((g) => g.rows.length > 0);
+
+  const border = "1px solid rgba(128,128,128,0.25)";
+  const inputStyle = {
+    width: "100%",
+    padding: "10px 12px",
+    fontSize: "15px",
+    borderRadius: "8px",
+    border: border,
+    background: "transparent",
+    color: "inherit",
+    outline: "none"
+  };
+  const cellCode = {
+    padding: "6px 10px",
+    borderBottom: border,
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    whiteSpace: "nowrap",
+    width: "1%"
+  };
+  const cellName = { padding: "6px 10px", borderBottom: border };
+  const tableStyle = { width: "100%", borderCollapse: "collapse", fontSize: "14px", margin: "0 0 4px" };
+  const muted = { opacity: 0.6, fontSize: "13px", margin: "8px 0 20px" };
+
+  const Table = ({ rows }) => (
+    <table style={tableStyle}>
+      <tbody>
+        {rows.map((r) => (
+          <tr key={r.code + r.name}>
+            <td style={cellCode}>{r.code}</td>
+            <td style={cellName}>{r.name}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+
+  const totalProvinceRows = shownProvinces.reduce((n, g) => n + g.rows.length, 0);
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder="Search by country or province name, or by code..."
+        style={inputStyle}
+      />
+
+      <p style={muted}>
+        {shownCountries.length} {shownCountries.length === 1 ? "country" : "countries"}
+        {" · "}
+        {totalProvinceRows} {totalProvinceRows === 1 ? "province" : "provinces"}
+      </p>
+
+      {shownCountries.length === 0 && totalProvinceRows === 0 && (
+        <p style={{ opacity: 0.7 }}>
+          Nothing matched “{q}”. Try a shorter search, or check the spelling against the
+          full lists below by clearing the box.
+        </p>
+      )}
+
+      {shownCountries.length > 0 && (
+        <div>
+          <h2>Country codes</h2>
+          <Table rows={shownCountries} />
+        </div>
+      )}
+
+      {shownProvinces.length > 0 && (
+        <div>
+          <h2>Province and state codes</h2>
+          {shownProvinces.map((g) => (
+            <div key={g.cc} style={{ marginBottom: "24px" }}>
+              <h3>
+                {g.cname} <span style={{ opacity: 0.5, fontWeight: 400 }}>({g.cc})</span>
+              </h3>
+              <Table rows={g.rows} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+<CodeLookup />
+
+## Where these are used
+
+**Country Code** appears in both [shipping rate](/customer-location-and-address) and [customization](/customer-location-and-address-1) conditions. Separate multiple values with **semicolons**:
+
+```text
+Condition 1: Country Code <> Equals <> US;CA;MX
+```
+
+**Province / State Code** appears in [shipping rate conditions](/customer-location-and-address), and in customization conditions under [parameter set 2](/ai-tools/different-parameter-sets-for-conditions). Separate multiple values with **commas**:
+
+```text
+Condition 1: Province / State Code <> Equals <> CA,NY,TX
+```
+
+<Warning>
+  Province codes are only unique **within** a country. `CA` is California in the US and Canada as a country; `WA` is Washington in the US and Western Australia in Australia; `SA` is South Australia and also Saudi Arabia.
+
+  Always pair a province condition with a country condition unless you ship to one country only.
+</Warning>
+
+```text
+Rule must match: All conditions
+Condition 1: Country Code <> Equals <> AU
+Condition 2: Province / State Code <> Equals <> WA,NT
+```
+
+## Province coverage
+
+Shopify only uses province codes for countries that have them. The lists above cover the countries ShipMagic merchants ask about most often.
+
+If you need province codes for a country not listed here — India, Italy, Spain, Brazil, China, Mexico, Thailand, Indonesia and others all have them — check Shopify's own reference:
+
+<Card title="Shopify countries and provinces" icon="arrow-up-right-from-square" href="https://matrixify.app/documentation/shopify-address-countries-and-provinces/">
+  The full list of country and province codes Shopify accepts.
+</Card>
+
+<Note>
+  Country codes follow **ISO 3166-1 alpha-2**. Province codes follow **ISO 3166-2**, with the subdivision prefix dropped for most countries — so California is `CA`, not `US-CA`. Japan is the notable exception, where the full `JP-13` form is used.
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Location conditions" icon="location-dot" href="/customer-location-and-address">
+    Postcode, country, and province conditions for shipping rates.
+  </Card>
+
+  <Card title="Customization location conditions" icon="location-dot" href="/customer-location-and-address-1">
+    The equivalent for customizations.
+  </Card>
+
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which set exposes Province / State Code.
+  </Card>
+
+  <Card title="Hide methods by region" icon="map-location-dot" href="/hide-shipping-methods-for-specific-regions">
+    Putting these codes to work.
+  </Card>
+</Columns>

@@ -1,0 +1,106 @@
+---
+title: "Distance-Based Rates"
+description: "Price shipping by how far the delivery address is from your warehouse"
+icon: "route"
+---
+
+Distance rates price shipping on how far the customer is from your origin, measured in kilometres. They suit local delivery, furniture, and anything you deliver with your own vehicles.
+
+<Note>
+  This rate type needs a **Google Maps API key**. Distances are calculated through Google's mapping service rather than estimated from postcodes.
+</Note>
+
+## Setting one up
+
+<Steps>
+  <Step title="Get a Google Maps API key">
+    Create one in the [Google Cloud Console](https://console.cloud.google.com/google/maps-apis) with the distance and geocoding services enabled. Google bills for usage, so review their pricing before going live.
+  </Step>
+  <Step title="Add a rate and choose Distance">
+    In your rule, click **Add rate** and set **Calculation parameter** to **Distance**.
+  </Step>
+  <Step title="Enter your API key">
+    Paste it into **Google maps API key**.
+  </Step>
+  <Step title="Set your origin">
+    Under **Origin Location**, give the **Country** and **Postcode** you deliver from.
+  </Step>
+  <Step title="Choose the calculation method">
+    **Distance calculation method (in kilometers)** decides how the distance is measured.
+  </Step>
+  <Step title="Set a Rate Type and prices">
+    Distance behaves like any other numeric parameter — pick **Range**, **Incremental**, **Range \+ Incremental**, or **Range \+ Range**, and price the bands.
+  </Step>
+</Steps>
+
+## Pricing by distance
+
+Distance pairs naturally with the standard rate types:
+
+**Range** gives you delivery bands — the usual shape for local delivery:
+
+| Range Start | Range End | Price |
+| --- | --- | --- |
+| 0 | 10 | 5.00 |
+| 10.01 | 25 | 10.00 |
+| 25.01 | 50 | 18.00 |
+| 50.01 | _(empty)_ | 30.00 |
+
+**Incremental** charges per kilometre — a base price plus an amount for every km beyond a starting point. See [Incremental / Per Item Rates](/incremental-per-item-rates).
+
+<Tip>
+  Leave the final band's **Range End** empty. Without it, a customer beyond your furthest band gets no rate at all — which on a distance rate means anyone unusually far away silently loses their shipping option.
+</Tip>
+
+## Restricting your delivery radius
+
+A distance rate alone doesn't stop someone far away from ordering — it just prices them. To decline delivery beyond a radius, cap your bands at that distance and don't add an open-ended final band, so no rate is produced past it.
+
+<Warning>
+  Do this deliberately. "No rate" and "we don't deliver there" look the same to the app but not to the customer, who simply sees a checkout they cannot complete with no explanation.
+
+  Consider a fallback rate with a [description](/rate-descriptions) explaining the situation, or a [customization](/ai-tools/actions-hide-rename-sort) that presents a clearer message.
+</Warning>
+
+## Multiple origins
+
+The origin is set per rate, so several warehouses means several rules — each with its own origin postcode and its own rate.
+
+Use the **Warehouse Zipcode / Postcode** [condition](/customer-location-and-address) to route each rule to the right origin.
+
+## Cost and reliability
+
+Every rate query calls Google, which has two consequences worth planning for.
+
+<Warning>
+  **Google bills per request.** A busy checkout generates a lot of them. Review Google's pricing and set a quota so an unexpected traffic spike doesn't produce an unexpected bill.
+</Warning>
+
+If Google is unavailable, the distance cannot be calculated. Test what your checkout does in that case before relying on distance rates as your only option.
+
+## Testing
+
+1. Check out to an address close to your origin and confirm the nearest band applies
+2. Try one far away and confirm the correct band — or no rate, if that's intended
+3. Test a boundary distance to confirm your bands don't overlap or leave a gap
+4. Use a fresh address each time, since rates are cached per address
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Ranged Rates" icon="chart-simple" href="/ranged-rates">
+    Building the distance bands.
+  </Card>
+
+  <Card title="Incremental rates" icon="plus-minus" href="/incremental-per-item-rates">
+    Charging per kilometre.
+  </Card>
+
+  <Card title="Location conditions" icon="location-dot" href="/customer-location-and-address">
+    Routing rules by warehouse origin.
+  </Card>
+
+  <Card title="Maximum and minimum" icon="arrows-up-down" href="/setting-maximum-and-minimum-shipping-rates">
+    Bounding a distance calculation.
+  </Card>
+</Columns>

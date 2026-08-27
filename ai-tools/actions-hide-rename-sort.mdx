@@ -31,17 +31,9 @@ These two solve the same problem from opposite directions, and choosing well sav
 - **Hide** is subtractive. You name what to remove; everything else stays.
 - **Only show** is exclusive. You name what to keep; everything else goes.
 
-<Note>
-  **Only show** is usually the safer choice for eligibility rules. If you later add a new shipping method in Shopify, a **Hide** rule won't know about it and the new method will leak through to customers who shouldn't see it. An **Only show** rule keeps working.
-</Note>
-
 ## Show
 
 **Show** displays the named methods without hiding anything else. It's mainly useful as the counterpart to a broad hide rule — one rule hides a method for everyone, another shows it back to a qualifying group.
-
-<Warning>
-  Order matters when combining rules. If one rule hides a method and another shows it, test the combination rather than assuming — check both a customer who should see it and one who shouldn't.
-</Warning>
 
 ## Rename
 
@@ -49,25 +41,11 @@ These two solve the same problem from opposite directions, and choosing well sav
 
 For each method you give the name to match and the new name to display.
 
-Common uses:
-
-- Turning a carrier's internal code into something readable — "FEDEX\_GROUND" into "Standard Delivery (3–5 days)".
-- Adding context for a segment — renaming "Standard Shipping" to "Free Wholesale Shipping" for tagged accounts.
-- Localising a label for a particular market.
-
-<Tip>
-  To add a delivery estimate rather than change the name, consider whether a [rate description](/rate-descriptions) fits better — descriptions appear beneath the method name and support dynamic dates.
-</Tip>
-
 ## Reorder
 
 **Reorder** changes which methods appear first. For each method you give the name to match and its new position.
 
-Checkout defaults to ordering by price, which is not always what you want — the cheapest option is often the slowest, and putting it first can push customers toward a delivery experience they'll be unhappy with.
-
-<Tip>
-  Promoting your best-value option rather than your cheapest is one of the few checkout changes that reliably affects both margin and satisfaction. See [Optimizing checkout experience](/optimizing-checkout-experience).
-</Tip>
+Checkout defaults to ordering by price, which is not always what you want — the cheapest option is often the slowest, and putting it first can push customers toward a delivery experience they'll be unhappy with.<br /><br />Reordering can also help you change the default shipping option. Shopify, by default, selects the first shipping option as the default one.
 
 ## Apply rule to
 

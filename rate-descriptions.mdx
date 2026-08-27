@@ -17,37 +17,64 @@ Description: Delivery in 3-5 business days
 
 ## Dynamic dates
 
-Rather than a vague duration, you can show real dates using two placeholders:
+Rather than a vague duration, you can show real dates. There are three placeholder forms, differing in **which days they count**:
 
-| Placeholder | Renders as |
-| --- | --- |
-| `{{today}}` | Today's date |
-| `{{today+3}}` | Today's date plus 3 days |
+| Placeholder | Counts | Skips |
+| --- | --- | --- |
+| `{{today+N}}` | Calendar days | Nothing |
+| `{{today+Nwd}}` | Weekdays | Saturday and Sunday |
+| `{{today+Nsd}}` | Six-day week | Sunday only |
 
-The number after `+` is any number of days, so `{{today+1}}`, `{{today+7}}`, and `{{today+14}}` all work.
+`N` is any number, so `{{today+1}}`, `{{today+7wd}}`, and `{{today+14sd}}` all work. `{{today}}` on its own renders today's date.
+
+### Choosing the right form
+
+Match the placeholder to the days you actually dispatch:
+
+- **`wd`** — you work Monday to Friday. The right default for most stores.
+- **`sd`** — you also dispatch on Saturdays.
+- **plain `+N`** — genuinely every day including Sundays, or a short offset where the distinction doesn't matter.
+
+<Tip>
+  `{{today+3wd}}` on a Friday correctly lands on Wednesday, skipping the weekend. The plain `{{today+3}}` would say Monday and set an expectation you can't meet.
+
+  If you dispatch on working days, use `wd` or `sd`. The plain form is the one most likely to over-promise.
+</Tip>
+
+### How the date is rendered
+
+All three render in the same fixed format — abbreviated weekday, abbreviated month, and the day with an ordinal suffix:
+
+```text
+Tue, Apr 3rd
+```
+
+Dates are calculated in your **store's timezone**.
 
 ### Examples
 
 ```text
-Description: Order today, delivered by {{today+5}}
+Description: Order today, delivered by {{today+5wd}}
 ```
 
 ```text
-Description: Arrives between {{today+2}} and {{today+4}}
+Description: Arrives between {{today+2wd}} and {{today+4wd}}
 ```
 
 <Tip>
-  A concrete date outperforms a duration. "Arrives by 14 March" is something a customer can check against their own calendar; "3–5 business days" makes them do the arithmetic — and they will assume the worst end of the range.
+  A concrete date outperforms a duration. "Arrives by Tue, Apr 3rd" is something a customer can check against their own calendar; "3–5 business days" makes them do the arithmetic — and they will assume the worst end of the range.
 </Tip>
 
-## Choosing your day offsets
+## Building in your handling time
 
-The offsets are simple day arithmetic, so build your own handling time into them.
+The offset counts from **today**, not from dispatch. If you pick and pack the next working day, add that day yourself.
 
-If a carrier quotes 2 days transit but you dispatch the next working day, use `{{today+3}}` rather than `{{today+2}}`.
+A carrier quoting 2 working days transit, with next-day dispatch, is `{{today+3wd}}` — not `{{today+2wd}}`.
 
 <Warning>
-  The offset counts **calendar days**, not business days. A customer ordering on Friday with `{{today+2}}` is shown Sunday. Consider padding your offsets to absorb weekends, or keep to a range that reads sensibly either way.
+  **None of the three forms know about public holidays.** Over a long weekend or a seasonal shutdown, every quoted date runs optimistic — `wd` will happily count a bank holiday Monday as a working day.
+
+  Widen the range ahead of known closures, or use [scheduling](/scheduling-rule-changes) to swap in a holiday variant of the rule automatically.
 </Warning>
 
 ## Descriptions vs. carrier estimates

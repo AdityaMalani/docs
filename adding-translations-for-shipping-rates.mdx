@@ -54,11 +54,17 @@ The translation matching the customer's checkout locale is shown. If there's no 
 
 ## Dynamic dates still work
 
-`{{today}}` and `{{today+3}}` work inside translated descriptions exactly as they do in the original, and the date renders in the customer's locale format.
+All the [date placeholders](/rate-descriptions#dynamic-dates) — `{{today}}`, `{{today+N}}`, `{{today+Nwd}}`, and `{{today+Nsd}}` — work inside translated descriptions exactly as they do in the original.
 
 ```text
-Translated Description (French): Livraison prévue le {{today+3}}
+Translated Description (French): Livraison prévue le {{today+3wd}}
 ```
+
+<Warning>
+  **The date itself is not translated.** It always renders in the same English format — `Tue, Apr 3rd` — regardless of the customer's language.
+
+  A French description will therefore read "Livraison prévue le Tue, Apr 3rd". If that mixed-language result is unacceptable for your market, write the translated description with a duration instead of a placeholder.
+</Warning>
 
 ## Matching your Shopify translations
 

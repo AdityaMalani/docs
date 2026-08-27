@@ -6,25 +6,48 @@ icon: "globe"
 
 The **Country Code** and **Province / State Code** conditions match on short codes, not on full names. Entering `United States` will never match — you need `US`.
 
-Use the search below to find a code by country or province name.
+Search below by country name, province name, or code.
 
 <Tip>
   Country codes are separated by **semicolons** (`US;CA;GB`). Province codes are separated by **commas** (`CA,NY,TX`).
 </Tip>
 
 export const CodeLookup = () => {
-  const COUNTRIES = "AD:Andorra|AE:United Arab Emirates|AF:Afghanistan|AG:Antigua & Barbuda|AI:Anguilla|AL:Albania|AM:Armenia|AO:Angola|AQ:Antarctica|AR:Argentina|AS:American Samoa|AT:Austria|AU:Australia|AW:Aruba|AX:Aland Islands|AZ:Azerbaijan|BA:Bosnia & Herzegovina|BB:Barbados|BD:Bangladesh|BE:Belgium|BF:Burkina Faso|BG:Bulgaria|BH:Bahrain|BI:Burundi|BJ:Benin|BL:St. Barthelemy|BM:Bermuda|BN:Brunei|BO:Bolivia|BQ:Caribbean Netherlands|BR:Brazil|BS:Bahamas|BT:Bhutan|BV:Bouvet Island|BW:Botswana|BY:Belarus|BZ:Belize|CA:Canada|CC:Cocos (Keeling) Islands|CD:Congo - Kinshasa|CF:Central African Republic|CG:Congo - Brazzaville|CH:Switzerland|CI:Cote d'Ivoire|CK:Cook Islands|CL:Chile|CM:Cameroon|CN:China|CO:Colombia|CR:Costa Rica|CU:Cuba|CV:Cape Verde|CW:Curacao|CX:Christmas Island|CY:Cyprus|CZ:Czechia|DE:Germany|DJ:Djibouti|DK:Denmark|DM:Dominica|DO:Dominican Republic|DZ:Algeria|EC:Ecuador|EE:Estonia|EG:Egypt|EH:Western Sahara|ER:Eritrea|ES:Spain|ET:Ethiopia|FI:Finland|FJ:Fiji|FK:Falkland Islands|FM:Micronesia|FO:Faroe Islands|FR:France|GA:Gabon|GB:United Kingdom|GD:Grenada|GE:Georgia|GF:French Guiana|GG:Guernsey|GH:Ghana|GI:Gibraltar|GL:Greenland|GM:Gambia|GN:Guinea|GP:Guadeloupe|GQ:Equatorial Guinea|GR:Greece|GS:South Georgia & South Sandwich Islands|GT:Guatemala|GU:Guam|GW:Guinea-Bissau|GY:Guyana|HK:Hong Kong SAR China|HM:Heard & McDonald Islands|HN:Honduras|HR:Croatia|HT:Haiti|HU:Hungary|ID:Indonesia|IE:Ireland|IL:Israel|IM:Isle of Man|IN:India|IO:British Indian Ocean Territory|IQ:Iraq|IR:Iran|IS:Iceland|IT:Italy|JE:Jersey|JM:Jamaica|JO:Jordan|JP:Japan|KE:Kenya|KG:Kyrgyzstan|KH:Cambodia|KI:Kiribati|KM:Comoros|KN:St. Kitts & Nevis|KP:North Korea|KR:South Korea|KW:Kuwait|KY:Cayman Islands|KZ:Kazakhstan|LA:Laos|LB:Lebanon|LC:St. Lucia|LI:Liechtenstein|LK:Sri Lanka|LR:Liberia|LS:Lesotho|LT:Lithuania|LU:Luxembourg|LV:Latvia|LY:Libya|MA:Morocco|MC:Monaco|MD:Moldova|ME:Montenegro|MF:St. Martin|MG:Madagascar|MH:Marshall Islands|MK:North Macedonia|ML:Mali|MM:Myanmar (Burma)|MN:Mongolia|MO:Macao SAR China|MP:Northern Mariana Islands|MQ:Martinique|MR:Mauritania|MS:Montserrat|MT:Malta|MU:Mauritius|MV:Maldives|MW:Malawi|MX:Mexico|MY:Malaysia|MZ:Mozambique|NA:Namibia|NC:New Caledonia|NE:Niger|NF:Norfolk Island|NG:Nigeria|NI:Nicaragua|NL:Netherlands|NO:Norway|NP:Nepal|NR:Nauru|NU:Niue|NZ:New Zealand|OM:Oman|PA:Panama|PE:Peru|PF:French Polynesia|PG:Papua New Guinea|PH:Philippines|PK:Pakistan|PL:Poland|PM:St. Pierre & Miquelon|PN:Pitcairn Islands|PR:Puerto Rico|PS:Palestinian Territories|PT:Portugal|PW:Palau|PY:Paraguay|QA:Qatar|RE:Reunion|RO:Romania|RS:Serbia|RU:Russia|RW:Rwanda|SA:Saudi Arabia|SB:Solomon Islands|SC:Seychelles|SD:Sudan|SE:Sweden|SG:Singapore|SH:St. Helena|SI:Slovenia|SJ:Svalbard & Jan Mayen|SK:Slovakia|SL:Sierra Leone|SM:San Marino|SN:Senegal|SO:Somalia|SR:Suriname|SS:South Sudan|ST:Sao Tome & Principe|SV:El Salvador|SX:Sint Maarten|SY:Syria|SZ:Eswatini|TC:Turks & Caicos Islands|TD:Chad|TF:French Southern Territories|TG:Togo|TH:Thailand|TJ:Tajikistan|TK:Tokelau|TL:Timor-Leste|TM:Turkmenistan|TN:Tunisia|TO:Tonga|TR:Turkiye|TT:Trinidad & Tobago|TV:Tuvalu|TW:Taiwan|TZ:Tanzania|UA:Ukraine|UG:Uganda|UM:U.S. Outlying Islands|US:United States|UY:Uruguay|UZ:Uzbekistan|VA:Vatican City|VC:St. Vincent & Grenadines|VE:Venezuela|VG:British Virgin Islands|VI:U.S. Virgin Islands|VN:Vietnam|VU:Vanuatu|WF:Wallis & Futuna|WS:Samoa|XK:Kosovo|YE:Yemen|YT:Mayotte|ZA:South Africa|ZM:Zambia|ZW:Zimbabwe";
+  const COUNTRIES = "AC:Ascension Island|AD:Andorra|AE:United Arab Emirates|AF:Afghanistan|AG:Antigua And Barbuda|AI:Anguilla|AL:Albania|AM:Armenia|AN:Netherlands Antilles|AO:Angola|AR:Argentina|AT:Austria|AU:Australia|AW:Aruba|AX:Aland Islands|AZ:Azerbaijan|BA:Bosnia And Herzegovina|BB:Barbados|BD:Bangladesh|BE:Belgium|BF:Burkina Faso|BG:Bulgaria|BH:Bahrain|BI:Burundi|BJ:Benin|BL:Saint Barthélemy|BM:Bermuda|BN:Brunei|BO:Bolivia|BQ:Caribbean Netherlands|BR:Brazil|BS:Bahamas|BT:Bhutan|BV:Bouvet Island|BW:Botswana|BY:Belarus|BZ:Belize|CA:Canada|CC:Cocos (Keeling) Islands|CD:Congo, The Democratic Republic Of The|CF:Central African Republic|CG:Congo|CH:Switzerland|CI:Côte d’Ivoire|CK:Cook Islands|CL:Chile|CM:Republic of Cameroon|CN:China|CO:Colombia|CR:Costa Rica|CU:Cuba|CV:Cape Verde|CW:Curaçao|CX:Christmas Island|CY:Cyprus|CZ:Czech Republic|DE:Germany|DJ:Djibouti|DK:Denmark|DM:Dominica|DO:Dominican Republic|DZ:Algeria|EC:Ecuador|EE:Estonia|EG:Egypt|EH:Western Sahara|ER:Eritrea|ES:Spain|ET:Ethiopia|FI:Finland|FJ:Fiji|FK:Falkland Islands (Malvinas)|FO:Faroe Islands|FR:France|GA:Gabon|GB:United Kingdom|GD:Grenada|GE:Georgia|GF:French Guiana|GG:Guernsey|GH:Ghana|GI:Gibraltar|GL:Greenland|GM:Gambia|GN:Guinea|GP:Guadeloupe|GQ:Equatorial Guinea|GR:Greece|GS:South Georgia And The South Sandwich Islands|GT:Guatemala|GW:Guinea Bissau|GY:Guyana|HK:Hong Kong|HM:Heard Island And Mcdonald Islands|HN:Honduras|HR:Croatia|HT:Haiti|HU:Hungary|ID:Indonesia|IE:Ireland|IL:Israel|IM:Isle Of Man|IN:India|IO:British Indian Ocean Territory|IQ:Iraq|IR:Iran, Islamic Republic Of|IS:Iceland|IT:Italy|JE:Jersey|JM:Jamaica|JO:Jordan|JP:Japan|KE:Kenya|KG:Kyrgyzstan|KH:Cambodia|KI:Kiribati|KM:Comoros|KN:Saint Kitts And Nevis|KP:Korea, Democratic People’s Republic Of|KR:South Korea|KW:Kuwait|KY:Cayman Islands|KZ:Kazakhstan|LA:Lao People’s Democratic Republic|LB:Lebanon|LC:Saint Lucia|LI:Liechtenstein|LK:Sri Lanka|LR:Liberia|LS:Lesotho|LT:Lithuania|LU:Luxembourg|LV:Latvia|LY:Libyan Arab Jamahiriya|MA:Morocco|MC:Monaco|MD:Moldova, Republic of|ME:Montenegro|MF:Saint Martin|MG:Madagascar|MK:North Macedonia|ML:Mali|MM:Myanmar|MN:Mongolia|MO:Macao|MQ:Martinique|MR:Mauritania|MS:Montserrat|MT:Malta|MU:Mauritius|MV:Maldives|MW:Malawi|MX:Mexico|MY:Malaysia|MZ:Mozambique|NA:Namibia|NC:New Caledonia|NE:Niger|NF:Norfolk Island|NG:Nigeria|NI:Nicaragua|NL:Netherlands|NO:Norway|NP:Nepal|NR:Nauru|NU:Niue|NZ:New Zealand|OM:Oman|PA:Panama|PE:Peru|PF:French Polynesia|PG:Papua New Guinea|PH:Philippines|PK:Pakistan|PL:Poland|PM:Saint Pierre And Miquelon|PN:Pitcairn|PS:Palestinian Territory, Occupied|PT:Portugal|PY:Paraguay|QA:Qatar|RE:Reunion|RO:Romania|RS:Serbia|RU:Russia|RW:Rwanda|SA:Saudi Arabia|SB:Solomon Islands|SC:Seychelles|SD:Sudan|SE:Sweden|SG:Singapore|SH:Saint Helena|SI:Slovenia|SJ:Svalbard And Jan Mayen|SK:Slovakia|SL:Sierra Leone|SM:San Marino|SN:Senegal|SO:Somalia|SR:Suriname|SS:South Sudan|ST:Sao Tome And Principe|SV:El Salvador|SX:Sint Maarten|SY:Syria|SZ:Eswatini|TA:Tristan da Cunha|TC:Turks and Caicos Islands|TD:Chad|TF:French Southern Territories|TG:Togo|TH:Thailand|TJ:Tajikistan|TK:Tokelau|TL:Timor Leste|TM:Turkmenistan|TN:Tunisia|TO:Tonga|TR:Turkey|TT:Trinidad and Tobago|TV:Tuvalu|TW:Taiwan|TZ:Tanzania, United Republic Of|UA:Ukraine|UG:Uganda|UM:United States Minor Outlying Islands|US:United States|UY:Uruguay|UZ:Uzbekistan|VA:Holy See (Vatican City State)|VC:St. Vincent|VE:Venezuela|VG:Virgin Islands, British|VN:Vietnam|VU:Vanuatu|WF:Wallis And Futuna|WS:Samoa|XK:Kosovo|YE:Yemen|YT:Mayotte|ZA:South Africa|ZM:Zambia|ZW:Zimbabwe";
 
-  const PROVINCES = [
-    ["US", "United States", "AL:Alabama|AK:Alaska|AZ:Arizona|AR:Arkansas|CA:California|CO:Colorado|CT:Connecticut|DE:Delaware|DC:District of Columbia|FL:Florida|GA:Georgia|HI:Hawaii|ID:Idaho|IL:Illinois|IN:Indiana|IA:Iowa|KS:Kansas|KY:Kentucky|LA:Louisiana|ME:Maine|MD:Maryland|MA:Massachusetts|MI:Michigan|MN:Minnesota|MS:Mississippi|MO:Missouri|MT:Montana|NE:Nebraska|NV:Nevada|NH:New Hampshire|NJ:New Jersey|NM:New Mexico|NY:New York|NC:North Carolina|ND:North Dakota|OH:Ohio|OK:Oklahoma|OR:Oregon|PA:Pennsylvania|RI:Rhode Island|SC:South Carolina|SD:South Dakota|TN:Tennessee|TX:Texas|UT:Utah|VT:Vermont|VA:Virginia|WA:Washington|WV:West Virginia|WI:Wisconsin|WY:Wyoming|AS:American Samoa|GU:Guam|MP:Northern Mariana Islands|PR:Puerto Rico|VI:U.S. Virgin Islands|AA:Armed Forces Americas|AE:Armed Forces Europe|AP:Armed Forces Pacific"],
-    ["CA", "Canada", "AB:Alberta|BC:British Columbia|MB:Manitoba|NB:New Brunswick|NL:Newfoundland and Labrador|NT:Northwest Territories|NS:Nova Scotia|NU:Nunavut|ON:Ontario|PE:Prince Edward Island|QC:Quebec|SK:Saskatchewan|YT:Yukon"],
-    ["AU", "Australia", "ACT:Australian Capital Territory|NSW:New South Wales|NT:Northern Territory|QLD:Queensland|SA:South Australia|TAS:Tasmania|VIC:Victoria|WA:Western Australia"],
-    ["IE", "Ireland", "CW:Carlow|CN:Cavan|CE:Clare|CO:Cork|DL:Donegal|D:Dublin|G:Galway|KY:Kerry|KE:Kildare|KK:Kilkenny|LS:Laois|LM:Leitrim|LK:Limerick|LD:Longford|LH:Louth|MO:Mayo|MH:Meath|MN:Monaghan|OY:Offaly|RN:Roscommon|SO:Sligo|TA:Tipperary|WD:Waterford|WH:Westmeath|WX:Wexford|WW:Wicklow"],
-    ["NZ", "New Zealand", "AUK:Auckland|BOP:Bay of Plenty|CAN:Canterbury|CIT:Chatham Islands|GIS:Gisborne|HKB:Hawke's Bay|MWT:Manawatu-Wanganui|MBH:Marlborough|NSN:Nelson|NTL:Northland|OTA:Otago|STL:Southland|TKI:Taranaki|TAS:Tasman|WKO:Waikato|WGN:Wellington|WTC:West Coast"],
-    ["ZA", "South Africa", "EC:Eastern Cape|FS:Free State|GP:Gauteng|KZN:KwaZulu-Natal|LP:Limpopo|MP:Mpumalanga|NW:North West|NC:Northern Cape|WC:Western Cape"],
-    ["AE", "United Arab Emirates", "AZ:Abu Dhabi|AJ:Ajman|DU:Dubai|FU:Fujairah|RK:Ras al-Khaimah|SH:Sharjah|UQ:Umm al-Quwain"],
-    ["MY", "Malaysia", "JHR:Johor|KDH:Kedah|KTN:Kelantan|MLK:Melaka|NSN:Negeri Sembilan|PHG:Pahang|PRK:Perak|PLS:Perlis|PNG:Pulau Pinang|SBH:Sabah|SWK:Sarawak|SGR:Selangor|TRG:Terengganu|KUL:Kuala Lumpur|LBN:Labuan|PJY:Putrajaya"],
-    ["JP", "Japan", "JP-01:Hokkaido|JP-02:Aomori|JP-03:Iwate|JP-04:Miyagi|JP-05:Akita|JP-06:Yamagata|JP-07:Fukushima|JP-08:Ibaraki|JP-09:Tochigi|JP-10:Gunma|JP-11:Saitama|JP-12:Chiba|JP-13:Tokyo|JP-14:Kanagawa|JP-15:Niigata|JP-16:Toyama|JP-17:Ishikawa|JP-18:Fukui|JP-19:Yamanashi|JP-20:Nagano|JP-21:Gifu|JP-22:Shizuoka|JP-23:Aichi|JP-24:Mie|JP-25:Shiga|JP-26:Kyoto|JP-27:Osaka|JP-28:Hyogo|JP-29:Nara|JP-30:Wakayama|JP-31:Tottori|JP-32:Shimane|JP-33:Okayama|JP-34:Hiroshima|JP-35:Yamaguchi|JP-36:Tokushima|JP-37:Kagawa|JP-38:Ehime|JP-39:Kochi|JP-40:Fukuoka|JP-41:Saga|JP-42:Nagasaki|JP-43:Kumamoto|JP-44:Oita|JP-45:Miyazaki|JP-46:Kagoshima|JP-47:Okinawa"]
+  const PROVINCE_DATA = [
+    "AR^Argentina^B:Buenos Aires|K:Catamarca|H:Chaco|U:Chubut|C:Ciudad Autónoma de Buenos Aires|X:Córdoba|W:Corrientes|E:Entre Ríos|P:Formosa|Y:Jujuy|L:La Pampa|F:La Rioja|M:Mendoza|N:Misiones|Q:Neuquén|R:Río Negro|A:Salta|J:San Juan|D:San Luis|Z:Santa Cruz|S:Santa Fe|G:Santiago Del Estero|V:Tierra Del Fuego|T:Tucumán",
+    "AU^Australia^ACT:Australian Capital Territory|NSW:New South Wales|NT:Northern Territory|QLD:Queensland|SA:South Australia|TAS:Tasmania|VIC:Victoria|WA:Western Australia",
+    "BR^Brazil^AC:Acre|AL:Alagoas|AP:Amapá|AM:Amazonas|BA:Bahia|CE:Ceará|DF:Distrito Federal|ES:Espírito Santo|GO:Goiás|MA:Maranhão|MT:Mato Grosso|MS:Mato Grosso do Sul|MG:Minas Gerais|PA:Pará|PB:Paraíba|PR:Paraná|PE:Pernambuco|PI:Piauí|RJ:Rio de Janeiro|RN:Rio Grande do Norte|RS:Rio Grande do Sul|RO:Rondônia|RR:Roraima|SC:Santa Catarina|SP:São Paulo|SE:Sergipe|TO:Tocantins",
+    "CA^Canada^AB:Alberta|BC:British Columbia|MB:Manitoba|NB:New Brunswick|NL:Newfoundland and Labrador|NT:Northwest Territories|NS:Nova Scotia|NU:Nunavut|ON:Ontario|PE:Prince Edward Island|QC:Quebec|SK:Saskatchewan|YT:Yukon",
+    "CL^Chile^AP:Arica and Parinacota|TA:Tarapacá|AN:Antofagasta|AT:Atacama|CO:Coquimbo|VS:Valparaíso|RM:Santiago|LI:O’Higgins|ML:Maule|NB:Ñuble|BI:Biobío|AR:Araucanía|LR:Los Ríos|LL:Los Lagos|AI:Aysén|MA:Magallanes",
+    "CN^China^AH:Anhui|BJ:Beijing|CQ:Chongqing|FJ:Fujian|GS:Gansu|GD:Guangdong|GX:Guangxi|GZ:Guizhou|HI:Hainan|HE:Hebei|HL:Heilongjiang|HA:Henan|HB:Hubei|HN:Hunan|NM:Inner Mongolia|JS:Jiangsu|JX:Jiangxi|JL:Jilin|LN:Liaoning|NX:Ningxia|QH:Qinghai|SN:Shaanxi|SD:Shandong|SH:Shanghai|SX:Shanxi|SC:Sichuan|TJ:Tianjin|XJ:Xinjiang|YZ:Xizang|YN:Yunnan|ZJ:Zhejiang",
+    "CO^Colombia^AMA:Amazonas|ANT:Antioquia|ARA:Arauca|ATL:Atlántico|DC:Bogotá, D.C.|BOL:Bolívar|BOY:Boyacá|CAL:Caldas|CAQ:Caquetá|CAS:Casanare|CAU:Cauca|CES:Cesar|CHO:Chocó|COR:Córdoba|CUN:Cundinamarca|GUA:Guainía|GUV:Guaviare|HUI:Huila|LAG:La Guajira|MAG:Magdalena|MET:Meta|NAR:Nariño|NSA:Norte de Santander|PUT:Putumayo|QUI:Quindío|RIS:Risaralda|SAP:San Andrés, Providencia y Santa Catalina|SAN:Santander|SUC:Sucre|TOL:Tolima|VAC:Valle del Cauca|VAU:Vaupés|VID:Vichada",
+    "EG^Egypt^SU:6th of October|SHR:Al Sharqia|ALX:Alexandria|ASN:Aswan|AST:Asyut|BH:Beheira|BNS:Beni Suef|C:Cairo|DK:Dakahlia|DT:Damietta|FYM:Faiyum|GH:Gharbia|GZ:Giza|HU:Helwan|IS:Ismailia|KFS:Kafr el-Sheikh|LX:Luxor|MT:Matrouh|MN:Minya|MNF:Monufia|WAD:New Valley|SIN:North Sinai|PTS:Port Said|KB:Qalyubia|KN:Qena|BA:Red Sea|SHG:Sohag|JS:South Sinai|SUZ:Suez",
+    "GT^Guatemala^AVE:Alta Verapaz|BVE:Baja Verapaz|CMT:Chimaltenango|CQM:Chiquimula|EPR:El Progreso|ESC:Escuintla|GUA:Guatemala|HUE:Huehuetenango|IZA:Izabal|JAL:Jalapa|JUT:Jutiapa|PET:Petén|QUE:Quetzaltenango|QUI:Quiché|RET:Retalhuleu|SAC:Sacatepéquez|SMA:San Marcos|SRO:Santa Rosa|SOL:Sololá|SUC:Suchitepéquez|TOT:Totonicapán|ZAC:Zacapa",
+    "HK^Hong Kong^HK:Hong Kong Island|KL:Kowloon|NT:New Territories",
+    "IN^India^AN:Andaman and Nicobar Islands|AP:Andhra Pradesh|AR:Arunachal Pradesh|AS:Assam|BR:Bihar|CH:Chandigarh|CG:Chhattisgarh|DN:Dadra and Nagar Haveli|DD:Daman and Diu|DL:Delhi|GA:Goa|GJ:Gujarat|HR:Haryana|HP:Himachal Pradesh|JK:Jammu and Kashmir|JH:Jharkhand|KA:Karnataka|KL:Kerala|LA:Ladakh|LD:Lakshadweep|MP:Madhya Pradesh|MH:Maharashtra|MN:Manipur|ML:Meghalaya|MZ:Mizoram|NL:Nagaland|OR:Odisha|PY:Puducherry|PB:Punjab|RJ:Rajasthan|SK:Sikkim|TN:Tamil Nadu|TS:Telangana|TR:Tripura|UP:Uttar Pradesh|UK:Uttarakhand|WB:West Bengal",
+    "ID^Indonesia^AC:Aceh|BA:Bali|BB:Bangka Belitung|BT:Banten|BE:Bengkulu|GO:Gorontalo|JK:Jakarta|JA:Jambi|JB:Jawa Barat|JT:Jawa Tengah|JI:Jawa Timur|KB:Kalimantan Barat|KS:Kalimantan Selatan|KT:Kalimantan Tengah|KI:Kalimantan Timur|KU:Kalimantan Utara|KR:Kepulauan Riau|LA:Lampung|MA:Maluku|MU:Maluku Utara|SU:North Sumatra|NB:Nusa Tenggara Barat|NT:Nusa Tenggara Timur|PA:Papua|PB:Papua Barat|RI:Riau|SS:South Sumatra|SR:Sulawesi Barat|SN:Sulawesi Selatan|ST:Sulawesi Tengah|SG:Sulawesi Tenggara|SA:Sulawesi Utara|SB:West Sumatra|YO:Yogyakarta",
+    "IE^Ireland^CW:Carlow|CN:Cavan|CE:Clare|CO:Cork|DL:Donegal|D:Dublin|G:Galway|KY:Kerry|KE:Kildare|KK:Kilkenny|LS:Laois|LM:Leitrim|LK:Limerick|LD:Longford|LH:Louth|MO:Mayo|MH:Meath|MN:Monaghan|OY:Offaly|RN:Roscommon|SO:Sligo|TA:Tipperary|WD:Waterford|WH:Westmeath|WX:Wexford|WW:Wicklow",
+    "IT^Italy^AG:Agrigento|AL:Alessandria|AN:Ancona|AO:Aosta|AR:Arezzo|AP:Ascoli Piceno|AT:Asti|AV:Avellino|BA:Bari|BT:Barletta-Andria-Trani|BL:Belluno|BN:Benevento|BG:Bergamo|BI:Biella|BO:Bologna|BZ:Bolzano|BS:Brescia|BR:Brindisi|CA:Cagliari|CL:Caltanissetta|CB:Campobasso|CI:Carbonia-Iglesias|CE:Caserta|CT:Catania|CZ:Catanzaro|CH:Chieti|CO:Como|CS:Cosenza|CR:Cremona|KR:Crotone|CN:Cuneo|EN:Enna|FM:Fermo|FE:Ferrara|FI:Firenze|FG:Foggia|FC:Forlì-Cesena|FR:Frosinone|GE:Genova|GO:Gorizia|GR:Grosseto|IM:Imperia|IS:Isernia|AQ:L’Aquila|SP:La Spezia|LT:Latina|LE:Lecce|LC:Lecco|LI:Livorno|LO:Lodi|LU:Lucca|MC:Macerata|MN:Mantova|MS:Massa-Carrara|MT:Matera|VS:Medio Campidano|ME:Messina|MI:Milano|MO:Modena|MB:Monza e Brianza|NA:Napoli|NO:Novara|NU:Nuoro|OG:Ogliastra|OT:Olbia-Tempio|OR:Oristano|PD:Padova|PA:Palermo|PR:Parma|PV:Pavia|PG:Perugia|PU:Pesaro e Urbino|PE:Pescara|PC:Piacenza|PI:Pisa|PT:Pistoia|PN:Pordenone|PZ:Potenza|PO:Prato|RG:Ragusa|RA:Ravenna|RC:Reggio Calabria|RE:Reggio Emilia|RI:Rieti|RN:Rimini|RM:Roma|RO:Rovigo|SA:Salerno|SS:Sassari|SV:Savona|SI:Siena|SR:Siracusa|SO:Sondrio|TA:Taranto|TE:Teramo|TR:Terni|TO:Torino|TP:Trapani|TN:Trento|TV:Treviso|TS:Trieste|UD:Udine|VA:Varese|VE:Venezia|VB:Verbano-Cusio-Ossola|VC:Vercelli|VR:Verona|VV:Vibo Valentia|VI:Vicenza|VT:Viterbo",
+    "JP^Japan^JP-01:Hokkaidō|JP-02:Aomori|JP-03:Iwate|JP-04:Miyagi|JP-05:Akita|JP-06:Yamagata|JP-07:Fukushima|JP-08:Ibaraki|JP-09:Tochigi|JP-10:Gunma|JP-11:Saitama|JP-12:Chiba|JP-13:Tōkyō|JP-14:Kanagawa|JP-15:Niigata|JP-16:Toyama|JP-17:Ishikawa|JP-18:Fukui|JP-19:Yamanashi|JP-20:Nagano|JP-21:Gifu|JP-22:Shizuoka|JP-23:Aichi|JP-24:Mie|JP-25:Shiga|JP-26:Kyōto|JP-27:Ōsaka|JP-28:Hyōgo|JP-29:Nara|JP-30:Wakayama|JP-31:Tottori|JP-32:Shimane|JP-33:Okayama|JP-34:Hiroshima|JP-35:Yamaguchi|JP-36:Tokushima|JP-37:Kagawa|JP-38:Ehime|JP-39:Kōchi|JP-40:Fukuoka|JP-41:Saga|JP-42:Nagasaki|JP-43:Kumamoto|JP-44:Ōita|JP-45:Miyazaki|JP-46:Kagoshima|JP-47:Okinawa",
+    "MY^Malaysia^JHR:Johor|KDH:Kedah|KTN:Kelantan|KUL:Kuala Lumpur|LBN:Labuan|MLK:Melaka|NSN:Negeri Sembilan|PHG:Pahang|PNG:Penang|PRK:Perak|PLS:Perlis|PJY:Putrajaya|SBH:Sabah|SWK:Sarawak|SGR:Selangor|TRG:Terengganu",
+    "MX^Mexico^AGS:Aguascalientes|BC:Baja California|BCS:Baja California Sur|CAMP:Campeche|CHIS:Chiapas|CHIH:Chihuahua|DF:Ciudad de México|COAH:Coahuila|COL:Colima|DGO:Durango|GTO:Guanajuato|GRO:Guerrero|HGO:Hidalgo|JAL:Jalisco|MEX:México|MICH:Michoacán|MOR:Morelos|NAY:Nayarit|NL:Nuevo León|OAX:Oaxaca|PUE:Puebla|QRO:Querétaro|Q ROO:Quintana Roo|SLP:San Luis Potosí|SIN:Sinaloa|SON:Sonora|TAB:Tabasco|TAMPS:Tamaulipas|TLAX:Tlaxcala|VER:Veracruz|YUC:Yucatán|ZAC:Zacatecas",
+    "NZ^New Zealand^AUK:Auckland|BOP:Bay of Plenty|CAN:Canterbury|CIT:Chatham Islands|GIS:Gisborne|HKB:Hawke’s Bay|MWT:Manawatu-Wanganui|MBH:Marlborough|NSN:Nelson|NTL:Northland|OTA:Otago|STL:Southland|TKI:Taranaki|TAS:Tasman|WKO:Waikato|WGN:Wellington|WTC:West Coast",
+    "NG^Nigeria^AB:Abia|FC:Abuja Federal Capital Territory|AD:Adamawa|AK:Akwa Ibom|AN:Anambra|BA:Bauchi|BY:Bayelsa|BE:Benue|BO:Borno|CR:Cross River|DE:Delta|EB:Ebonyi|ED:Edo|EK:Ekiti|EN:Enugu|GO:Gombe|IM:Imo|JI:Jigawa|KD:Kaduna|KN:Kano|KT:Katsina|KE:Kebbi|KO:Kogi|KW:Kwara|LA:Lagos|NA:Nasarawa|NI:Niger|OG:Ogun|ON:Ondo|OS:Osun|OY:Oyo|PL:Plateau|RI:Rivers|SO:Sokoto|TA:Taraba|YO:Yobe|ZA:Zamfara",
+    "PA^Panama^PA-1:Bocas del Toro|PA-4:Chiriquí|PA-2:Coclé|PA-3:Colón|PA-5:Darién|PA-EM:Emberá|PA-6:Herrera|PA-KY:Kuna Yala|PA-7:Los Santos|PA-NB:Ngöbe-Buglé|PA-8:Panamá|PA-10:Panamá Oeste|PA-9:Veraguas",
+    "PE^Peru^PE-AMA:Amazonas|PE-ANC:Áncash|PE-APU:Apurímac|PE-ARE:Arequipa|PE-AYA:Ayacucho|PE-CAJ:Cajamarca|PE-CAL:Callao|PE-CUS:Cuzco|PE-HUV:Huancavelica|PE-HUC:Huánuco|PE-ICA:Ica|PE-JUN:Junín|PE-LAL:La Libertad|PE-LAM:Lambayeque|PE-LIM:Lima (departamento)|PE-LMA:Lima (provincia)|PE-LOR:Loreto|PE-MDD:Madre de Dios|PE-MOQ:Moquegua|PE-PAS:Pasco|PE-PIU:Piura|PE-PUN:Puno|PE-SAM:San Martín|PE-TAC:Tacna|PE-TUM:Tumbes|PE-UCA:Ucayali",
+    "PH^Philippines^PH-ABR:Abra|PH-AGN:Agusan del Norte|PH-AGS:Agusan del Sur|PH-AKL:Aklan|PH-ALB:Albay|PH-ANT:Antique|PH-APA:Apayao|PH-AUR:Aurora|PH-BAS:Basilan|PH-BAN:Bataan|PH-BTN:Batanes|PH-BTG:Batangas|PH-BEN:Benguet|PH-BIL:Biliran|PH-BOH:Bohol|PH-BUK:Bukidnon|PH-BUL:Bulacan|PH-CAG:Cagayan|PH-CAN:Camarines Norte|PH-CAS:Camarines Sur|PH-CAM:Camiguin|PH-CAP:Capiz|PH-CAT:Catanduanes|PH-CAV:Cavite|PH-CEB:Cebu|PH-NCO:Cotabato|PH-COM:Davao de Oro|PH-DAV:Davao del Norte|PH-DAS:Davao del Sur|PH-DVO:Davao Occidental|PH-DAO:Davao Oriental|PH-DIN:Dinagat Islands|PH-EAS:Eastern Samar|PH-GUI:Guimaras|PH-IFU:Ifugao|PH-ILN:Ilocos Norte|PH-ILS:Ilocos Sur|PH-ILI:Iloilo|PH-ISA:Isabela|PH-KAL:Kalinga|PH-LUN:La Union|PH-LAG:Laguna|PH-LAN:Lanao del Norte|PH-LAS:Lanao del Sur|PH-LEY:Leyte|PH-MAG:Maguindanao|PH-MAD:Marinduque|PH-MAS:Masbate|PH-00:Metro Manila|PH-MSC:Misamis Occidental|PH-MSR:Misamis Oriental|PH-MOU:Mountain Province|PH-NEC:Negros Occidental|PH-NER:Negros Oriental|PH-NSA:Northern Samar|PH-NUE:Nueva Ecija|PH-NUV:Nueva Vizcaya|PH-MDC:Occidental Mindoro|PH-MDR:Oriental Mindoro|PH-PLW:Palawan|PH-PAM:Pampanga|PH-PAN:Pangasinan|PH-QUE:Quezon|PH-QUI:Quirino|PH-RIZ:Rizal|PH-ROM:Romblon|PH-WSA:Samar|PH-SAR:Sarangani|PH-SIG:Siquijor|PH-SOR:Sorsogon|PH-SCO:South Cotabato|PH-SLE:Southern Leyte|PH-SUK:Sultan Kudarat|PH-SLU:Sulu|PH-SUN:Surigao del Norte|PH-SUR:Surigao del Sur|PH-TAR:Tarlac|PH-TAW:Tawi-Tawi|PH-ZMB:Zambales|PH-ZAN:Zamboanga del Norte|PH-ZAS:Zamboanga del Sur|PH-ZSI:Zamboanga Sibugay",
+    "PT^Portugal^PT-20:Açores|PT-01:Aveiro|PT-02:Beja|PT-03:Braga|PT-04:Bragança|PT-05:Castelo Branco|PT-06:Coimbra|PT-07:Évora|PT-08:Faro|PT-09:Guarda|PT-10:Leiria|PT-11:Lisboa|PT-30:Madeira|PT-12:Portalegre|PT-13:Porto|PT-14:Santarém|PT-15:Setúbal|PT-16:Viana do Castelo|PT-17:Vila Real|PT-18:Viseu",
+    "RO^Romania^AB:Alba|AR:Arad|AG:Argeș|BC:Bacău|BH:Bihor|BN:Bistrița-Năsăud|BT:Botoșani|BV:Brașov|BR:Brăila|B:București|BZ:Buzău|CL:Călărași|CS:Caraș-Severin|CJ:Cluj|CT:Constanța|CV:Covasna|DB:Dâmbovița|DJ:Dolj|GL:Galați|GR:Giurgiu|GJ:Gorj|HR:Harghita|HD:Hunedoara|IS:Iași|IL:Ialomița|IF:Ilfov|MM:Maramureș|MH:Mehedinți|MS:Mureș|NT:Neamț|OT:Olt|PH:Prahova|SJ:Sălaj|SM:Satu Mare|SB:Sibiu|SV:Suceava|TR:Teleorman|TM:Timiș|TL:Tulcea|VL:Vâlcea|VS:Vaslui|VN:Vrancea",
+    "RU^Russia^AD:Republic of Adygeya|AL:Altai Republic|ALT:Altai Krai|AMU:Amur Oblast|ARK:Arkhangelsk Oblast|AST:Astrakhan Oblast|BA:Republic of Bashkortostan|BEL:Belgorod Oblast|BRY:Bryansk Oblast|BU:Republic of Buryatia|CE:Chechen Republic|CHE:Chelyabinsk Oblast|CHU:Chukotka Autonomous Okrug|CU:Chuvash Republic|DA:Republic of Dagestan|IN:Republic of Ingushetia|IRK:Irkutsk Oblast|IVA:Ivanovo Oblast|YEV:Jewish Autonomous Oblast|KB:Kabardino-Balkarian Republic|KGD:Kaliningrad Oblast|KL:Republic of Kalmykia|KLU:Kaluga Oblast|KAM:Kamchatka Krai|KC:Karachay–Cherkess Republic|KR:Republic of Karelia|KEM:Kemerovo Oblast|KHA:Khabarovsk Krai|KK:Republic of Khakassia|KHM:Khanty-Mansi Autonomous Okrug|KIR:Kirov Oblast|KO:Komi Republic|KOS:Kostroma Oblast|KDA:Krasnodar Krai|KYA:Krasnoyarsk Krai|KGN:Kurgan Oblast|KRS:Kursk Oblast|LEN:Leningrad Oblast|LIP:Lipetsk Oblast|MAG:Magadan Oblast|ME:Mari El Republic|MO:Republic of Mordovia|MOW:Moscow|MOS:Moscow Oblast|MUR:Murmansk Oblast|NIZ:Nizhny Novgorod Oblast|NGR:Novgorod Oblast|NVS:Novosibirsk Oblast|OMS:Omsk Oblast|ORE:Orenburg Oblast|ORL:Oryol Oblast|PNZ:Penza Oblast|PER:Perm Krai|PRI:Primorsky Krai|PSK:Pskov Oblast|ROS:Rostov Oblast|RYA:Ryazan Oblast|SPE:Saint Petersburg|SA:Sakha Republic (Yakutia)|SAK:Sakhalin Oblast|SAM:Samara Oblast|SAR:Saratov Oblast|SE:Republic of North Ossetia–Alania|SMO:Smolensk Oblast|STA:Stavropol Krai|SVE:Sverdlovsk Oblast|TAM:Tambov Oblast|TA:Republic of Tatarstan|TOM:Tomsk Oblast|TUL:Tula Oblast|TVE:Tver Oblast|TYU:Tyumen Oblast|TY:Tyva Republic|UD:Udmurtia|ULY:Ulyanovsk Oblast|VLA:Vladimir Oblast|VGG:Volgograd Oblast|VLG:Vologda Oblast|VOR:Voronezh Oblast|YAN:Yamalo-Nenets Autonomous Okrug|YAR:Yaroslavl Oblast|ZAB:Zabaykalsky Krai",
+    "ZA^South Africa^EC:Eastern Cape|FS:Free State|GT:Gauteng|NL:KwaZulu-Natal|LP:Limpopo|MP:Mpumalanga|NW:North West|NC:Northern Cape|WC:Western Cape",
+    "KR^South Korea^KR-26:Busan|KR-43:Chungbuk|KR-44:Chungnam|KR-27:Daegu|KR-30:Daejeon|KR-42:Gangwon|KR-29:Gwangju|KR-47:Gyeongbuk|KR-41:Gyeonggi|KR-48:Gyeongnam|KR-28:Incheon|KR-49:Jeju|KR-45:Jeonbuk|KR-46:Jeonnam|KR-50:Sejong|KR-11:Seoul|KR-31:Ulsan",
+    "ES^Spain^C:A Coruña|VI:Álava|AB:Albacete|A:Alicante|AL:Almería|O:Asturias|AV:Ávila|BA:Badajoz|PM:Balears|B:Barcelona|BU:Burgos|CC:Cáceres|CA:Cádiz|S:Cantabria|CS:Castellón|CE:Ceuta|CR:Ciudad Real|CO:Córdoba|CU:Cuenca|GI:Girona|GR:Granada|GU:Guadalajara|SS:Guipúzcoa|H:Huelva|HU:Huesca|J:Jaén|LO:La Rioja|GC:Las Palmas|LE:León|L:Lleida|LU:Lugo|M:Madrid|MA:Málaga|ML:Melilla|MU:Murcia|NA:Navarra|OR:Ourense|P:Palencia|PO:Pontevedra|SA:Salamanca|TF:Santa Cruz de Tenerife|SG:Segovia|SE:Sevilla|SO:Soria|T:Tarragona|TE:Teruel|TO:Toledo|V:Valencia|VA:Valladolid|BI:Vizcaya|ZA:Zamora|Z:Zaragoza",
+    "TH^Thailand^TH-37:Amnat Charoen|TH-15:Ang Thong|TH-10:Bangkok|TH-38:Bueng Kan|TH-31:Buriram|TH-24:Chachoengsao|TH-18:Chai Nat|TH-36:Chaiyaphum|TH-22:Chanthaburi|TH-50:Chiang Mai|TH-57:Chiang Rai|TH-20:Chon Buri|TH-86:Chumphon|TH-46:Kalasin|TH-62:Kamphaeng Phet|TH-71:Kanchanaburi|TH-40:Khon Kaen|TH-81:Krabi|TH-52:Lampang|TH-51:Lamphun|TH-42:Loei|TH-16:Lopburi|TH-58:Mae Hong Son|TH-44:Maha Sarakham|TH-49:Mukdahan|TH-26:Nakhon Nayok|TH-73:Nakhon Pathom|TH-48:Nakhon Phanom|TH-30:Nakhon Ratchasima|TH-60:Nakhon Sawan|TH-80:Nakhon Si Thammarat|TH-55:Nan|TH-96:Narathiwat|TH-39:Nong Bua Lam Phu|TH-43:Nong Khai|TH-12:Nonthaburi|TH-13:Pathum Thani|TH-94:Pattani|TH-S:Pattaya|TH-82:Phangnga|TH-93:Phatthalung|TH-56:Phayao|TH-67:Phetchabun|TH-76:Phetchaburi|TH-66:Phichit|TH-65:Phitsanulok|TH-14:Phra Nakhon Si Ayutthaya|TH-54:Phrae|TH-83:Phuket|TH-25:Prachin Buri|TH-77:Prachuap Khiri Khan|TH-85:Ranong|TH-70:Ratchaburi|TH-21:Rayong|TH-45:Roi Et|TH-27:Sa Kaeo|TH-47:Sakon Nakhon|TH-11:Samut Prakan|TH-74:Samut Sakhon|TH-75:Samut Songkhram|TH-19:Saraburi|TH-91:Satun|TH-17:Sing Buri|TH-33:Sisaket|TH-90:Songkhla|TH-64:Sukhothai|TH-72:Suphan Buri|TH-84:Surat Thani|TH-32:Surin|TH-63:Tak|TH-92:Trang|TH-23:Trat|TH-34:Ubon Ratchathani|TH-41:Udon Thani|TH-61:Uthai Thani|TH-53:Uttaradit|TH-95:Yala|TH-35:Yasothon",
+    "AE^United Arab Emirates^AZ:Abu Dhabi|AJ:Ajman|DU:Dubai|FU:Fujairah|RK:Ras al-Khaimah|SH:Sharjah|UQ:Umm al-Quwain",
+    "GB^United Kingdom^BFP:British Forces|ENG:England|NIR:Northern Ireland|SCT:Scotland|WLS:Wales",
+    "US^United States^AL:Alabama|AK:Alaska|AS:American Samoa|AZ:Arizona|AR:Arkansas|CA:California|CO:Colorado|CT:Connecticut|DE:Delaware|DC:District of Columbia|FM:Federated States of Micronesia|FL:Florida|GA:Georgia|GU:Guam|HI:Hawaii|ID:Idaho|IL:Illinois|IN:Indiana|IA:Iowa|KS:Kansas|KY:Kentucky|LA:Louisiana|ME:Maine|MH:Marshall Islands|MD:Maryland|MA:Massachusetts|MI:Michigan|MN:Minnesota|MS:Mississippi|MO:Missouri|MT:Montana|NE:Nebraska|NV:Nevada|NH:New Hampshire|NJ:New Jersey|NM:New Mexico|NY:New York|NC:North Carolina|ND:North Dakota|MP:Northern Mariana Islands|OH:Ohio|OK:Oklahoma|OR:Oregon|PW:Palau|PA:Pennsylvania|PR:Puerto Rico|RI:Rhode Island|SC:South Carolina|SD:South Dakota|TN:Tennessee|TX:Texas|UT:Utah|VT:Vermont|VA:Virginia|WA:Washington|WV:West Virginia|WI:Wisconsin|WY:Wyoming|VI:Virgin Islands|AA:Armed Forces Americas|AE:Armed Forces Europe|AP:Armed Forces Pacific"
   ];
 
   const parse = (s) => s.split("|").map((p) => {
@@ -36,8 +59,11 @@ export const CodeLookup = () => {
   const term = q.trim().toLowerCase();
 
   const countries = useMemo(() => parse(COUNTRIES), []);
-  const provinceGroups = useMemo(
-    () => PROVINCES.map(([cc, cname, data]) => ({ cc, cname, rows: parse(data) })),
+  const groups = useMemo(
+    () => PROVINCE_DATA.map((line) => {
+      const parts = line.split("^");
+      return { cc: parts[0], cname: parts[1], rows: parse(parts[2]) };
+    }),
     []
   );
 
@@ -47,34 +73,25 @@ export const CodeLookup = () => {
     r.name.toLowerCase().indexOf(term) !== -1;
 
   const shownCountries = countries.filter(hit);
-  const shownProvinces = provinceGroups
+  const shownGroups = groups
     .map((g) => ({
       ...g,
       rows: g.cname.toLowerCase().indexOf(term) !== -1 ? g.rows : g.rows.filter(hit)
     }))
     .filter((g) => g.rows.length > 0);
 
+  const provinceCount = shownGroups.reduce((n, g) => n + g.rows.length, 0);
+
   const border = "1px solid rgba(128,128,128,0.25)";
-  const inputStyle = {
-    width: "100%",
-    padding: "10px 12px",
-    fontSize: "15px",
-    borderRadius: "8px",
-    border: border,
-    background: "transparent",
-    color: "inherit",
-    outline: "none"
-  };
+  const tableStyle = { width: "100%", borderCollapse: "collapse", fontSize: "14px", margin: "4px 0" };
   const cellCode = {
-    padding: "6px 10px",
+    padding: "5px 10px",
     borderBottom: border,
     fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
     whiteSpace: "nowrap",
     width: "1%"
   };
-  const cellName = { padding: "6px 10px", borderBottom: border };
-  const tableStyle = { width: "100%", borderCollapse: "collapse", fontSize: "14px", margin: "0 0 4px" };
-  const muted = { opacity: 0.6, fontSize: "13px", margin: "8px 0 20px" };
+  const cellName = { padding: "5px 10px", borderBottom: border };
 
   const Table = ({ rows }) => (
     <table style={tableStyle}>
@@ -89,8 +106,6 @@ export const CodeLookup = () => {
     </table>
   );
 
-  const totalProvinceRows = shownProvinces.reduce((n, g) => n + g.rows.length, 0);
-
   return (
     <div>
       <input
@@ -98,19 +113,27 @@ export const CodeLookup = () => {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search by country or province name, or by code..."
-        style={inputStyle}
+        style={{
+          width: "100%",
+          padding: "10px 12px",
+          fontSize: "15px",
+          borderRadius: "8px",
+          border: border,
+          background: "transparent",
+          color: "inherit",
+          outline: "none"
+        }}
       />
 
-      <p style={muted}>
+      <p style={{ opacity: 0.6, fontSize: "13px", margin: "8px 0 20px" }}>
         {shownCountries.length} {shownCountries.length === 1 ? "country" : "countries"}
         {" · "}
-        {totalProvinceRows} {totalProvinceRows === 1 ? "province" : "provinces"}
+        {provinceCount} {provinceCount === 1 ? "province" : "provinces"}
       </p>
 
-      {shownCountries.length === 0 && totalProvinceRows === 0 && (
+      {shownCountries.length === 0 && provinceCount === 0 && (
         <p style={{ opacity: 0.7 }}>
-          Nothing matched “{q}”. Try a shorter search, or check the spelling against the
-          full lists below by clearing the box.
+          Nothing matched that search. Clear the box to browse the full lists.
         </p>
       )}
 
@@ -121,16 +144,22 @@ export const CodeLookup = () => {
         </div>
       )}
 
-      {shownProvinces.length > 0 && (
+      {shownGroups.length > 0 && (
         <div>
           <h2>Province and state codes</h2>
-          {shownProvinces.map((g) => (
-            <div key={g.cc} style={{ marginBottom: "24px" }}>
-              <h3>
-                {g.cname} <span style={{ opacity: 0.5, fontWeight: 400 }}>({g.cc})</span>
-              </h3>
+          <p style={{ opacity: 0.6, fontSize: "13px", marginTop: "-8px" }}>
+            Only these countries use province codes. Expand a country to see its list.
+          </p>
+          {shownGroups.map((g) => (
+            <details key={g.cc} open={term.length > 0} style={{ marginBottom: "6px" }}>
+              <summary style={{ cursor: "pointer", padding: "6px 0", fontWeight: 500 }}>
+                {g.cname}{" "}
+                <span style={{ opacity: 0.5, fontWeight: 400 }}>
+                  ({g.cc}) · {g.rows.length}
+                </span>
+              </summary>
               <Table rows={g.rows} />
-            </div>
+            </details>
           ))}
         </div>
       )}
@@ -155,7 +184,7 @@ Condition 1: Province / State Code <> Equals <> CA,NY,TX
 ```
 
 <Warning>
-  Province codes are only unique **within** a country. `CA` is California in the US and Canada as a country; `WA` is Washington in the US and Western Australia in Australia; `SA` is South Australia and also Saudi Arabia.
+  Province codes are only unique **within** a country. `CA` is California in the US and Canada as a country; `WA` is Washington and also Western Australia; `SA` is South Australia, Salta in Argentina, and Saudi Arabia.
 
   Always pair a province condition with a country condition unless you ship to one country only.
 </Warning>
@@ -166,18 +195,18 @@ Condition 1: Country Code <> Equals <> AU
 Condition 2: Province / State Code <> Equals <> WA,NT
 ```
 
-## Province coverage
+## Things that catch people out
 
-Shopify only uses province codes for countries that have them. The lists above cover the countries ShipMagic merchants ask about most often.
+**US territories are provinces, not countries.** Puerto Rico, Guam, the US Virgin Islands, American Samoa and the Northern Mariana Islands are province codes under `US` — as are Palau, the Marshall Islands and Micronesia. There is no separate country code for them, so a rule targeting Puerto Rico is `Country Code = US` plus `Province = PR`.
 
-If you need province codes for a country not listed here — India, Italy, Spain, Brazil, China, Mexico, Thailand, Indonesia and others all have them — check Shopify's own reference:
+**The UK has province codes.** `ENG`, `SCT`, `WLS`, `NIR` and `BFP` (British Forces). Useful for treating Northern Ireland or the Scottish Highlands differently.
 
-<Card title="Shopify countries and provinces" icon="arrow-up-right-from-square" href="https://matrixify.app/documentation/shopify-address-countries-and-provinces/">
-  The full list of country and province codes Shopify accepts.
-</Card>
+**Some countries use the prefixed form.** Most drop the country prefix — California is `CA`, not `US-CA`. But Japan, South Korea, Thailand, Portugal, Peru, Panama and the Philippines use the full form: `JP-13`, `KR-11`, `TH-10`, `PT-11`.
+
+**A few codes contain characters you might not expect.** Mexico's Quintana Roo is `Q ROO`, with a space. Argentina's provinces are single letters — Buenos Aires is `B`.
 
 <Note>
-  Country codes follow **ISO 3166-1 alpha-2**. Province codes follow **ISO 3166-2**, with the subdivision prefix dropped for most countries — so California is `CA`, not `US-CA`. Japan is the notable exception, where the full `JP-13` form is used.
+  Country codes follow **ISO 3166-1 alpha-2**. Province codes are Shopify's own set, mostly following ISO 3166-2. Data sourced from the [Matrixify reference](https://matrixify.app/documentation/shopify-address-countries-and-provinces/) for Shopify countries and provinces.
 </Note>
 
 ## Related

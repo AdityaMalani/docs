@@ -35,7 +35,7 @@ Base price  +  (Incremental price × steps beyond "Start from")
 
 where a step is **Per each** units.
 
-With Base price `5`, Incremental price `2`, Per each `1`, and Start from `1`:
+With Base price `5`, Incremental price `2`, Per each `1`:
 
 | Items in cart | Price |
 | --- | --- |
@@ -45,10 +45,6 @@ With Base price `5`, Incremental price `2`, Per each `1`, and Start from `1`:
 | 5 | 13.00 |
 
 Setting **Per each** to `2` would instead add \$2 for every _two_ extra items.
-
-<Tip>
-  **Start from** is what stops the first item being charged twice. Leave it empty and the app uses its default; set it explicitly when you want the increment to kick in later — for example free up to 3 items, then charge per item after that.
-</Tip>
 
 ## Weight-based increments
 

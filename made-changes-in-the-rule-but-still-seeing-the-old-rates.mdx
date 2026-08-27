@@ -16,16 +16,6 @@ Your rule change is live. You're just not being shown a fresh calculation.
   This is the single most common source of "my change didn't work" reports. Before investigating anything else, retest with an address you have never used before.
 </Warning>
 
-## Use a fresh address every time
-
-Not a slightly different one — a genuinely new one.
-
-**Vary the street number and postcode**, not just the flat number. Small variations on an address you've already used may still hit the cache.
-
-<Tip>
-  Keep a list of test addresses and work down it, rather than editing one address repeatedly. Real, valid addresses in your delivery area work best, since live carrier rates need to resolve them.
-</Tip>
-
 ## Other things that look like caching
 
 If a genuinely fresh address still shows the old behaviour, work through these.
@@ -35,18 +25,6 @@ If a genuinely fresh address still shows the old behaviour, work through these.
 The rule form's **Save** button stays disabled until the rule has a name, a priority, and at least one condition. It's possible to make an edit, be unable to save, and navigate away.
 
 **Check:** reopen the rule and confirm your change is actually there.
-
-### Priority collision
-
-No two rules can share a priority. If you changed a rule's priority to one already in use, the save fails.
-
-**Check:** reopen the rule and confirm the priority is what you set.
-
-### You edited the wrong rule
-
-With several similar rules, it's easy to edit one and test conditions that match another.
-
-**Check:** which rule actually matches your test cart. Temporarily deactivate the others to be certain.
 
 ### Products need re-syncing
 
@@ -63,32 +41,6 @@ If you added or renamed a zone in Shopify, sync zones from **Settings → Shippi
 Your rate may be calculating correctly and then being hidden or renamed downstream.
 
 **Check:** temporarily deactivate your customizations and retest. See [Shipping Customizations Not Working](/shipping-customizations-not-working).
-
-### Browser or theme caching
-
-Less common, but worth ruling out on an unusual theme.
-
-**Fix:** test in a private window, or a different browser.
-
-## A reliable test loop
-
-<Steps>
-  <Step title="Make the change and confirm it saved">
-    Reopen the rule and verify.
-  </Step>
-  <Step title="Sync if needed">
-    Products if you changed tag/type/title/barcode/compare-at-price values; zones if you changed zones.
-  </Step>
-  <Step title="Open a private browser window">
-    Rules out session and browser state.
-  </Step>
-  <Step title="Use a brand new address">
-    Different street number and postcode from anything you've tested.
-  </Step>
-  <Step title="Use the test name if in test mode">
-    First name `shipmagic`.
-  </Step>
-</Steps>
 
 ## Still stuck?
 

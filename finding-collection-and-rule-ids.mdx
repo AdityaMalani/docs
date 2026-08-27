@@ -1,0 +1,75 @@
+---
+title: "How to Find the ID of a Product Collection"
+sidebarTitle: "Collection IDs"
+description: "Look up the numeric ID Shopify assigns to a collection"
+icon: "hashtag"
+---
+
+The **Product Collection** condition matches on a collection's numeric **ID**, not its name. Every collection in Shopify has a unique number, and you can read it straight from the URL.
+
+## Finding the ID
+
+<Steps>
+  <Step title="Open the collection in Shopify admin">
+    Go to **Products → Collections** and click the collection you want.
+  </Step>
+  <Step title="Read the number at the end of the URL">
+    The URL looks like this:
+
+    ```text
+    https://admin.shopify.com/store/your-store/collections/123456789
+    ```
+
+    The trailing number — `123456789` — is the collection ID.
+  </Step>
+</Steps>
+
+## Using it in a condition
+
+Enter the ID as the condition's value. Several IDs can go in one condition, separated by **commas**:
+
+```text
+Condition 1: Product Collection <> Equals <> 123456789,987654321
+```
+
+<Warning>
+  Use the ID, not the collection's title or handle. A condition containing `Summer Sale` will never match — it has to be the number.
+</Warning>
+
+## Why collections use IDs
+
+Collection names change. A merchandiser renames "Summer Sale" to "Summer Clearance" halfway through the season, and a rule matching on the name would quietly stop working — no error, just a condition that no longer fires.
+
+The ID never changes, so a rule built on it survives renames.
+
+<Tip>
+  This is what makes collections a durable way to drive shipping rules. Your team already curates them, and a product joining the collection picks up the shipping behaviour automatically — with no tag for anyone to remember.
+</Tip>
+
+## Where the Product Collection condition lives
+
+**Product Collection** is available to [Shipping Customizations](/product-attributes), in **parameter set 1** and **parameter set 3**. See [Parameter Sets](/ai-tools/different-parameter-sets-for-conditions) for what each set contains.
+
+<Note>
+  Looking for a **rule** ID instead, to clone a rule? That's covered in [Cloning a rule](/essentials/cloning-a-rule#finding-a-rule-id).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Product Attributes" icon="box" href="/product-attributes">
+    The Product Collection condition and the rest of the customization attributes.
+  </Card>
+
+  <Card title="Parameter sets" icon="layer-group" href="/ai-tools/different-parameter-sets-for-conditions">
+    Which condition set exposes Product Collection.
+  </Card>
+
+  <Card title="Country and province codes" icon="globe" href="/country-and-province-codes">
+    The other codes ShipMagic conditions expect.
+  </Card>
+
+  <Card title="Cloning a rule" icon="copy" href="/essentials/cloning-a-rule">
+    Finding a rule ID, and copying a rule.
+  </Card>
+</Columns>

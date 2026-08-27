@@ -155,7 +155,8 @@
           },
           "api-reference",
           "faqs",
-          "country-and-province-codes"
+          "country-and-province-codes",
+          "finding-collection-and-rule-ids"
         ]
       }
     ]

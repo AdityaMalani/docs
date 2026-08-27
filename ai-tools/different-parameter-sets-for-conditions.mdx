@@ -22,8 +22,6 @@ On the customization editor, the **Conditions** card has a **Switch to parameter
 
 ### Set 1 — the default
 
-The broadest set, and the right choice for most rules.
-
 | Group | Attributes |
 | --- | --- |
 | **Cart** | Cart Subtotal, Cart Quantity, Cart Weight |
@@ -54,38 +52,6 @@ Reach for set 2 when you need to match on **SKU**, on a **customer or company me
 | **Other** | Number Of Product Metafield Values |
 
 Reach for set 3 when you need **Product Metafield** conditions or **B2B company location metafields**.
-
-## Which attributes appear in more than one set
-
-A few attributes are deliberately available in several sets, so you can combine them with whatever else you need:
-
-| Attribute | Sets |
-| --- | --- |
-| Customer First Name | 1, 2, 3 |
-| Country Code | 1, 2, 3 |
-| Cart Subtotal | 1, 3 |
-| Cart Weight | 1, 3 |
-| Product Tag | 1, 2 |
-| Customer Tag | 1, 2 |
-| Product Collection | 1, 3 |
-| Zipcode / Postcode | 1, 3 |
-| Address Line 1 | 1, 2 |
-| Address is / is not a PO Box | 1, 2 |
-
-<Tip>
-  These overlaps are the escape hatch. If you need Product Metafield (set 3 only) _and_ a postcode check, note that Zipcode / Postcode also appears in set 3 — so both fit in one rule after all. Check the overlap table before assuming you need two rules.
-</Tip>
-
-## When you genuinely need two rules
-
-If your two attributes share no set — say **SKU** (set 2 only) and **Product Metafield** (set 3 only) — split the logic:
-
-```text
-Rule 1 (set 2): SKU based condition        → Hide "Express"
-Rule 2 (set 3): Metafield based condition  → Hide "Express"
-```
-
-Both rules act on the same shipping method, and either one firing produces the outcome you want.
 
 ## Related
 

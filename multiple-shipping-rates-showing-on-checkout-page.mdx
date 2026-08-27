@@ -24,10 +24,6 @@ Every matching rule contributes its rates. Three rules matching one cart produce
 - **Only one should apply** — mark the winning rule [Exclusive](/exclusive-rules) so lower-priority rules are skipped.
 - **They're genuinely alternatives** — set blending to **lowest** or **highest** so only one shows.
 
-<Tip>
-  Blending only merges rates with **matching names**. Two rates that should combine but are called "Standard Shipping" and "Standard Delivery" will stubbornly stay separate. Check the names first.
-</Tip>
-
 ## 3. Ranged rate bands overlapping
 
 If two [ranged rates](/ranged-rates) cover the same value, a cart in the overlap matches both.
@@ -46,13 +42,7 @@ Live carrier rates can return a long list — Shiprocket in particular queries m
 - Select fewer services in the carrier's configuration.
 - Hide the extras with a [customization](/ai-tools/actions-hide-rename-sort).
 
-## 5. Rates duplicated across zones
-
-If a destination falls into two overlapping zones, both zones' rates can appear.
-
-**Check:** your zone definitions in Shopify for overlapping country or region coverage.
-
-## 6. A multi-location order charging twice
+## 5. A multi-location order charging twice
 
 An order fulfilled from two locations can produce shipping for each.
 

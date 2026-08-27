@@ -57,24 +57,12 @@ These two are unusual: they match against **the shipping options themselves** ra
 - **Shipping Method Name** — matches part of a method's name. Lets you write rules about a family of methods.
 - **Shipping Rate** — matches the method's **price**, numerically.
 
-**Shipping Rate** is the tool for price-driven presentation:
-
-```text
-Type: Hide shipping rates
-Condition 1: Shipping Rate <> Greater than <> 50
-Hide the following shipping methods: Express
-```
-
-<Tip>
-  This is how you suppress an option whose live carrier rate has come back implausibly high — a useful safety net when showing real-time rates.
-</Tip>
-
 ## Country and province codes
 
 Two-letter Shopify codes, not full names.
 
-- **Country Code** — ISO 3166-1 alpha-2 (`US`, `GB`, `AU`, `IN`). [Full list](https://shopify.dev/docs/api/admin-graphql/2023-10/enums/CountryCode).
-- **Province / State Code** — two-letter province codes (`CA`, `NY`, `VIC`, `MH`). [Full list](https://matrixify.app/documentation/shopify-address-countries-and-provinces/).
+- **Country Code** — ISO 3166-1 alpha-2 (`US`, `GB`, `AU`, `IN`). [Full list](/country-and-province-codes).
+- **Province / State Code** — two-letter province codes (`CA`, `NY`, `VIC`, `MH`). [Full list](/country-and-province-codes).
 
 ## Examples
 

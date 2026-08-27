@@ -19,8 +19,6 @@ ShipMagic runs in one of two modes, controlled from **Settings → App Modes**. 
 
 <Warning>
   **Shipping Rates and Shipping Customizations have separate toggles.** One can be live while the other is still in test mode.
-
-  This catches people out regularly: rates go live, customizations are forgotten, and the hide rules that were supposed to accompany the launch never fire for real customers.
 </Warning>
 
 Check both before assuming you're fully live.
@@ -32,7 +30,7 @@ With the toggle off, enter **`shipmagic`** as the **first name** in the checkout
 Anyone else checking out is unaffected and sees your existing Shopify rates — which is the point: you can build and test against a live store without risk.
 
 <Tip>
-  The name goes in the **first name** field of the shipping address, not the last name and not the account name. It's case-insensitive.
+  The name goes in the **first name** field of the shipping address, not the last name and not the account name.
 </Tip>
 
 ## Going live
@@ -58,19 +56,11 @@ Full checklist in [Going Live](/core-concepts/going-live).
   Rules take effect immediately in both modes. Editing a rule while live changes what customers see straight away — there's no separate publish step.
 </Note>
 
-## Testing while live
-
-You can still test in live mode; you just can't isolate yourself from customers. Your changes are their changes.
-
-<Warning>
-  For anything substantial, build the new rule **Inactive**, or test on a development store, rather than editing a live rule and watching what happens. A rule saved mid-edit is live the moment it's saved.
-</Warning>
-
 ## Common mistakes
 
 **Testing with the same address twice.** Shopify caches rates per address, so the second test shows the first result. Use a fresh address each time.
 
-**Forgetting the customizations toggle.** See the warning above.
+**Forgetting to turn on toggles.** See the warning above.
 
 **Assuming test mode blocks orders.** It doesn't. Real customers continue checking out normally on your existing Shopify rates.
 

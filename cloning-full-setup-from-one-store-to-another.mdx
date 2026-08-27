@@ -8,8 +8,6 @@ If you run several stores, or you've built a configuration on a development stor
 
 <Warning>
   Cloning **overwrites the destination store's existing setup, and cannot be undone**. Everything in the modules you select is deleted and replaced with the source store's configuration.
-
-  Run this on a store whose current setup you're willing to lose.
 </Warning>
 
 ## How it works
@@ -71,20 +69,14 @@ Go through the customization list after cloning and enable the ones you want liv
 
 Cloning covers rules, customizations, and blending settings. It does not bring:
 
-- **Carrier credentials** — API keys are per-store and must be re-entered.
 - **Product data** — dimensions and synced product attributes belong to each store's own catalogue.
 - **App mode toggles** — the destination store stays in whatever mode it was in, so a cloned setup doesn't go live unexpectedly.
 
-<Note>
-  Re-entering carrier credentials is a feature, not an oversight — it stops a development store's keys ending up somewhere unintended.
-</Note>
-
 ## After cloning
 
-1. Re-enter any carrier credentials on rates that use live rates
-2. Activate the imported customizations
-3. Sync products if your rules use tags, type, title, barcode, or compare-at price
-4. [Test](/core-concepts/testing-the-app) before enabling live mode
+1. Activate the imported customizations
+2. Sync products if your rules use tags, type, title, barcode, or compare-at price
+3. [Test](/core-concepts/testing-the-app) before enabling live mode
 
 ## Related
 

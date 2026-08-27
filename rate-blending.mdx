@@ -4,7 +4,7 @@ description: "Decide what happens when several rules each produce a rate"
 icon: "code-merge"
 ---
 
-When more than one rule matches a cart, you can end up with several rates. **Blending** decides what the customer actually sees — one combined price, the cheapest, or the dearest.
+When more than one rule matches a cart, you can end up with several rates. **Blending** decides what the customer actually sees — one combined price, the cheapest, or the highest.
 
 Blending is configured on the app's **Settings** page and applies store-wide.
 
@@ -15,7 +15,7 @@ Blending is configured on the app's **Settings** page and applies store-wide.
 | Option | Result |
 | --- | --- |
 | **Add rates** | The rates are summed into one. |
-| **Show the highest rate only** | Only the dearest is shown. |
+| **Show the highest rate only** | Only the highest is shown. |
 | **Show the lowest rate only** | Only the cheapest is shown. |
 
 <Note>
@@ -25,10 +25,6 @@ Blending is configured on the app's **Settings** page and applies store-wide.
 ### Add rates
 
 The right choice when different rules cover different parts of the cart and each contributes its share of the cost. A rule charging \$5 for regular items and another charging \$15 for a bulky item produce a single \$20 "Standard Shipping".
-
-<Warning>
-  **Add rates** is the option that can run away with you. Several matching rules each contributing to one total can produce a figure you didn't anticipate. This is exactly why maximum and minimum limits are only available with this option — see below.
-</Warning>
 
 ### Highest / Lowest
 
@@ -78,7 +74,7 @@ Every rate you create has a **Tags** field, taking comma-separated values. Advan
 
 **Basic** is the store-wide default and handles most cases. Give rates that should combine the same name and let basic blending do the work.
 
-**Advanced** is for when rates must keep distinct names for other reasons — carrier rates named by the carrier, say — but should still be presented as one option.
+**Advanced** is for when rates must keep distinct names for other reasons, but should still be presented as one option during conflicts.
 
 <Tip>
   If your rates already share a name, you don't need advanced blending. Reach for it only when renaming isn't an option.

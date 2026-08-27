@@ -37,12 +37,6 @@ Limits live on the app's **Settings** page, under **Blending → Basic**.
 
 A percentage rate on a large order, or an incremental rate on a bulk purchase, can produce a shipping charge far above what the shipment actually costs you.
 
-<Tip>
-  Set the maximum near the most you would ever genuinely pay to ship an order. That way the cap only engages in the cases where the formula has stopped reflecting reality.
-</Tip>
-
-This is the single most valuable safeguard when using [percentage rates](/percentage-of-cart-subtotal).
-
 ## Why a minimum matters
 
 A minimum protects against the opposite failure — a rate calculating to near zero because of a small order, a discount, or a product with missing data.
@@ -53,10 +47,6 @@ Common reasons a rate comes out too low:
 - A metafield rate where products have no value set and the default rate is low
 - Add-rates blending where only one small contributing rule matched
 
-<Note>
-  A minimum also guards against silent data problems. If products are missing [dimensions](/adding-dimensions-to-products) or metafield values, a floor stops you shipping at a loss while you find out.
-</Note>
-
 ## Method names must match
 
 Limits are applied per shipping method name, matched against the rate name shown at checkout.
@@ -64,10 +54,6 @@ Limits are applied per shipping method name, matched against the rate name shown
 <Warning>
   If the method name in your limit doesn't match the rate name exactly, the limit silently does nothing. Copy the name from the rate rather than typing it from memory, and re-check after any rate rename.
 </Warning>
-
-## Interaction with blending
-
-Limits apply to the **final blended figure**, not to each contributing rate. Three rules each adding \$10 against a \$25 maximum produce \$25, not \$30.
 
 ## Testing
 

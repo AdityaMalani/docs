@@ -165,46 +165,6 @@ export const CodeLookup = () => {
 
 <CodeLookup />
 
-## Where these are used
-
-**Country Code** appears in both [shipping rate](/customer-location-and-address) and [customization](/customer-location-and-address-1) conditions. Separate multiple values with **semicolons**:
-
-```text
-Condition 1: Country Code <> Equals <> US;CA;MX
-```
-
-**Province / State Code** appears in [shipping rate conditions](/customer-location-and-address), and in customization conditions under [parameter set 2](/ai-tools/different-parameter-sets-for-conditions). Separate multiple values with **commas**:
-
-```text
-Condition 1: Province / State Code <> Equals <> CA,NY,TX
-```
-
-<Warning>
-  Province codes are only unique **within** a country. `CA` is California in the US and Canada as a country; `WA` is Washington and also Western Australia; `SA` is South Australia, Salta in Argentina, and Saudi Arabia.
-
-  Always pair a province condition with a country condition unless you ship to one country only.
-</Warning>
-
-```text
-Rule must match: All conditions
-Condition 1: Country Code <> Equals <> AU
-Condition 2: Province / State Code <> Equals <> WA,NT
-```
-
-## Things that catch people out
-
-**US territories are provinces, not countries.** Puerto Rico, Guam, the US Virgin Islands, American Samoa and the Northern Mariana Islands are province codes under `US` — as are Palau, the Marshall Islands and Micronesia. There is no separate country code for them, so a rule targeting Puerto Rico is `Country Code = US` plus `Province = PR`.
-
-**The UK has province codes.** `ENG`, `SCT`, `WLS`, `NIR` and `BFP` (British Forces). Useful for treating Northern Ireland or the Scottish Highlands differently.
-
-**Some countries use the prefixed form.** Most drop the country prefix — California is `CA`, not `US-CA`. But Japan, South Korea, Thailand, Portugal, Peru, Panama and the Philippines use the full form: `JP-13`, `KR-11`, `TH-10`, `PT-11`.
-
-**A few codes contain characters you might not expect.** Mexico's Quintana Roo is `Q ROO`, with a space. Argentina's provinces are single letters — Buenos Aires is `B`.
-
-<Note>
-  Country codes follow **ISO 3166-1 alpha-2**. Province codes are Shopify's own set, mostly following ISO 3166-2. Data sourced from the [Matrixify reference](https://matrixify.app/documentation/shopify-address-countries-and-provinces/) for Shopify countries and provinces.
-</Note>
-
 ## Related
 
 <Columns cols={2}>

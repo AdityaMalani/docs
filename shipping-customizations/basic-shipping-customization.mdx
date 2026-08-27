@@ -96,22 +96,12 @@ Show a "Free Prime Shipping" method only to customers tagged `prime`. This takes
   </Step>
 </Steps>
 
-<Warning>
-  Customer conditions only work for **logged-in** customers. Shopify sends no customer record for a guest checkout, so ShipMagic treats a guest as having **no tags**, **zero total spend**, and **zero previous orders**.
-
-  A guest will therefore fail a condition like `Customer Tag Equals prime` — and _pass_ one like `Customer Total Order Count Less than 1`. Check both cases when you test.
-</Warning>
-
 ## Test your customization
 
 1. Open your storefront and log in as a customer who matches your conditions
 2. Add matching products to the cart and proceed to checkout
 3. Enter a complete address
 4. In test mode, enter `shipmagic` as the **first name**
-
-<Tip>
-  Use a fresh, random address each time — Shopify caches shipping rates per address.
-</Tip>
 
 Full details in [Testing the App](/core-concepts/testing-the-app). When it looks right, follow [Going Live](/core-concepts/going-live).
 

@@ -1,0 +1,177 @@
+---
+title: "Customs, Fees and Tariffs"
+description: "Add duties, customs charges and fees into your shipping rates"
+icon: "file-invoice-dollar"
+---
+
+Some shipments carry a charge that isn't really shipping — an import duty, a customs handling fee, a per-item levy. **Tariff rules** let you add those charges into the rates ShipMagic returns, without touching the rules that calculate the shipping itself.
+
+Tariff rules are configured on the app's **Settings** page, under **Customs, Fees & Tariffs**.
+
+## Where tariffs run
+
+Tariffs are the last step in the pricing pipeline:
+
+```
+Rate calculation  ->  Blending  ->  Tariffs
+```
+
+This ordering matters. Because tariffs run *after* blending, the charge lands on the rates the customer will actually be shown — including rates that several rules combined into one. You don't have to think about which rule produced a rate, only about the rate itself.
+
+## Creating a rule
+
+<Steps>
+  <Step title="Open the section">
+    Go to **Settings** and scroll to **Customs, Fees & Tariffs**, just below Blending. Click **Add**.
+  </Step>
+
+  <Step title="Name the rule">
+    Give it a name you'll recognise, such as `EU low-value import duty`. This is internal — customers never see it. Set **Status** to Enabled or Disabled.
+  </Step>
+
+  <Step title="Add conditions">
+    Decide which cart items the charge is calculated on, and which destinations it applies to.
+  </Step>
+
+  <Step title="Set the charge">
+    Choose an amount type, an amount, and — for fixed amounts — how often it is charged.
+  </Step>
+
+  <Step title="Choose the shipping rates">
+    Apply it to every rate, or only to rates you name.
+  </Step>
+</Steps>
+
+## Conditions
+
+A tariff rule is built from conditions, the same way a shipping rule is. **Rule must match** decides whether an item has to satisfy **All conditions** or **Any condition**.
+
+| Attribute | Matches on | Separate multiple values with |
+| --- | --- | --- |
+| **Product Tag** | Tags on the product | a comma `,` |
+| **Product Type** | The product's type | a semicolon `;` |
+| **Product Vendor** | The product's vendor | a semicolon `;` |
+| **Country Code** | Where the order is shipping to | a semicolon `;` |
+
+Destination is an ordinary condition rather than a separate setting, so it composes with the rest. A rule with **Country Code equals** `DE; FR` and **Product Tag equals** `electronics`, matching **All conditions**, charges only the electronics in the cart, and only when shipping to Germany or France.
+
+<Note>
+  **Product Tag** and **Product Type** are read from your synced product data. If a product hasn't been synced, those conditions won't match it. See [Syncing Products](/core-concepts/syncing-products). **Product Vendor** comes straight from the cart and always works.
+</Note>
+
+<Tip>
+  Country codes are the two-letter codes Shopify uses. The full list is in [Country and Province Codes](/country-and-province-codes).
+</Tip>
+
+## The charge
+
+### Amount type
+
+| Type | What it calculates |
+| --- | --- |
+| **Fixed amount** | A flat sum, charged once per unit, line, category or order |
+| **% of matched item value** | A percentage of the value of the items that matched the conditions |
+| **% of shipping rate** | A percentage of the shipping rate the tariff is being added to |
+
+Amounts are in your store's currency and are not converted.
+
+### Charge basis
+
+**Charge basis** appears only for **Fixed amount**. The two percentage types produce the same total however you slice them, so there is nothing to choose.
+
+Take a cart of three lines — two of them tagged `electronics`, one tagged `apparel` — with a rule of **Product Tag equals** `electronics, apparel` and a fixed charge of €3:
+
+| Cart line | Quantity | Tag |
+| --- | --- | --- |
+| Wireless earbuds | 2 | `electronics` |
+| Cotton t-shirt | 1 | `apparel` |
+| USB cable | 3 | `electronics` |
+
+| Charge basis | Charged | Total |
+| --- | --- | --- |
+| **Per unit** | 6 times, once per item in the cart | €18 |
+| **Per line item** | 3 times, once per matching cart line | €9 |
+| **Per item category** | 2 times, once per tag | €6 |
+| **Once per order** | 1 time | €3 |
+
+### Per item category
+
+**Per item category** charges once for each distinct value of whichever product attribute your conditions are built on — tag, type or vendor. Two different products sharing a tag are one category. The same tag spread across ten lines is still one charge.
+
+A few details worth knowing:
+
+- If your conditions use more than one of tag, type and vendor, the **first** of them decides the grouping.
+- For tags, the grouping uses the tags your condition named, not every tag the product carries. An item tagged both `electronics` and `import`, under a condition naming both, still counts once.
+- If the rule has no product condition at all — say it only checks Country Code — there is nothing to group by, and the charge applies once.
+
+## Which shipping rates it applies to
+
+Apply the tariff to **All shipping rates**, or name the ones you want. A charge is only ever added if that rate is in the final list returned to checkout, so a rule naming a rate that didn't survive blending simply does nothing.
+
+<Warning>
+  Use the rate name **as you configured it**, not its translation. If you've set up [translations](/adding-translations-for-shipping-rates), the customer might see "Livraison Standard" while the rate is still named "Standard Shipping" — and "Standard Shipping" is what the tariff rule matches on. Matching is case-insensitive and ignores surrounding spaces.
+</Warning>
+
+## Showing the charge to the customer
+
+Shopify's rate API has no separate line for surcharges, so the tariff is added into the shipping rate's price. If you want the customer to know why, fill in **Add to rate description**. The token `{amount}` is replaced with the charge:
+
+```
+Includes {amount} import duty
+```
+
+That appears beneath the rate name at checkout, alongside any [rate description](/rate-descriptions) you've already set.
+
+## Using several rules together
+
+Every rule that matches is applied, and the charges add up. Percentages are always calculated against the rate's price **before** any tariff was added, so the order your rules happen to be listed in never changes the total.
+
+## Example: the EU low-value import duty
+
+From 1 July 2026 the EU applies a flat €3 customs duty per item on low-value e-commerce consignments. Here is one way to set that up:
+
+| Field | Value |
+| --- | --- |
+| **Name** | EU low-value import duty |
+| **Rule must match** | All conditions |
+| **Condition** | Country Code · equals · `AT; BE; BG; HR; CY; CZ; DK; EE; FI; FR; DE; GR; HU; IE; IT; LV; LT; LU; MT; NL; PL; PT; RO; SK; SI; ES; SE` |
+| **Amount type** | Fixed amount |
+| **Amount** | 3 |
+| **Charge basis** | Per line item |
+| **Apply to** | All shipping rates |
+| **Add to rate description** | Includes `{amount}` EU import duty |
+
+<Note>
+  The EU duty applies only to consignments with an intrinsic value of €150 or less. Tariff rules don't currently have a cart-value condition, so a rule like the one above applies at every cart value.
+</Note>
+
+## Testing
+
+Tariff rules change the price of a rate, not whether it appears, so test by comparing totals.
+
+1. Build a cart that matches nothing in the rule and note the shipping rate
+2. Build one that matches, and check the difference is exactly what you expect
+3. For **Per item category**, use a cart with two products sharing a tag — the charge should apply once, not twice
+4. If you target rates by name, confirm the rate is still in the list after blending
+
+Use [test mode](/test-mode-vs-live-mode) so you can check this without affecting live customers.
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Rate blending" icon="code-merge" href="/rate-blending">
+    What runs immediately before tariffs.
+  </Card>
+
+  <Card title="Syncing products" icon="arrows-rotate" href="/core-concepts/syncing-products">
+    Required for tag and type conditions.
+  </Card>
+
+  <Card title="Rate descriptions" icon="message-lines" href="/rate-descriptions">
+    The text the tariff description is appended to.
+  </Card>
+
+  <Card title="Country and province codes" icon="globe" href="/country-and-province-codes">
+    The codes to use in a destination condition.
+  </Card>
+</Columns>

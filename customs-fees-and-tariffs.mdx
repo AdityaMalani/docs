@@ -4,7 +4,7 @@ description: "Add duties, customs charges and fees into your shipping rates"
 icon: "file-invoice-dollar"
 ---
 
-Some shipments carry a charge that isn't really shipping — an import duty, a customs handling fee, a per-item levy. **Tariff rules** let you add those charges into the rates ShipMagic returns, without touching the rules that calculate the shipping itself.
+**Tariff rules** let you add custom charges into the ShipMagic rates, without touching the rules that calculate the shipping itself.
 
 Tariff rules are configured on the app's **Settings** page, under **Customs, Fees & Tariffs**.
 
@@ -46,22 +46,16 @@ This ordering matters. Because tariffs run *after* blending, the charge lands on
 
 A tariff rule is built from conditions, the same way a shipping rule is. **Rule must match** decides whether an item has to satisfy **All conditions** or **Any condition**.
 
-| Attribute | Matches on | Separate multiple values with |
-| --- | --- | --- |
-| **Product Tag** | Tags on the product | a comma `,` |
-| **Product Type** | The product's type | a semicolon `;` |
-| **Product Vendor** | The product's vendor | a semicolon `;` |
-| **Country Code** | Where the order is shipping to | a semicolon `;` |
-
-Destination is an ordinary condition rather than a separate setting, so it composes with the rest. A rule with **Country Code equals** `DE; FR` and **Product Tag equals** `electronics`, matching **All conditions**, charges only the electronics in the cart, and only when shipping to Germany or France.
+| Attribute | Matches on |
+| --- | --- |
+| **Product Tag** | Tags on the product |
+| **Product Type** | The product's type |
+| **Product Vendor** | The product's vendor |
+| **Country Code** | Where the order is shipping to |
 
 <Note>
-  **Product Tag** and **Product Type** are read from your synced product data. If a product hasn't been synced, those conditions won't match it. See [Syncing Products](/core-concepts/syncing-products). **Product Vendor** comes straight from the cart and always works.
+  **Product Tag** and **Product Type** are read from your synced product data. If a product hasn't been synced, those conditions won't match it. See [Syncing Products](/core-concepts/syncing-products).
 </Note>
-
-<Tip>
-  Country codes are the two-letter codes Shopify uses. The full list is in [Country and Province Codes](/country-and-province-codes).
-</Tip>
 
 ## The charge
 
@@ -94,23 +88,9 @@ Take a cart of three lines — two of them tagged `electronics`, one tagged `app
 | **Per item category** | 2 times, once per tag | €6 |
 | **Once per order** | 1 time | €3 |
 
-### Per item category
-
-**Per item category** charges once for each distinct value of whichever product attribute your conditions are built on — tag, type or vendor. Two different products sharing a tag are one category. The same tag spread across ten lines is still one charge.
-
-A few details worth knowing:
-
-- If your conditions use more than one of tag, type and vendor, the **first** of them decides the grouping.
-- For tags, the grouping uses the tags your condition named, not every tag the product carries. An item tagged both `electronics` and `import`, under a condition naming both, still counts once.
-- If the rule has no product condition at all — say it only checks Country Code — there is nothing to group by, and the charge applies once.
-
 ## Which shipping rates it applies to
 
 Apply the tariff to **All shipping rates**, or name the ones you want. A charge is only ever added if that rate is in the final list returned to checkout, so a rule naming a rate that didn't survive blending simply does nothing.
-
-<Warning>
-  Use the rate name **as you configured it**, not its translation. If you've set up [translations](/adding-translations-for-shipping-rates), the customer might see "Livraison Standard" while the rate is still named "Standard Shipping" — and "Standard Shipping" is what the tariff rule matches on. Matching is case-insensitive and ignores surrounding spaces.
-</Warning>
 
 ## Showing the charge to the customer
 
@@ -137,24 +117,9 @@ From 1 July 2026 the EU applies a flat €3 customs duty per item on low-value e
 | **Condition** | Country Code · equals · `AT; BE; BG; HR; CY; CZ; DK; EE; FI; FR; DE; GR; HU; IE; IT; LV; LT; LU; MT; NL; PL; PT; RO; SK; SI; ES; SE` |
 | **Amount type** | Fixed amount |
 | **Amount** | 3 |
-| **Charge basis** | Per line item |
+| **Charge basis** | Per item category |
 | **Apply to** | All shipping rates |
 | **Add to rate description** | Includes `{amount}` EU import duty |
-
-<Note>
-  The EU duty applies only to consignments with an intrinsic value of €150 or less. Tariff rules don't currently have a cart-value condition, so a rule like the one above applies at every cart value.
-</Note>
-
-## Testing
-
-Tariff rules change the price of a rate, not whether it appears, so test by comparing totals.
-
-1. Build a cart that matches nothing in the rule and note the shipping rate
-2. Build one that matches, and check the difference is exactly what you expect
-3. For **Per item category**, use a cart with two products sharing a tag — the charge should apply once, not twice
-4. If you target rates by name, confirm the rate is still in the list after blending
-
-Use [test mode](/test-mode-vs-live-mode) so you can check this without affecting live customers.
 
 ## Related
 

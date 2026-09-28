@@ -30,11 +30,15 @@ ShipMagic is added to the **General** profile automatically. Custom shipping pro
 
 **Fix:** follow [adding ShipMagic to custom profiles](/installation-guide#add-shipmagic-as-a-rate-provider-custom-profiles--zones).
 
-## 4. Have zones been synced, and does the zone have rates?
+<Note>
+  If your store uses market-driven shipping, check the customer's **market** instead. ShipMagic must be added there as a carrier-calculated shipping rate. The **Shipping Zones** page in the app warns you about any market where it's missing.
+</Note>
 
-**Check:** open your rule. If you see a warning instead of your zones, they haven't been synced. If a zone shows _"No rates. Customers in this zone won't see shipping rates from ShipMagic app"_, that zone has nothing to return.
+## 4. Is the address in a zone, and does the zone have rates?
 
-**Fix:** sync from **Settings → Shipping Zones**, then attach a rate to the zone. See [Adding / Modifying Shipping Zones](/essentials/adding-modifying-shipping-zones).
+**Check:** open the **Shipping Zones** page in the app and confirm the customer's country, state, or province is in a zone, or that you have a Rest of world zone. Then open your rule. If a zone shows _"No rates. Customers in this zone won't see shipping rates from ShipMagic app"_, that zone has nothing to return.
+
+**Fix:** add the region to a zone on the **Shipping Zones** page, then add a rate for that zone in your rule. See [Adding / Modifying Shipping Zones](/essentials/adding-modifying-shipping-zones).
 
 ## 5. Do the conditions actually match your test cart?
 

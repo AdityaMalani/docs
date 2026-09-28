@@ -1,60 +1,85 @@
 ---
 title: "Adding / Modifying Shipping Zones"
-description: "Sync your Shopify shipping zones into ShipMagic and keep them current"
+description: "Create and edit the shipping zones ShipMagic uses to price your rates"
 icon: "map"
 ---
 
-Shipping zones live in **Shopify**, not in ShipMagic. The app reads a copy of them so you can attach rates to each zone inside a rule.
+A **zone** is a named group of countries, states, and provinces. Each rule has its own rates for every zone, and at checkout ShipMagic uses the zone that contains the customer's address.
 
-## Syncing zones
+You manage zones on the **Shipping Zones** page in the app.
+
+## Where your first zones come from
+
+When you install ShipMagic, it creates your first zones from your Shopify setup:
+
+- **Stores using shipping profiles:** one zone for each shipping zone in your **General** profile.
+- **Stores using market-driven shipping:** one zone for each active market, named after the market.
+
+From then on, your zones belong to ShipMagic. Editing your Shopify shipping settings or markets doesn't change your ShipMagic zones, and editing ShipMagic zones doesn't change Shopify.
+
+<Note>
+  **Sync now has been retired.** ShipMagic used to copy your Shopify zones with a **Sync now** button in **Settings**. You now add and edit zones directly on the **Shipping Zones** page.
+</Note>
+
+## Adding a zone
 
 <Steps>
-  <Step title="Set up your zones in Shopify">
-    Go to **Shopify Admin → Settings → Shipping and Delivery** and create the zones you need on the relevant shipping profile.
+  <Step title="Open Shipping Zones">
+    In the app, go to **Shipping Zones** and click **Add zone**.
   </Step>
-  <Step title="Sync them into ShipMagic">
-    Open the **Settings** page in the app, find **Shipping Zones**, and click **Sync now**.
+  <Step title="Name the zone">
+    Customers never see zone names. Use a name that's clear on your rules, like _Domestic_ or _Europe_.
   </Step>
-  <Step title="Wait for it to finish">
-    The button shows a loading state while syncing. When it completes, the page shows **Last synced** with a timestamp.
+  <Step title="Choose the regions">
+    Search for a country and tick it to include the whole country. To include only some of its states or provinces, expand the country and tick the ones you want.
+  </Step>
+  <Step title="Save">
+    The new zone appears on all your rules, with no rates yet.
   </Step>
 </Steps>
 
-Once synced, every zone appears as its own section under **Shipping zones** when you create or edit a rule, each with its own **Add rate** action.
-
-## When you need to re-sync
-
-Zones are not synced automatically. Run a manual sync whenever you:
-
-- Add a new shipping zone in Shopify
-- Modify an existing shipping zone in Shopify
-- Delete a zone
-
 <Warning>
-  If you add a zone in Shopify and don't re-sync, it won't appear in the rule editor and you can't attach rates to it.
+  A new zone has no rates. Customers in it won't see ShipMagic rates until you open your rules and add rates for the zone.
 </Warning>
+
+## Each region is in one zone
+
+A country, state, or province can belong to only one zone, so it's always clear which rates apply. When you choose regions:
+
+- A country that's already in another zone is greyed out and labelled with that zone's name.
+- Inside a country, states or provinces that are already in another zone are greyed out too.
+
+To move a region to a different zone, remove it from its current zone first, then add it to the other one.
+
+## Rest of world
+
+Tick **Rest of world** to make a zone that covers every country and province that isn't in another zone. You can have one Rest of world zone.
+
+## Editing and deleting zones
+
+Open a zone from the **Shipping Zones** list to rename it or change its regions.
+
+When you delete a zone, ShipMagic lists the rules that have rates for it before you confirm. After you delete it, those rates stop applying. Customers in its regions get your Rest of world rates if you have a Rest of world zone, and no ShipMagic rates if you don't.
+
+## Markets without ShipMagic
+
+If your store uses market-driven shipping, Shopify only asks ShipMagic for rates in markets where ShipMagic is added as a carrier-calculated shipping rate. If a market doesn't have it, the **Shipping Zones** page shows a warning listing that market. Click the market's name to open it in Shopify and add ShipMagic.
 
 ## If no zones appear
 
-The rule editor shows a warning banner instead of your zones, with a link to the settings page. This means either the sync hasn't been run.
-
-Check: **Settings → Shipping Zones → Sync now** in the app.
+If a rule shows a warning instead of your zones, your store doesn't have any zones yet. Add one on the **Shipping Zones** page.
 
 ## Zones with no rates
 
-A synced zone that has no rates attached shows a warning inside the rule:
+A zone that has no rates shows a warning inside the rule:
 
 > No rates. Customers in this zone won't see shipping rates from ShipMagic app.
 
-This is worth taking seriously. A rule can match a customer's cart perfectly and still return nothing if their zone has no rate attached.
-
-<Tip>
-  When you add a new country to an existing zone in Shopify, no re-sync is needed — the zone already exists and its rates carry over. Re-sync only when the zone list itself changes.
-</Tip>
+This is worth taking seriously. A rule can match a customer's cart perfectly and still return nothing if their zone has no rate.
 
 ## Custom shipping profiles
 
-ShipMagic connects to the **General** profile automatically. Custom profiles need the app added manually as a rate provider, and then a zone sync so the app picks up their zones.
+On stores using shipping profiles, ShipMagic is added to the **General** profile automatically. To use it on a custom profile, add it there as a rate provider (see the [Installation Guide](/installation-guide#add-shipmagic-as-a-rate-provider-custom-profiles--zones)). If that profile ships to regions your ShipMagic zones don't cover, add those regions on the **Shipping Zones** page.
 
 ## Related
 

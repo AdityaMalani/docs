@@ -8,15 +8,16 @@ The **Settings** page holds the store-wide options that sit behind your rules. S
 
 ## App Modes
 
-Two independent toggles control whether ShipMagic affects real customers.
+Three independent toggles control whether ShipMagic affects real customers.
 
 | Toggle | Off (test mode) | On (live mode) |
 | --- | --- | --- |
 | **Shipping Rates** | Rates only for checkouts with first name `shipmagic` | Rates for every customer |
 | **Shipping Customizations** | Customizations only for `shipmagic` checkouts | Customizations for every customer |
+| **Shipping Discounts** | [Discounts](/shipping-discounts/create-a-shipping-discount) only for `shipmagic` checkouts | Discounts for every customer |
 
 <Warning>
-  These are **separate toggles**. Turning on rates does not turn on customizations. A half-live launch — rates showing but the hide rules that should accompany them still dormant — is a common and avoidable mistake.
+  These are **separate toggles**. Turning on rates does not turn on customizations or discounts. A half-live launch — rates showing but the hide rules that should accompany them still dormant — is a common and avoidable mistake.
 </Warning>
 
 Live mode requires a paid plan. See [Billing](/core-concepts/billing) and [Going Live](/core-concepts/going-live).

@@ -113,6 +113,12 @@
             ]
           },
           {
+            "group": "Shipping Discounts",
+            "pages": [
+              "shipping-discounts/create-a-shipping-discount"
+            ]
+          },
+          {
             "group": "Advanced Features",
             "pages": [
               "rate-blending",

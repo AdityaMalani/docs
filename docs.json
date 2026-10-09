@@ -115,7 +115,9 @@
           {
             "group": "Shipping Discounts",
             "pages": [
-              "shipping-discounts/create-a-shipping-discount"
+              "shipping-discounts/create-a-shipping-discount",
+              "shipping-discounts/discount-conditions",
+              "shipping-discounts/managing-shipping-discounts"
             ]
           },
           {

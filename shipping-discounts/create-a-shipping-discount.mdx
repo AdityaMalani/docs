@@ -1,0 +1,165 @@
+---
+title: "Create a Shipping Discount"
+description: "Offer free or cheaper shipping, automatically or with a discount code"
+icon: "badge-percent"
+---
+
+A **shipping discount** lowers the price of shipping rates at checkout when the order matches your conditions. ShipMagic creates it as a regular Shopify discount, so it appears on your Shopify **Discounts** page and on the customer's checkout and order like any other discount.
+
+<Note>
+  Shipping discounts change **what customers pay** for rates that already exist. To calculate a new rate, use [Shipping Rates](/shipping-rates/basic-shipping-rate). To hide, rename, or reorder rates, use [Shipping Customizations](/shipping-customizations/basic-shipping-customization).
+</Note>
+
+## What you can do
+
+- Give **free shipping**, a **percentage off**, a **fixed amount off**, or **cap shipping** at a set price
+- Apply it **automatically** or only when the customer enters a **discount code**
+- Limit it with conditions on the cart, products, customer tags, and shipping address — see [Discount Conditions](/shipping-discounts/discount-conditions)
+- Target **all rates**, only **rates with a certain name**, or only the **cheapest rate**
+- Schedule it with start and end dates, and limit how often a code can be used
+
+## Before you start
+
+A discount reduces the price of rates that already exist, so set those up first. They can be manual Shopify rates, ShipMagic rates, or live carrier rates.
+
+<Tip>
+  Like customizations, shipping discounts work on **all Shopify plans** and **don't need product syncing**. Shopify sends product data to the discount at checkout directly.
+</Tip>
+
+ShipMagic also needs the **Manage discounts** permission, because it creates the discounts in Shopify. The first time you open **Shipping Discounts**, click **Grant access** on the banner and approve the request.
+
+## Create the discount
+
+<Steps>
+  <Step title="Open Shipping Discounts and click Create discount">
+    From the left navigation panel in the app, open **Shipping Discounts**.
+  </Step>
+  <Step title="Choose a method">
+    | Method | Effect |
+    | --- | --- |
+    | **Automatic discount** | Applies at checkout whenever the conditions match. |
+    | **Discount code** | Applies only when the customer enters the code at checkout. Type your own code or click **Generate** for a random one. |
+
+    <Warning>
+      Shopify doesn't allow changing the method of an existing discount. To switch, create a new discount.
+    </Warning>
+  </Step>
+  <Step title="Enter a title">
+    For example `Free shipping over $75`. Unlike a customization's name, this title is **shown to customers** at checkout next to the discount. It also appears in your Shopify admin.
+  </Step>
+  <Step title="Choose the discount value">
+    | Value | Effect on each targeted rate |
+    | --- | --- |
+    | **Percentage off shipping** | Takes a percentage off, up to 100%. |
+    | **Fixed amount off shipping** | Takes a fixed amount off. A rate never goes below 0, so 10 off a 6 rate makes it free. |
+    | **Free shipping** | Makes the rate free. |
+    | **Set shipping price to** | Caps the rate at the price you enter. Rates above it are reduced to it. Cheaper rates stay as they are. |
+
+    Amounts are in your store currency. When a customer checks out in another currency, the amount is converted automatically.
+  </Step>
+  <Step title="Add conditions (optional)">
+    With no conditions, the discount applies to every order. Click **Add condition** to limit it, then choose whether the order must match **All conditions** or **Any condition**.
+
+    You can match on cart subtotal, quantity, and weight; product tag, collection, vendor, title, and price; customer tag; and country or province. See [Discount Conditions](/shipping-discounts/discount-conditions) for every attribute and operator.
+  </Step>
+  <Step title="Choose which rates it applies to">
+    Under **Applies to**:
+
+    | Option | Discounts |
+    | --- | --- |
+    | **All shipping rates** | Every rate shown at checkout. |
+    | **Only rates whose name contains** | Rates whose name contains any of the names you list. Click **Add rate name** for more than one. |
+    | **Only the cheapest shipping rate** | The single cheapest rate. |
+
+    <Tip>
+      **Partial names match, and matching is case-sensitive.** `Express` matches "Express Shipping" and "UPS Express", but `express` matches neither. Copy the name from checkout rather than typing it from memory.
+    </Tip>
+
+    Rates that are already free, such as local pickup, are never discounted. They're also skipped when finding the cheapest rate, so **Only the cheapest shipping rate** always picks the cheapest rate the customer would pay for.
+  </Step>
+  <Step title="Set status, limits, combinations, and dates">
+    The cards on the right of the form:
+
+    - **Status** — _Enabled_ or _Disabled_. Leave it _Enabled_ for the discount to apply.
+    - **Usage limits** (discount codes only) — limit the total number of times the code can be used, and/or limit it to one use per customer.
+    - **Combinations** — whether this discount can be combined with **Product discounts** and **Order discounts**.
+    - **Active dates** — when the discount starts, and optionally when it ends. Dates are in your store's timezone, shown under the fields.
+
+    See [Managing Shipping Discounts](/shipping-discounts/managing-shipping-discounts) for how each of these behaves.
+  </Step>
+  <Step title="Save">
+    Click **Save**. ShipMagic creates the discount in Shopify, and it takes effect at checkout straight away.
+  </Step>
+</Steps>
+
+## Worked examples
+
+**Free standard shipping over 75**
+
+```text
+Method: Automatic discount
+Title: Free shipping over $75
+Value: Free shipping
+Condition 1: Cart Subtotal <> Greater than or equal <> 75
+Applies to: Only rates whose name contains: Standard
+```
+
+**Half-price express shipping for VIP customers**
+
+```text
+Method: Automatic discount
+Title: VIP express shipping
+Value: Percentage off shipping <> 50
+Condition 1: Customer Tag <> Equals <> vip
+Applies to: Only rates whose name contains: Express
+```
+
+**A code that caps shipping at 5 on furniture**
+
+```text
+Method: Discount code <> SHIP5
+Title: $5 shipping on furniture
+Value: Set shipping price to <> 5
+Condition 1: Product Collection <> Equals <> 123456789
+             At least one product meets the condition.
+Applies to: All shipping rates
+Usage limits: Limit to one use per customer
+```
+
+## Test your discount
+
+Shipping discounts have their own test mode, separate from rates and customizations.
+
+1. Leave the **Shipping Discounts** toggle off in **Settings → App Modes**
+2. Open your storefront and add products that match your conditions
+3. At checkout, enter a complete address with `shipmagic` as the **first name**
+4. For a discount code, enter the code in the discount field
+5. Check that the targeted rates show the discounted price
+
+When it looks right, turn on the **Shipping Discounts** toggle to apply discounts for every customer. Live mode needs the Starter plan or above — see [Going Live](/core-concepts/going-live).
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Discount conditions" icon="filter" href="/shipping-discounts/discount-conditions">
+    Every attribute and operator, and how the cart is evaluated.
+  </Card>
+
+  <Card title="Managing discounts" icon="list-check" href="/shipping-discounts/managing-shipping-discounts">
+    Statuses, disabling, deleting, and the Shopify Discounts page.
+  </Card>
+
+  <Card title="Not applying?" icon="circle-question" href="/shipping-discounts/shipping-discount-not-applying">
+    The usual causes and how to fix them.
+  </Card>
+
+  <Card title="Going live" icon="toggle-large-on" href="/core-concepts/going-live">
+    Turning the app modes on.
+  </Card>
+</Columns>
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup) if you'd like us to help.
+</Note>

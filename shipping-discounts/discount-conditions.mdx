@@ -1,0 +1,136 @@
+---
+title: "Discount Conditions"
+description: "Limit shipping discounts by cart, product, customer, and shipping address"
+icon: "filter"
+---
+
+Conditions decide which orders get a shipping discount. A discount with **no conditions** applies to every order.
+
+Once you add a condition, choose whether the order must match **All conditions** or **Any condition**.
+
+<Note>
+  Shipping discounts have a single list of attributes. There are no [parameter sets](/ai-tools/different-parameter-sets-for-conditions) like in customizations, so any of the attributes below can be combined in one discount.
+</Note>
+
+## Available attributes
+
+| Group | Attribute | Operators |
+| --- | --- | --- |
+| Cart | **Cart Subtotal** | Numeric comparisons |
+| Cart | **Cart Quantity** | Numeric comparisons |
+| Cart | **Cart Weight** | Numeric comparisons |
+| Product | **Product Tag** | Equals, Not equals |
+| Product | **Product Collection** | Equals, Not equals |
+| Product | **Product Vendor** | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| Product | **Product Title** | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| Product | **Product Price** | Numeric comparisons, Is empty, Is not empty |
+| Customer | **Customer Tag** | Equals, Not equals |
+| Shipping address | **Country Code** | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| Shipping address | **Province / State Code** | Equals, Not equals, Contains, Does not contains, Includes in list, Not includes in list |
+| Other | **Always** | True |
+
+Numeric comparisons are Equals, Not equals, Greater than, Less than, Greater than or equal, and Less than or equal.
+
+<Warning>
+  **Product Tag**, **Customer Tag**, and **Product Collection** can each be used in **only one condition** per discount. To match several tags or collections, list them in that one condition, separated by commas.
+</Warning>
+
+## Cart conditions
+
+- **Cart Subtotal** — the order value, in your store currency. When a customer checks out in another currency, it's converted before the comparison, so `75` always means 75 in your store currency.
+- **Cart Quantity** — the total number of items in the cart.
+- **Cart Weight** — the total weight, in your store's weight unit.
+
+<Note>
+  Product weights aren't converted between units. If some products have their weight entered in a different unit from your store's, Cart Weight will be off for carts that contain them.
+</Note>
+
+## Product conditions
+
+- **Product Tag** — enter one or more tags, separated by commas. _Equals_ matches a product that has **any** of the tags. _Not equals_ matches a product that has **none** of them.
+- **Product Collection** — enter collection **IDs**, not names, separated by commas. See [How to Find the ID of a Product Collection](/finding-collection-and-rule-ids).
+- **Product Vendor** and **Product Title** — text matches are case-sensitive. For _Includes in list_, separate values with semicolons: `Acme;Globex`.
+- **Product Price** — the price of one unit of the product, in your store currency.
+
+### How the cart is evaluated
+
+For each product condition you also choose how much of the cart must satisfy it:
+
+| Option | Meaning |
+| --- | --- |
+| **At least one product meets the condition** | Any single product matching is enough. |
+| **All products meet the condition** | Every product in the cart must match. |
+| **Cart has exactly specified quantity** | Matching products total exactly N units. |
+| **Cart has more than specified quantity** | Matching products total more than N units. |
+| **Cart has not more than specified quantity** | Matching products total N units or fewer. |
+| **Cart has more than specified total price** | Matching products are worth N or more in total (price × quantity). |
+| **Cart has not more than total price** | Matching products are worth less than N in total. |
+
+<Tip>
+  The total-price options let you base a discount on how much the customer spends **on certain products**, not on the whole cart. For example: free shipping when the customer spends 100 or more on items tagged `bundle`.
+</Tip>
+
+## Customer conditions
+
+**Customer Tag** — enter one or more tags, separated by commas. _Equals_ matches a customer who has **any** of the tags.
+
+<Warning>
+  Customer tags are only known when the customer is **logged in**. A guest has no tags, so _Equals_ never matches a guest and _Not equals_ always does.
+</Warning>
+
+## Shipping address conditions
+
+- **Country Code** — two-letter codes such as `US`, `GB`, or `AU`.
+- **Province / State Code** — Shopify's province codes, such as `CA` or `ON`.
+
+For _Includes in list_, separate codes with semicolons: `CA;NV;OR`. See [Country and Province Codes](/country-and-province-codes) for the full list.
+
+## Always
+
+**Always** matches every order. You rarely need it, because a discount with no conditions already applies to every order.
+
+## Examples
+
+**Free shipping on West Coast orders over 50**
+
+```text
+Rule must match: All conditions
+Condition 1: Country Code <> Equals <> US
+Condition 2: Province / State Code <> Includes in list <> CA;OR;WA
+Condition 3: Cart Subtotal <> Greater than or equal <> 50
+```
+
+**10 off shipping when the cart has 3 or more items from a collection**
+
+```text
+Condition 1: Product Collection <> Equals <> 123456789
+             Cart has more than specified quantity: 2
+```
+
+**Free shipping for wholesale or VIP customers, unless the order is very heavy**
+
+```text
+Rule must match: All conditions
+Condition 1: Customer Tag <> Equals <> wholesale, vip
+Condition 2: Cart Weight <> Less than <> 30
+```
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Create a shipping discount" icon="badge-percent" href="/shipping-discounts/create-a-shipping-discount">
+    The full setup, step by step.
+  </Card>
+
+  <Card title="Country and province codes" icon="globe" href="/country-and-province-codes">
+    Codes for the address conditions.
+  </Card>
+
+  <Card title="Finding collection IDs" icon="hashtag" href="/finding-collection-and-rule-ids">
+    Look up the ID of a collection.
+  </Card>
+
+  <Card title="Not applying?" icon="circle-question" href="/shipping-discounts/shipping-discount-not-applying">
+    When conditions look right but nothing happens.
+  </Card>
+</Columns>

@@ -113,6 +113,15 @@
             ]
           },
           {
+            "group": "Shipping Discounts",
+            "pages": [
+              "shipping-discounts/create-a-shipping-discount",
+              "shipping-discounts/discount-conditions",
+              "shipping-discounts/managing-shipping-discounts",
+              "shipping-discounts/shipping-discount-not-applying"
+            ]
+          },
+          {
             "group": "Advanced Features",
             "pages": [
               "rate-blending",

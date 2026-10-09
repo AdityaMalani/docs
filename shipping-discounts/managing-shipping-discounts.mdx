@@ -1,0 +1,108 @@
+---
+title: "Managing Shipping Discounts"
+description: "Statuses, editing, disabling, deleting, and how discounts work alongside Shopify"
+icon: "list-check"
+---
+
+The **Shipping Discounts** page lists every discount ShipMagic manages. For each one it shows the title and code (or _Automatic_), its status, the discount value and which rates it applies to, and how many conditions it has.
+
+## Statuses
+
+The status comes from Shopify, so it reflects what's actually live at checkout.
+
+| Status | Meaning |
+| --- | --- |
+| **Active** | The discount is applying at checkout. |
+| **Scheduled** | The start date is in the future. |
+| **Expired** | The end date has passed. |
+| **Disabled** | You set **Status** to _Disabled_. |
+| **Missing in Shopify** | ShipMagic has the discount but Shopify doesn't. Open it and click **Save** to create it again. |
+| **Unknown** | ShipMagic doesn't have the **Manage discounts** permission. Click **Grant access** on the banner. |
+
+<Note>
+  While **Shipping Discounts** is in test mode, an _Active_ discount only applies to checkouts with `shipmagic` as the first name. See [Test mode and going live](#test-mode-and-going-live).
+</Note>
+
+## Editing a discount
+
+Click a discount to open it. You can change everything except the method (automatic or code), which Shopify doesn't allow. Click **Save** and the change applies at checkout straight away.
+
+## Disabling a discount
+
+To pause a discount without losing it, set **Status** to _Disabled_ and click **Save**.
+
+- The discount stops applying at checkout
+- Shopify lists it as _Expired_ on its Discounts page, while ShipMagic shows _Disabled_
+- A discount code keeps its usage history
+- Your start and end dates are kept, and come back when you set it to _Enabled_ again
+
+<Tip>
+  Shopify limits how many automatic discounts can be active at once. A disabled discount doesn't count toward that limit, so disable seasonal discounts instead of deleting them.
+</Tip>
+
+## Deleting discounts
+
+Select one or more discounts in the list and click **Delete discounts**. This deletes them from ShipMagic **and** from Shopify. Discount codes stop working immediately.
+
+<Warning>
+  Deleting can't be undone, and a deleted code loses its usage history. If you might need the discount again, disable it instead.
+</Warning>
+
+## In your Shopify admin
+
+ShipMagic discounts appear in **Shopify Admin → Discounts** alongside your other discounts. Clicking one there opens it in ShipMagic, which is where you edit it.
+
+If a ShipMagic discount is deleted from the Shopify Discounts page, or the app is reinstalled, ShipMagic marks it _Missing in Shopify_. Open it and click **Save** to create it again, or delete it in ShipMagic.
+
+## Combining with other discounts
+
+- **Only one shipping discount applies per order.** If several qualify, Shopify gives the customer the one with the biggest saving. This includes shipping discounts you created in Shopify itself.
+- **Product and order discounts** can apply alongside a shipping discount when the **Combinations** card allows it. The other discount must also allow combining with shipping discounts.
+
+## Working with rates and customizations
+
+Shipping discounts work on any rate at checkout — manual Shopify rates, ShipMagic rates, and live carrier rates.
+
+They run **after** shipping customizations:
+
+- A rate hidden by a customization isn't shown, so it isn't discounted
+- A rate renamed by a customization is matched by its **new** name in **Only rates whose name contains**
+
+## Permissions
+
+ShipMagic creates shipping discounts as Shopify discounts, so it needs the **Manage discounts** permission. It asks for it the first time you open **Shipping Discounts**.
+
+If the permission is missing, a banner appears with a **Grant access** button. You can't save discounts until it's granted.
+
+## Test mode and going live
+
+Shipping discounts have their own toggle in **Settings → App Modes**, separate from Shipping Rates and Shipping Customizations.
+
+| Toggle | Who gets the discounts |
+| --- | --- |
+| **Off** (test mode) | Only checkouts with `shipmagic` as the first name in the shipping address |
+| **On** (live mode) | Every customer whose order matches |
+
+In test mode, real customers checking out see no shipping discount, even if they enter the code.
+
+Live mode needs the **Starter plan or above**. See [Billing](/core-concepts/billing) and [Going Live](/core-concepts/going-live).
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Create a shipping discount" icon="badge-percent" href="/shipping-discounts/create-a-shipping-discount">
+    The full setup, step by step.
+  </Card>
+
+  <Card title="Discount conditions" icon="filter" href="/shipping-discounts/discount-conditions">
+    Every attribute and operator.
+  </Card>
+
+  <Card title="Not applying?" icon="circle-question" href="/shipping-discounts/shipping-discount-not-applying">
+    The usual causes and how to fix them.
+  </Card>
+
+  <Card title="Test mode vs live mode" icon="toggle-large-on" href="/test-mode-vs-live-mode">
+    What each mode changes.
+  </Card>
+</Columns>

@@ -117,7 +117,8 @@
             "pages": [
               "shipping-discounts/create-a-shipping-discount",
               "shipping-discounts/discount-conditions",
-              "shipping-discounts/managing-shipping-discounts"
+              "shipping-discounts/managing-shipping-discounts",
+              "shipping-discounts/shipping-discount-not-applying"
             ]
           },
           {

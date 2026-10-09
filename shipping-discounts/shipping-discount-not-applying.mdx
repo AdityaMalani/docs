@@ -1,0 +1,96 @@
+---
+title: "Shipping Discount Not Applying"
+description: "Work through the causes of a shipping discount not showing at checkout"
+icon: "circle-exclamation"
+---
+
+Shipping discounts don't need CCS or product syncing, which rules out two common classes of problem. What's left is usually status, mode, conditions, or rate names.
+
+## 1. Is the discount active?
+
+**Check:** the status badge on the **Shipping Discounts** page.
+
+| Status | Fix |
+| --- | --- |
+| _Disabled_ | Open the discount, set **Status** to _Enabled_, and save. |
+| _Scheduled_ | The start date is in the future. Check **Active dates** — they're in your store's timezone. |
+| _Expired_ | The end date has passed. Move it, or untick **Set end date**. |
+| _Missing in Shopify_ | Open the discount and click **Save** to create it again. |
+| _Unknown_ | Click **Grant access** on the banner to give ShipMagic the **Manage discounts** permission. |
+
+## 2. Are you in test mode without the test name?
+
+In test mode, shipping discounts only apply when the checkout's **first name is `shipmagic`**.
+
+**Check:** **Settings → App Modes** — the Shipping Discounts toggle.
+
+**Fix:** use `shipmagic` as the first name when testing, or [go live](/core-concepts/going-live). The toggles are independent — rates and customizations can be live while discounts are still in test mode.
+
+## 3. Do the conditions match?
+
+**Check each one:**
+
+- Is **All conditions** set where you meant **Any condition**?
+- For **Customer Tag** — is the customer logged in? A guest has no tags.
+- For **Product Collection** — did you enter the collection **ID** rather than its name?
+- For product conditions — is the cart-evaluation mode right? _All products meet the condition_ and _At least one product meets the condition_ behave very differently.
+- For **Product Vendor** and **Product Title** — text matching is case-sensitive.
+- For amounts — they're in your **store currency**, even when the customer pays in another currency.
+
+See [Discount Conditions](/shipping-discounts/discount-conditions).
+
+## 4. Does the rate name match?
+
+With **Only rates whose name contains**, the name must appear in the rate's name exactly, **including capitalization**. `express` doesn't match "Express Shipping".
+
+**Check:** compare the name in your discount against the name shown at checkout, character for character.
+
+**Fix:** copy the name from checkout. If a [shipping customization](/shipping-customizations/basic-shipping-customization) renames the rate, use the **new** name — discounts run after customizations.
+
+## 5. Is the rate already free?
+
+Rates that cost nothing, such as local pickup or an existing free shipping rate, are never discounted. With **Only the cheapest shipping rate**, the discount goes to the cheapest rate the customer would pay for.
+
+## 6. Is another shipping discount winning?
+
+Shopify applies **one shipping discount per order**. If several qualify, the customer gets the biggest saving, and the others don't show.
+
+**Check:** **Shopify Admin → Discounts** for other active shipping discounts — from ShipMagic, from Shopify itself, or from other apps — that also match your test cart.
+
+## 7. Does it combine with the other discounts on the order?
+
+If the order also has a product or order discount, both discounts must allow combining with each other.
+
+**Check:** the **Combinations** card on your shipping discount, and the combination settings of the other discount in Shopify.
+
+## 8. Has the code reached its usage limit?
+
+For discount codes, check the **Usage limits** card. A code limited to one use per customer won't apply to a customer who has already used it.
+
+## Still stuck?
+
+<Note>
+  **Need help?**
+
+  Our founders will personally help with the optimal setup for your brand. [**Book a free onboarding call**](https://cal.com/speedysquirrel/shipmagic-setup), or reach out on [live chat](https://tawk.to/chat/649858bd94cf5d49dc5fbec1/1h3phl9e5).
+</Note>
+
+## Related
+
+<Columns cols={2}>
+  <Card title="Discount conditions" icon="filter" href="/shipping-discounts/discount-conditions">
+    Every attribute and operator.
+  </Card>
+
+  <Card title="Managing discounts" icon="list-check" href="/shipping-discounts/managing-shipping-discounts">
+    Statuses, combinations, and permissions.
+  </Card>
+
+  <Card title="Test mode vs live mode" icon="toggle-large-on" href="/test-mode-vs-live-mode">
+    Independent toggles for rates, customizations, and discounts.
+  </Card>
+
+  <Card title="Customizations not working" icon="circle-exclamation" href="/shipping-customizations-not-working">
+    When a customization hides or renames the rate.
+  </Card>
+</Columns>

@@ -28,14 +28,18 @@ Live mode requires a paid plan. See [Billing](/core-concepts/billing) and [Going
 
 Syncs your product catalogue into the app. Required for rules using **Product Tag, Product Type, Product Title, Product Barcode, or Product Compare-at Price** — Shopify doesn't send these at checkout, so ShipMagic reads its own copy.
 
-Syncing runs in the background; you can leave the page.
+Syncing runs in the background; you can leave the page. If a sync doesn't finish, **Last sync failed** appears below the button with the reason.
+
+### Scheduled Product Sync
+
+Re-syncs your whole catalogue **Daily** or **Weekly**, overnight in your store's timezone. Each run picks up edits to existing products and removes products deleted in Shopify. Settings shows when the next sync is due. Available on the **Pro** and **Pro+** plans.
 
 ### Auto Product Sync
 
 Automatically syncs **newly created** products.
 
 <Warning>
-  Auto sync covers new products only. If you **edit** an existing product's tags, type, or title, you must run a manual sync — auto sync will not pick the change up.
+  Auto sync covers new products only. If you **edit** an existing product's tags, type, or title, the change reaches the app at the next scheduled sync, or straight away if you run **Sync Now**.
 </Warning>
 
 Full detail in [Syncing Products](/core-concepts/syncing-products).

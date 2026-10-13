@@ -32,12 +32,36 @@ You only need to sync product data when creating **Shipping Rate** rules based o
 
 ## Automatic syncing of product data
 
-You can enable **Auto Product Sync** from the Settings page to automatically sync newly created products.
+ShipMagic can keep your synced products up to date in two ways. They work well together.
+
+### Scheduled Product Sync
+
+Re-syncs your whole catalogue automatically once a **week**. Each run picks up changes to existing products (tags, title, type, barcode, compare-at price) and removes products you have deleted in Shopify.
+
+1. Open the **Settings** page in the app
+2. Under **Products → Scheduled Product Sync**, choose **Weekly**
+3. Click **Save**
+
+Scheduled syncs run overnight, between 1am and 5am in your store's timezone. The first one runs the night you turn it on, then every week on the same day and at the same time. Settings shows when the next one is due.
+
+<Note>
+  Scheduled Product Sync is available on the **Pro** and **Pro+** plans. See [Billing](/core-concepts/billing).
+</Note>
+
+### Auto Product Sync
+
+Turn on **Auto Product Sync** from the Settings page to sync **newly created** products as soon as you add them.
 
 **Important Notes:**
 
-- Only **newly created products** are synced automatically
-- If you update an existing product (for example tags, title, or type), you must run a **manual sync** again from the Settings page
+- Only **newly created products** are synced immediately
+- Changes to existing products are picked up by the next **scheduled sync**. If you need a change to apply straight away, run **Sync Now** from the Settings page
+
+## If a sync fails
+
+If a sync doesn't finish, Settings shows **Last sync failed** under **Sync Now**, with the reason. Run **Sync Now** again. Your previously synced products stay in place until a sync completes.
+
+Stores with more than **80,000 variants** can't use product syncing.
 
 ## Bottomline
 

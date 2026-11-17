@@ -22,9 +22,9 @@ In test mode, customizations only apply when the checkout's **first name is `shi
 
 This is the most common cause of a rule that looks right but does nothing.
 
-Method names match **partially**, but they must match _something_. `Epxress` matches nothing; `Express` matches "Express Shipping".
+With **Contains** (the default), method names match **partially**, but they must match _something_. `Epxress` matches nothing; `Express` matches "Express Shipping". With **Is exactly**, the whole name must be the same: `Express` doesn't match "Express Shipping". Matching is case-sensitive in both modes.
 
-**Check:** compare the name in your rule against the name shown at checkout, character for character.
+**Check:** compare the name in your rule against the name shown at checkout, character for character, and check which of **Contains** or **Is exactly** the rule uses.
 
 **Fix:** copy the name from checkout rather than typing it from memory.
 

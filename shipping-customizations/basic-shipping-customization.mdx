@@ -56,10 +56,10 @@ Customizations act on rates that already exist, so set those up first in **Shopi
     Under **Action**, enter the name of each method the rule should affect. Click **Add another method** for more than one.
 
     <Tip>
-      **Partial names match.** Entering `Express` matches both "Express Shipping" and "Express Delivery". Use this to catch several methods at once — but keep it specific enough that it doesn't catch methods you meant to leave alone.
+      **Choose Contains or Is exactly.** With **Contains** (the default), entering `Express` matches both "Express Shipping" and "Express Delivery". Use this to catch several methods at once — but keep it specific enough that it doesn't catch methods you meant to leave alone. With **Is exactly**, only a method with that whole name matches. Either way, matching is case-sensitive.
     </Tip>
 
-    For **Rename**, you also give the new name. For **Reorder**, you also give the new position.
+    For **Rename**, you also give the new name. For **Reorder**, you also give the new position. Rename rules with a **Cart Attribute** condition can also [insert the attribute's value into the new name](/ai-tools/actions-hide-rename-sort#insert-a-cart-attribute-into-the-new-name).
   </Step>
   <Step title="Set Apply rule to">
     - **All shipments** (default) — the rule applies to every shipment in the order.

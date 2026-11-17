@@ -61,7 +61,7 @@ A rename rule with a **Cart Attribute** condition can include that attribute's v
     Add a **Cart Attribute** condition and enter the attribute's key, for example `Delivery date`. It must match the key your theme saves exactly, including capitals and spaces. Set it to **Is not empty** so the rule only renames when the attribute has a value. Otherwise, carts without the attribute still get the new name, with the placeholder left blank.
   </Step>
   <Step title="Add the placeholder to the new name">
-    With **Type** set to **Rename shipping rates**, put `{{ cart_attribute }}` in the new name where the value should appear, for example `Chosen Day Delivery - {{ cart_attribute }}`. A hint under the method list shows which cart attribute will be inserted.
+    With **Type** set to **Rename shipping rates**, put `{{ cart_attribute }}` in the new name where the value should appear, for example `Chosen Day Delivery - {{ cart_attribute }}`.
   </Step>
 </Steps>
 

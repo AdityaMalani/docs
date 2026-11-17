@@ -20,8 +20,13 @@ The **Type** you pick when creating a customization decides what happens to your
 
 Every type asks you to list which shipping methods it applies to, under **Action**. Add as many as you need with **Add another method**.
 
+Above the list, choose how the names you enter match your shipping methods:
+
+- **Contains** (the default) matches any method whose name includes what you entered. `Express` affects both "Express Shipping" and "Express Delivery". This is useful for catching a family of methods at once, but be careful — `Standard` would also match "Standard Overnight" if you have one.
+- **Is exactly** matches only a method whose whole name is what you entered. `Express Shipping` affects "Express Shipping" but not "Express Shipping (Tracked)".
+
 <Tip>
-  **Method names match partially.** Entering `Express` affects both "Express Shipping" and "Express Delivery". This is useful for catching a family of methods at once, but be careful — `Standard` would also match "Standard Overnight" if you have one.
+  Matching is case-sensitive either way: `express` doesn't match "Express Shipping". Copy method names exactly as they appear at checkout.
 </Tip>
 
 ## Hide vs. Only show
@@ -40,6 +45,50 @@ These two solve the same problem from opposite directions, and choosing well sav
 **Rename** changes only the customer-facing label. The underlying rate, its price, and its behaviour are untouched.
 
 For each method you give the name to match and the new name to display.
+
+### Where the new name appears
+
+The new name shows at checkout, on the **Thank You** page, on the **Order Status** page, and on the order's details page in Shopify admin. The **Orders** list in Shopify admin keeps showing the original rate name.
+
+<Note>
+  For rates from a carrier such as UPS, Shopify adds the carrier's name in front of the new name. Renaming "UPS Standard" to "Express Shipping" shows "UPS Express Shipping".
+</Note>
+
+### Insert a cart attribute into the new name
+
+A rename rule with a **Cart Attribute** condition can include that attribute's value in the new name, such as a delivery date your theme saves on the cart. Use `{{ cart_attribute }}` in the new name where the value should go. `{{cart_attribute}}` without the spaces works too, like `{{today}}` in [rate descriptions](/rate-descriptions).
+
+<Steps>
+  <Step title="Use parameter set 2">
+    On the **Conditions** card, click **Switch to parameter set 2**. The **Cart Attribute** condition is only in set 2.
+  </Step>
+  <Step title="Add a Cart Attribute condition">
+    Add a **Cart Attribute** condition and enter the attribute's key, for example `Delivery date`. It must match the key your theme saves exactly, including capitals and spaces. Set it to **Is not empty** so the rule only renames when the attribute has a value. Otherwise, carts without the attribute still get the new name, with the placeholder left blank.
+  </Step>
+  <Step title="Add the placeholder to the new name">
+    With **Type** set to **Rename shipping rates**, put `{{ cart_attribute }}` in the new name where the value should appear, for example `Chosen Day Delivery - {{ cart_attribute }}`.
+  </Step>
+</Steps>
+
+**Example: show the delivery date the customer picked**
+
+```text
+Type: Rename shipping rates
+Parameter set: 2
+Condition 1: Cart Attribute (Delivery date) <> Is not empty
+Rename: Chosen Day Delivery → Chosen Day Delivery - {{ cart_attribute }}
+Rename: Saturday Delivery → Saturday Delivery - {{ cart_attribute }}
+```
+
+If the theme saved `Fri 13 Nov 2026 (2026-11-13)`, checkout shows **Chosen Day Delivery - Fri 13 Nov 2026 (2026-11-13)**. Carts without a delivery date keep the original names.
+
+<Warning>
+  The value is inserted exactly as your theme saves it. ShipMagic doesn't reformat dates or other values, so to show a shorter value, change the format your theme saves.
+</Warning>
+
+<Note>
+  A rule reads one cart attribute. If it has more than one **Cart Attribute** condition, they must all use the same key, or a rule with `{{ cart_attribute }}` won't save.
+</Note>
 
 ## Reorder
 

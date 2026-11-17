@@ -20,8 +20,13 @@ The **Type** you pick when creating a customization decides what happens to your
 
 Every type asks you to list which shipping methods it applies to, under **Action**. Add as many as you need with **Add another method**.
 
+Above the list, choose how the names you enter match your shipping methods:
+
+- **Contains** (the default) matches any method whose name includes what you entered. `Express` affects both "Express Shipping" and "Express Delivery". This is useful for catching a family of methods at once, but be careful — `Standard` would also match "Standard Overnight" if you have one.
+- **Is exactly** matches only a method whose whole name is what you entered. `Express Shipping` affects "Express Shipping" but not "Express Shipping (Tracked)".
+
 <Tip>
-  **Method names match partially.** Entering `Express` affects both "Express Shipping" and "Express Delivery". This is useful for catching a family of methods at once, but be careful — `Standard` would also match "Standard Overnight" if you have one.
+  Matching is case-sensitive either way: `express` doesn't match "Express Shipping". Copy method names exactly as they appear at checkout.
 </Tip>
 
 ## Hide vs. Only show
@@ -51,7 +56,7 @@ The new name shows at checkout, on the **Thank You** page, on the **Order Status
 
 ### Insert a cart attribute into the new name
 
-A rename rule with a **Cart Attribute** condition can include that attribute's value in the new name, such as a delivery date your theme saves on the cart. Type `{{ cart_attribute }}` where the value should go. `{{cart_attribute}}` without the spaces works too, like `{{today}}` in [rate descriptions](/rate-descriptions).
+A rename rule with a **Cart Attribute** condition can include that attribute's value in the new name, such as a delivery date your theme saves on the cart. Use `{{ cart_attribute }}` in the new name where the value should go. `{{cart_attribute}}` without the spaces works too, like `{{today}}` in [rate descriptions](/rate-descriptions).
 
 <Steps>
   <Step title="Use parameter set 2">
